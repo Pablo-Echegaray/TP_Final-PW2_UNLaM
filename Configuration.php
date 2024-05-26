@@ -7,12 +7,20 @@ include_once('vendor/mustache/src/Mustache/Autoloader.php');
 
 include_once ("controller/UserController.php");
 
+include_once ("model/UserModel.php");
+
 class Configuration
 {
     //CONTROLLERS
     public static function getUserController()
     {
-        return new UserController(self::getPresenter());
+        return new UserController(self::getUserModel(), self::getPresenter());
+    }
+
+    //MODELS
+    private static function getUserModel()
+    {
+        return new UserModel(self::getDatabase());
     }
 
     //HELPERS
