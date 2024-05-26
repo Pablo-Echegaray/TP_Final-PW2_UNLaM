@@ -1,0 +1,103 @@
+<main class="d-flex justify-content-center">
+    <fieldset class="m-4 p-4 w-75 bg-light">
+        <legend class="text-center fw-bold">Registrate para Jugar!</legend>
+        <form action="index.php?controller=User&action=login&codigo=ABC123" method="post" enctype="multipart/form-data">
+            <div class="d-flex mq">
+                <div class="d-flex flex-column p-2 w-50">
+                    <label for="nombre" class="form-label">
+                        Nombre:
+                    </label>
+                    <input type="text" id="nombre" name="nombre" class="form-control">
+                </div>
+                <div class="d-flex flex-column p-2 w-50">
+                    <label for="apellido" class="form-label">
+                        Apellido:
+                    </label>
+                    <input type="text" id="apellido" name="apellido" class="form-control">
+                </div>
+            </div>
+            <div class="d-flex mq">
+                <div class="d-flex flex-column p-2 w-50">
+                    <label for="nacimiento" class="form-label">
+                        Año de Nacimiento:
+                    </label>
+                    <input type="number" id="nacimiento" name="nacimiento" class="form-control">
+                </div>
+                <div class="p-2 w-50">
+                    <div class="d-flex">
+                        <label for="sexo">
+                            Sexo:
+                        </label>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <div>
+                            <input type="radio" id="masculino" name="sexo" value="Masculino" class="form-check-input">
+                            <label for="masculino" class="form-check-label">Masculino</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="femenino" name="sexo" value="Femenino" class="form-check-input">
+                            <label for="femenino" class="form-check-label">Femenino</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_decir" name="sexo" value="Prefiero no decirlo" class="form-check-input">
+                            <label for="no_decir" class="form-check-label">Prefiero no decirlo</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex mq">
+                <div class="d-flex flex-column p-2 w-50">
+                    <label for="pais" class="form-label">
+                        País:
+                    </label>
+                    <input type="text" id="pais" name="pais" class="form-control">
+                </div>
+                <div class="d-flex flex-column p-2 w-50">
+                    <label for="ciudad" class="form-label">
+                        Ciudad:
+                    </label>
+                    <input type="text" id="ciudad" name="ciudad" class="form-control">
+                </div>
+            </div>
+            <div class="d-flex flex-column p-2">
+                <label for="mail" class="form-label">
+                    Correo Electrónico:
+                </label>
+                <input type="email" id="mail" name="mail" class="form-control">
+            </div>
+            <div class="d-flex mq">
+                <div class="d-flex flex-column p-2 w-50">
+                    <label for="password" class="form-label">
+                        Contraseña:
+                    </label>
+                    <input type="password" id="password" name="password" class="form-control">
+                </div>
+                <div class="d-flex flex-column p-2 w-50">
+                    <label for="repeat_password" class="form-label">
+                        Repetir Contraseña:
+                    </label>
+                    <input type="password" id="repeat_password" name="repeat_password" class="form-control">
+                </div>
+            </div>
+            <div class="d-flex mq">
+                <div class="d-flex flex-column p-2 w-50">
+                    <label for="user" class="form-label">
+                        Nombre de Usuario:
+                    </label>
+                    <input type="text" id="user" name="user" class="form-control">
+                </div>
+                <div class="d-flex flex-column p-2 w-50">
+                    <label for="perfil" class="form-label">
+                        Foto de Perfil:
+                    </label>
+                    <input type="file" id="perfil" name="perfil" class="form-control">
+                </div>
+            </div>
+            <div class="p-2 d-flex justify-content-center mq-boton">
+                <button type="submit" value="registrarse" class="w-50 btn btn-primary">
+                    Registrarse
+                </button>
+            </div>
+        </form>
+    </fieldset>
+</main>

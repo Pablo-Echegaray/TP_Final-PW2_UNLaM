@@ -1,0 +1,5 @@
+@media (max-width: 768px) {
+    .mq { flex-direction: column; }
+    .mq div { width: 100% !important; }
+    .mq-boton button { width: 100%!important; }
+}
