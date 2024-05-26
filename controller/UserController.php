@@ -2,15 +2,25 @@
 class UserController
 {
     private $presenter;
+    private $model;
 
-    public function __construct($presenter)
+    public function __construct($model, $presenter)
     {
         $this->presenter = $presenter;
+        $this->model = $model;
     }
 
     public function register()
     {
         $this->presenter->render("view/registroView.mustache");
+    }
+
+    public function codeGenerate()
+    {
+        $user = $_POST["username"] ?? "Completa este campo";
+        $pass = $_POST["password"] ?? "Completa este campo";
+        $usuario = $this->model->registrarUsuario($user, $pass);
+        $this->presenter->render("view/codigoGenerado.mustache", ["usuario" => $usuario]);
     }
 
     public function login()
@@ -20,6 +30,9 @@ class UserController
 
     public function play()
     {
-        echo "Usuario iniciado, ya puedes jugar!";
+        $user = $_POST["user"];
+        $code = $_POST["code"];
+        $pass = $_POST["pass"];
+        echo $user.$code.$pass;
     }
 }
