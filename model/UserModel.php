@@ -19,6 +19,14 @@ class UserModel
         return $this->database->query("SELECT * FROM usuario WHERE codigo = '$codigo'");
     }
 
+    public function getUSuario($user, $codigo, $pass)
+    {
+      return $this->database->query("
+            SELECT *
+            FROM usuario
+            WHERE name = '$user' AND pass = '$pass' AND codigo = '$codigo'");
+    }
+
     private static function generarCodigo() {
         return "ABC".rand("100", "999");
     }
