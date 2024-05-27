@@ -30,9 +30,15 @@ class UserController
 
     public function play()
     {
-        $user = $_POST["user"];
-        $code = $_POST["code"];
-        $pass = $_POST["pass"];
-        echo $user.$code.$pass;
+        if (isset($_POST["user"]) && isset($_POST["code"]) && isset($_POST["pass"])) {
+            $user = $_POST["user"];
+            $codigo = $_POST["code"];
+            $pass = $_POST["pass"];
+
+            $usuario = $this->model->getUsuario($user,$codigo, $pass);
+            var_dump($usuario);
+        } else {
+            echo "no hay datos correctos";
+        }
     }
 }

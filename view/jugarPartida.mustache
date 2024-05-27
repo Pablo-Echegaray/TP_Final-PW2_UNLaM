@@ -1,0 +1,22 @@
+<main class="d-flex justify-content-center">
+    <section class="m-4 p-4 w-75 bg-light">
+        <form action="index.php?controller=User&action=login" method="post" enctype="multipart/form-data">
+            {{#usuario}}
+                <p class="fs-4 text-center">
+                    {{name}}
+                </p>
+                <p class="fs-4 text-center">
+                    {{pass}}
+                </p>
+                <p class="fs-4 text-center">
+                    {{codigo}}
+                </p>
+            {{/usuario}}
+            <div class="p-2 d-flex justify-content-center mq-boton">
+                <button type="submit" value="registrarse" class="w-50 btn btn-primary">
+                    Iniciar
+                </button>
+            </div>
+        </form>
+    </section>
+</main>
