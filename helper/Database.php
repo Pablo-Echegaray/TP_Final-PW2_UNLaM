@@ -24,10 +24,11 @@ class Database
     {
         mysqli_query($this->conn, $sql);
     }
-    /*public function __destruct()
+
+    public function __destruct()
     {
         mysqli_close($this->conn);
-    }*/
+    }
 
 }
 
