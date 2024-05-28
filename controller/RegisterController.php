@@ -27,7 +27,7 @@ class RegisterController
         $foto = $this->model->verificarImagen($_FILES["perfil"]);
         $codigo = $this->model->generarCodigo();
         $this->model->add($nombre, $apellido, $edad, $sexo, $pais, $ciudad, $mail, $contrasena, $usuario, $foto, $codigo);
-        //header("Location: Location: /TP_Final-PW2_UNLaM/");
-        //exit();
+        header("Location: /TP_Final-PW2_UNLaM/user/get/".$codigo);
+        exit();
     }
 }

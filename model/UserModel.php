@@ -8,12 +8,12 @@ class UserModel
         $this->database = $database;
     }
 
-    public function get($user, $pass)
+    public function obtener($user, $pass)
     {
         return $this->database->query("
         SELECT * 
         FROM usuarios
-        WHERE nombre = '$user' AND contrasena = '$pass'
+        WHERE usuario = '$user' AND contrasena = '$pass'
         ");
     }
 }

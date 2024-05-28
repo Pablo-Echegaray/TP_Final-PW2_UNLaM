@@ -18,7 +18,7 @@ class UserController
     {
         $user = $_POST["user"] ?? "";
         $pass = $_POST["pass"] ?? "";
-        $usuario = $this->model->get($user, $pass);
+        $usuario = $this->model->obtener($user, $pass);
         if ($usuario != null) {
             $_SESSION["usuario"] = $usuario;
             $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario]);
