@@ -10,35 +10,29 @@ class UserController
         $this->model = $model;
     }
 
-    public function register()
-    {
-        $this->presenter->render("view/registroView.mustache");
+    public function register() { $this->presenter->render("view/registrarseView.mustache"); }
+
+    public function login() {
+        $this->presenter->render("view/iniciarSesionView.mustache");
     }
 
-    public function codeGenerate()
+    public function home()
     {
-        $user = $_POST["username"] ?? "Completa este campo";
-        $pass = $_POST["password"] ?? "Completa este campo";
-        $usuario = $this->model->registrarUsuario($user, $pass);
-        $this->presenter->render("view/codigoGenerado.mustache", ["usuario" => $usuario]);
-    }
-
-    public function login()
-    {
-        $this->presenter->render("view/inicioSesion.mustache");
-    }
-
-    public function play()
-    {
-        if (isset($_POST["user"]) && isset($_POST["code"]) && isset($_POST["pass"])) {
-            $user = $_POST["user"];
-            $codigo = $_POST["code"];
-            $pass = $_POST["pass"];
-
-            $usuario = $this->model->getUsuario($user,$codigo, $pass);
-            var_dump($usuario);
+        $user = $_POST["user"] ?? "";
+        $pass = $_POST["pass"] ?? "";
+        $usuario = $this->model->get($user, $pass);
+        if ($usuario != null) {
+            $_SESSION["usuario"] = $usuario;
+            $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario]);
         } else {
-            echo "no hay datos correctos";
+            header("Location: /TP_Final-PW2_UNLaM/");
         }
+    }
+    public function add()
+    {
+        $username = $_POST["username"] ?? "";
+        $password = $_POST["password"] ?? "";
+        $this->model->add($username, $password);
+        header("Location: /TP_Final-PW2_UNLaM/");
     }
 }

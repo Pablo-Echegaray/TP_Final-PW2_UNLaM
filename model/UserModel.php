@@ -8,14 +8,26 @@ class UserModel
         $this->database = $database;
     }
 
-    public function registrarUsuario($user, $pass)
+    public function add($nombre, $contrasena)
     {
         $codigo = self::generarCodigo();
-        $this->database->execute("INSERT INTO usuario(name, pass, codigo) VALUES ('$user','$pass','$codigo')");
-        return $this->getCodigoUsuario($codigo);
+        $this->database->execute("
+        INSERT INTO usuarios(nombre, contrasena, codigo)
+        VALUES ('$nombre','$contrasena','$codigo')
+        ");
     }
 
-    public function getCodigoUsuario($codigo){
+    private static function generarCodigo() { return "ABC".rand("100", "999"); }
+
+    public function get($user, $pass)
+    {
+        return $this->database->query("
+        SELECT * 
+        FROM usuarios
+        WHERE nombre = '$user' AND contrasena = '$pass'
+        ");
+    }
+    /*public function getCodigoUsuario($codigo){
         return $this->database->query("SELECT * FROM usuario WHERE codigo = '$codigo'");
     }
 
@@ -25,9 +37,6 @@ class UserModel
             SELECT *
             FROM usuario
             WHERE name = '$user' AND pass = '$pass' AND codigo = '$codigo'");
-    }
+    }*/
 
-    private static function generarCodigo() {
-        return "ABC".rand("100", "999");
-    }
 }

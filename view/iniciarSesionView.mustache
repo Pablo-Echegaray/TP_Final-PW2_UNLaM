@@ -1,25 +1,27 @@
 <main class="d-flex justify-content-center">
     <fieldset class="m-4 p-4 w-75 bg-light">
-        <legend class="text-center fw-bold">Inicia Sesion con tu Codigo!</legend>
-        <form action="index.php?controller=User&action=play" method="post" enctype="multipart/form-data">
-            <div class="d-flex mq">
-                <div class="d-flex flex-column p-2 w-25">
+        <legend class="text-center fw-bold">Inicia Sesion</legend>
+        <form action="/TP_Final-PW2_UNLaM/user/home" method="post" enctype="multipart/form-data">
+            <div class="d-flex flex-column align-items-center">
+                <div class="d-flex flex-column p-2 w-50">
                     <label for="user" class="form-label">
                         Usuario:
                     </label>
                     <input type="text" id="user" name="user" class="form-control" required>
-                </div>
-                <div class="d-flex flex-column p-2 w-25">
-                    <label for="code" class="form-label">
-                        Codigo:
-                    </label>
-                    <input type="text" id="code" name="code" class="form-control" required>
                 </div>
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="pass" class="form-label">
                         Contraseña:
                     </label>
                     <input type="password" id="pass" name="pass" class="form-control" required>
+                </div>
+                <div class="d-flex flex-column p-2 w-50">
+                    <p>
+                        ¿No tienes cuenta?
+                        <a href="/TP_Final-PW2_UNLaM/user/register" class="text-decoration-none">
+                            Registrate
+                        </a>
+                    </p>
                 </div>
             </div>
             <div class="p-2 d-flex justify-content-center mq-boton">

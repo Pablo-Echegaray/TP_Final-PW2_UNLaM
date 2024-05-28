@@ -1,7 +1,7 @@
 <main class="d-flex justify-content-center">
     <fieldset class="m-4 p-4 w-75 bg-light">
         <legend class="text-center fw-bold">Registrate para Jugar!</legend>
-        <form action="index.php?controller=User&action=codeGenerate" method="post" enctype="multipart/form-data">
+        <form action="/TP_Final-PW2_UNLaM/user/add" method="post" enctype="multipart/form-data">
             <div class="d-flex mq">
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="nombre" class="form-label">
@@ -81,7 +81,7 @@
             </div>
             <div class="d-flex mq">
                 <div class="d-flex flex-column p-2 w-50">
-                    <label for="user" class="form-label">
+                    <label for="username" class="form-label">
                         Nombre de Usuario:
                     </label>
                     <input type="text" id="username" name="username" class="form-control" required>

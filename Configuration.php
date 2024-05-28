@@ -32,7 +32,7 @@ class Configuration
 
     private static function getConfig() { return parse_ini_file("config/config.ini"); }
 
-    public static function getRouter(){ return new Router("getUserController", "register"); }
+    public static function getRouter(){ return new Router("getUserController", "login"); }
 
     public static function getPresenter(){ return new MustachePresenter("view/template"); }
 }
