@@ -10,9 +10,7 @@ class UserController
         $this->model = $model;
     }
 
-    public function register() { $this->presenter->render("view/registrarseView.mustache"); }
-
-    public function login() {
+    public function get() {
         $this->presenter->render("view/iniciarSesionView.mustache");
     }
 
@@ -27,12 +25,5 @@ class UserController
         } else {
             header("Location: /TP_Final-PW2_UNLaM/");
         }
-    }
-    public function add()
-    {
-        $username = $_POST["username"] ?? "";
-        $password = $_POST["password"] ?? "";
-        $this->model->add($username, $password);
-        header("Location: /TP_Final-PW2_UNLaM/");
     }
 }
