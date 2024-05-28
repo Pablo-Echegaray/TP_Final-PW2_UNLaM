@@ -1,11 +1,9 @@
-CREATE DATABASE preguntados;
-USE preguntados;
+CREATE DATABASE IF NOT EXISTS preguntados;
+       USE preguntados;
 
-CREATE TABLE `usuario` (
-    `id` int(12) NOT NULL AUTO_INCREMENT,
-    `name` varchar(24) COLLATE utf8mb4_general_ci NOT NULL,
-    `pass` varchar(24) COLLATE utf8mb4_general_ci NOT NULL,
-    `codigo` varchar(24) COLLATE utf8mb4_general_ci NOT NULL,
-    `verificado` tinyint(1) NOT NULL DEFAULT '0',
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    contrasena VARCHAR(50) NOT NULL,
+    codigo VARCHAR(50) NOT NULL
+);
