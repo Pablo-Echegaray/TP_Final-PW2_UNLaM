@@ -1,28 +1,28 @@
 <main class="d-flex justify-content-center">
     <fieldset class="m-4 p-4 w-75 bg-light">
         <legend class="text-center fw-bold">Registrate para Jugar!</legend>
-        <form action="/TP_Final-PW2_UNLaM/user/add" method="post" enctype="multipart/form-data">
+        <form action="/TP_Final-PW2_UNLaM/register/agregar" method="post" enctype="multipart/form-data">
             <div class="d-flex mq">
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="nombre" class="form-label">
                         Nombre:
                     </label>
-                    <input type="text" id="nombre" name="nombre" class="form-control">
-                </div>
+                    <input type="text" id="nombre" name="nombre" class="form-control" >
+                </div><!-- nombre -->
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="apellido" class="form-label">
                         Apellido:
                     </label>
                     <input type="text" id="apellido" name="apellido" class="form-control">
-                </div>
+                </div><!-- apellido -->
             </div>
             <div class="d-flex mq">
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="nacimiento" class="form-label">
                         Año de Nacimiento:
                     </label>
-                    <input type="number" id="nacimiento" name="nacimiento" class="form-control">
-                </div>
+                    <input type="number" id="nacimiento" name="nacimiento" class="form-control" min="1000" max="9999">
+                </div><!-- nacimiento -->
                 <div class="p-2 w-50">
                     <div class="d-flex">
                         <label for="sexo">
@@ -39,11 +39,11 @@
                             <label for="femenino" class="form-check-label">Femenino</label>
                         </div>
                         <div>
-                            <input type="radio" id="no_decir" name="sexo" value="Prefiero no decirlo" class="form-check-input">
+                            <input type="radio" id="no_decir" name="sexo" value="Prefiero no decirlo" class="form-check-input" checked>
                             <label for="no_decir" class="form-check-label">Prefiero no decirlo</label>
                         </div>
                     </div>
-                </div>
+                </div><!-- sexo -->
             </div>
             <div class="d-flex mq">
                 <div class="d-flex flex-column p-2 w-50">
@@ -51,51 +51,51 @@
                         País:
                     </label>
                     <input type="text" id="pais" name="pais" class="form-control">
-                </div>
+                </div><!-- pais -->
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="ciudad" class="form-label">
                         Ciudad:
                     </label>
                     <input type="text" id="ciudad" name="ciudad" class="form-control">
-                </div>
+                </div><!-- ciudad -->
             </div>
             <div class="d-flex flex-column p-2">
                 <label for="mail" class="form-label">
                     Correo Electrónico:
                 </label>
                 <input type="email" id="mail" name="mail" class="form-control">
-            </div>
+            </div><!-- mail -->
             <div class="d-flex mq">
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="password" class="form-label">
                         Contraseña:
                     </label>
-                    <input type="password" id="password" name="password" class="form-control" required>
-                </div>
+                    <input type="password" id="password" name="password" class="form-control">
+                </div><!-- password -->
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="repeat_password" class="form-label">
                         Repetir Contraseña:
                     </label>
                     <input type="password" id="repeat_password" name="repeat_password" class="form-control">
-                </div>
+                </div><!-- repeat_password -->
             </div>
             <div class="d-flex mq">
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="username" class="form-label">
                         Nombre de Usuario:
                     </label>
-                    <input type="text" id="username" name="username" class="form-control" required>
-                </div>
+                    <input type="text" id="username" name="username" class="form-control">
+                </div><!-- username -->
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="perfil" class="form-label">
                         Foto de Perfil:
                     </label>
                     <input type="file" id="perfil" name="perfil" class="form-control">
-                </div>
+                </div><!-- perfil -->
             </div>
             <div class="p-2 d-flex justify-content-center mq-boton">
-                <button type="submit" value="registrarse" class="w-50 btn btn-primary">
-                    Registrarse
+                <button type="submit" value="iniciar" class="w-50 btn btn-primary">
+                    Iniciar
                 </button>
             </div>
         </form>
