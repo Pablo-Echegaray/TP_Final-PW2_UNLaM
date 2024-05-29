@@ -55,8 +55,13 @@ class RegisterModel
     public function verificarImagen($imagen)
     {
         if (isset($imagen)) {
-            return $imagen["name"];
-        }
+            if ($imagen["size"] > 0){
+                $upload = "/TP_Final-PW2_UNLaM/public/image/";
+                if (move_uploaded_file($imagen["tmp_name"], $upload)){
+                    return $imagen["name"];
+                }
+            } else { return "perfil_sin_foto.jpg"; }
+        } else { return "perfil_sin_foto.jpg"; }
     }
 
     public function generarCodigo() {

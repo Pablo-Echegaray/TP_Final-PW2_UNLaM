@@ -24,6 +24,17 @@ class UserController
             $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario]);
         } else {
             header("Location: /TP_Final-PW2_UNLaM/");
+            exit();
         }
+    }
+
+    public function perfil()
+    {
+        if (!isset($_SESSION["usuario"])){
+            header("Location: /TP_Final-PW2_UNLaM/");
+            exit();
+        }
+        $usuario = $_SESSION["usuario"];
+        $this->presenter->render("view/perfilView.mustache", ["usuario" => $usuario]);
     }
 }
