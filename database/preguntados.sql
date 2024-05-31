@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     usuario VARCHAR(50) NOT NULL,
     foto VARCHAR(100) NOT NULL,
 
-    qr VARCHAR(200) NOT NULL DEFAULT 'QR',
-    codigo VARCHAR(100) NOT NULL,
+    qr VARCHAR(200),
+    codigo VARCHAR(100),
     verificado TINYINT(1) NOT NULL DEFAULT 0
 );

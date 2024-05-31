@@ -14,20 +14,59 @@ class RegisterController
         $this->presenter->render("view/registrarseView.mustache");
     }
 
-    public function agregar() {
-        $nombre = $this->model->validar($_POST["nombre"]);
-        $apellido = $this->model->validar($_POST["apellido"]);
-        $edad = $this->model->calcularEdad($_POST["nacimiento"]);
-        $sexo = $this->model->validar($_POST["sexo"]);
-        $pais = $this->model->validar($_POST["pais"]);
-        $ciudad = $this->model->validar($_POST["ciudad"]);
-        $mail = $this->model->validar($_POST["mail"]);
-        $contrasena = $this->model->verificarContrasena($_POST["password"], $_POST["repeat_password"]);
-        $usuario = $this->model->verificarUsuario($_POST["username"]);
+    public function add() {
+        $nombre = $_POST["nombre"] ?? "";
+        $apellido = $_POST["apellido"] ?? "";
+        $edad = self::validarNacimiento($_POST["nacimiento"]);
+        $sexo = $_POST["sexo"] ?? "";
+        $pais = $_POST["pais"] ?? "";
+        $ciudad = $_POST["ciudad"] ?? "";
+        $mail = $_POST["mail"] ?? "";
+        $contrasena = self::validarContrasena($_POST["password"], $_POST["repeat_password"]);
+        $usuario = self::validarUsuario($_POST["username"]);
         $foto = $this->model->verificarImagen($_FILES["perfil"]);
         $codigo = $this->model->generarCodigo();
-        $this->model->add($nombre, $apellido, $edad, $sexo, $pais, $ciudad, $mail, $contrasena, $usuario, $foto, $codigo);
-        header("Location: /TP_Final-PW2_UNLaM/user/get/".$codigo);
-        exit();
+
+        if ($contrasena != null) {
+            if ($usuario != null) {
+                $this->model->agregar($nombre, $apellido, $edad, $sexo, $pais, $ciudad, $mail, $contrasena, $usuario, $foto, $codigo);
+                header("Location: /TP_Final-PW2_UNLaM/user/get/".$codigo);
+                exit();
+            } else {
+                $error = "El nombre de usuario ya existe";
+                $this->presenter->render("view/registrarseView.mustache", ["error" => $error]);
+            }
+        } else {
+            $error = "Las contraseñas no coinciden";
+            $this->presenter->render("view/registrarseView.mustache", ["error" => $error]);
+        }
+    }
+
+    private function validarNacimiento($nacimiento)
+    {
+        if (isset($nacimiento)) {
+            return $this->model->calcularEdad($nacimiento);
+        }
+        return "";
+    }
+
+    private function validarContrasena($contrasena, $contrasenaRepetida)
+    {
+        if (isset($contrasena) && isset($contrasenaRepetida)){
+            if ($this->model->verificarContrasena($contrasena, $contrasenaRepetida)){
+                return $contrasena;
+            } else{ return null; }
+        }
+        return null;
+    }
+
+    private function validarUsuario($username)
+    {
+        if (isset($username)) {
+            if ($this->model->verificarUsername($username)) {
+                return $username;
+            } else { return null; }
+        }
+        return null;
     }
 }
