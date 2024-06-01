@@ -1,19 +1,24 @@
-<main class="d-flex justify-content-center">
-    <fieldset class="m-4 p-4 w-75 bg-light">
+<main class="d-flex justify-content-center bg-primary">
+    <fieldset class="my-5 p-4 w-75 bg-light rounded-4">
         <legend class="text-center fw-bold">Registrate para Jugar!</legend>
-        <form action="/TP_Final-PW2_UNLaM/register/agregar" method="post" enctype="multipart/form-data">
+        <form action="/TP_Final-PW2_UNLaM/register/add" method="post" enctype="multipart/form-data" class="p-3">
+            {{#error}}
+                <p class="p-1 text-danger border border-danger rounded text-center">
+                    {{error}}
+                </p>
+            {{/error}}
             <div class="d-flex mq">
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="nombre" class="form-label">
                         Nombre:
                     </label>
-                    <input type="text" id="nombre" name="nombre" class="form-control" >
+                    <input type="text" id="nombre" name="nombre" class="form-control" required>
                 </div><!-- nombre -->
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="apellido" class="form-label">
                         Apellido:
                     </label>
-                    <input type="text" id="apellido" name="apellido" class="form-control">
+                    <input type="text" id="apellido" name="apellido" class="form-control" required>
                 </div><!-- apellido -->
             </div>
             <div class="d-flex mq">
@@ -21,7 +26,7 @@
                     <label for="nacimiento" class="form-label">
                         Año de Nacimiento:
                     </label>
-                    <input type="number" id="nacimiento" name="nacimiento" class="form-control" min="1000" max="9999">
+                    <input type="number" id="nacimiento" name="nacimiento" class="form-control" min="0" max="2024" required>
                 </div><!-- nacimiento -->
                 <div class="p-2 w-50">
                     <div class="d-flex">
@@ -50,33 +55,33 @@
                     <label for="pais" class="form-label">
                         País:
                     </label>
-                    <input type="text" id="pais" name="pais" class="form-control">
+                    <input type="text" id="pais" name="pais" class="form-control" required>
                 </div><!-- pais -->
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="ciudad" class="form-label">
                         Ciudad:
                     </label>
-                    <input type="text" id="ciudad" name="ciudad" class="form-control">
+                    <input type="text" id="ciudad" name="ciudad" class="form-control" required>
                 </div><!-- ciudad -->
             </div>
             <div class="d-flex flex-column p-2">
                 <label for="mail" class="form-label">
                     Correo Electrónico:
                 </label>
-                <input type="email" id="mail" name="mail" class="form-control">
+                <input type="email" id="mail" name="mail" class="form-control" required>
             </div><!-- mail -->
             <div class="d-flex mq">
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="password" class="form-label">
                         Contraseña:
                     </label>
-                    <input type="password" id="password" name="password" class="form-control">
+                    <input type="password" id="password" name="password" class="form-control" required>
                 </div><!-- password -->
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="repeat_password" class="form-label">
                         Repetir Contraseña:
                     </label>
-                    <input type="password" id="repeat_password" name="repeat_password" class="form-control">
+                    <input type="password" id="repeat_password" name="repeat_password" class="form-control" required>
                 </div><!-- repeat_password -->
             </div>
             <div class="d-flex mq">
@@ -84,7 +89,7 @@
                     <label for="username" class="form-label">
                         Nombre de Usuario:
                     </label>
-                    <input type="text" id="username" name="username" class="form-control">
+                    <input type="text" id="username" name="username" class="form-control" required>
                 </div><!-- username -->
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="perfil" class="form-label">
@@ -93,9 +98,17 @@
                     <input type="file" id="perfil" name="perfil" class="form-control">
                 </div><!-- perfil -->
             </div>
+            <div class="p-2 d-flex justify-content-center">
+                <p class="m-0">
+                    ¿Ya tienes cuenta?
+                    <a href="/TP_Final-PW2_UNLaM/user/get" class="text-decoration-none">
+                        Entra
+                    </a>
+                </p>
+            </div>
             <div class="p-2 d-flex justify-content-center mq-boton">
                 <button type="submit" value="iniciar" class="w-50 btn btn-primary">
-                    Iniciar
+                    Registrarse
                 </button>
             </div>
         </form>

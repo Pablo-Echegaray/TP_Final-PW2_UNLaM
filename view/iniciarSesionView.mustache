@@ -1,21 +1,21 @@
-<main class="d-flex justify-content-center">
-    <fieldset class="m-4 p-4 w-75 bg-light">
+<main class="d-flex justify-content-center bg-primary">
+    <fieldset class="my-5 p-4 w-50 bg-light rounded-4" style="height: max-content">
         <legend class="text-center fw-bold">Inicia Sesion</legend>
-        <form action="/TP_Final-PW2_UNLaM/user/home" method="post" enctype="multipart/form-data">
+        <form action="/TP_Final-PW2_UNLaM/user/home" method="post" enctype="multipart/form-data" class="p-3">
             <div class="d-flex flex-column align-items-center">
-                <div class="d-flex flex-column p-2 w-50">
+                <div class="d-flex flex-column p-2 w-100">
                     <label for="user" class="form-label">
                         Usuario:
                     </label>
                     <input type="text" id="user" name="user" class="form-control" required>
                 </div>
-                <div class="d-flex flex-column p-2 w-50">
+                <div class="d-flex flex-column p-2 w-100">
                     <label for="pass" class="form-label">
                         Contraseña:
                     </label>
                     <input type="password" id="pass" name="pass" class="form-control" required>
                 </div>
-                <div class="d-flex flex-column p-2 w-50">
+                <div class="d-flex flex-column p-2 w-100">
                     <p>
                         ¿No tienes cuenta?
                         <a href="/TP_Final-PW2_UNLaM/register/get" class="text-decoration-none">

@@ -1,8 +1,30 @@
+{{#usuario}}
+<nav class="py-6 px-4 navbar navbar-expand-lg bg-primary d-flex justify-content-between mq-nav">
+    <p class="m-0 p-0 text-light fs-3 fw-bold">
+        Preguntados
+    </p>
+    <div class="d-flex justify-content-end" id="navbarNav">
+        <ul class="navbar-nav flex-row">
+            <li class="nav-item px-2">
+                <a class="nav-link active text-white fs-5" aria-current="page" href="/TP_Final-PW2_UNLaM/lobby/home">
+                    Home
+                </a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link text-white fs-5" href="#">
+                    Jugar partida
+                </a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link text-white fs-5" href="/TP_Final-PW2_UNLaM/user/logout">
+                    Cerrar Sesión
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <main class="d-flex justify-content-center">
-    {{#usuario}}
-    <a href="/TP_Final-PW2_UNLaM/user/home" class="icono">
-        Home
-    </a>
+
     <form class="m-4 p-4 w-75 bg-light">
         <fieldset disabled>
             <div class="d-flex align-items-center mq-perfil">
@@ -58,5 +80,5 @@
             </div>
         </fieldset>
     </form>
-    {{/usuario}}
 </main>
+{{/usuario}}

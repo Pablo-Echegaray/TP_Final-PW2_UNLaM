@@ -9,7 +9,7 @@
     .mq-perfil legend { text-align:center }
     .mq-perfil img { width: 75% !important; }
 }
-.icono{
-    width: 4% !important;
-    height: 40px;
+@media (max-width: 576px) {
+    .mq-nav { flex-direction: column!important; }
+    .mq-nav p { text-align:center; }
 }
