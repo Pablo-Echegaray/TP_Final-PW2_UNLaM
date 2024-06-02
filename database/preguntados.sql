@@ -373,7 +373,7 @@ INSERT INTO trampitas (precio) VALUES
 
 INSERT INTO preguntas (descripcion, id_dificultad, id_categoria, id_trampita, id_respuesta_correcta) VALUES
 ('¿Cuál es la capital de Francia?', 1, 1, NULL, 1),
-('¿Quién escribio "Don Quijote"?', 2, 2, NULL, 2),
+('¿Quién escribió "Don Quijote"?', 2, 2, NULL, 2),
 ('¿Cuál es el equipo que más veces ganó la UEFA Champions League?', 2, 3, NULL, 3),
 ('¿En qué año llegó el hombre a la luna?', 3, 5, 3, 5),
 ('¿Cuál es el elemento químico con símbolo "O"?', 1, 6, NULL, 6),
@@ -392,15 +392,15 @@ INSERT INTO preguntas (descripcion, id_dificultad, id_categoria, id_trampita, id
 ('¿Cuál es el océano más grande del mundo?', 1, 1, NULL, 18),
 ('¿Qué país es el mayor productor de café?', 1, 1, NULL, 19),
 ('¿Quién escribió "La Divina Comedia"?', 2, 2, NULL, 20),
-('¿Quién ganó el primer Mundial de Fútbol?', 2, 3, NULL, 20),
+('¿Quién ganó el primer Mundial de Fútbol?', 2, 3, NULL, 21),
 ('¿Qué científico propuso la teoría de la relatividad?', 3, 6, NULL, 17),
-('¿Cuál es el símbolo químico del oro?', 1, 6, NULL, 21),
-('¿Cuál es la montaña más alta del mundo?', 1, 1, NULL, 22),
-('¿Qué país tiene la mayor población del mundo?', 1, 1, NULL, 23),
-('¿Quién es el autor de "1984"?', 2, 2, NULL, 24),
-('¿Cuál es el país con más medallas olímpicas?', 2, 3, NULL, 25),
-('¿Qué elemento tiene el símbolo Na?', 1, 6, NULL, 26),
-('¿Cuál es el animal más rápido del mundo?', 1, 1, NULL, 27);
+('¿Cuál es el símbolo químico del oro?', 1, 6, NULL, 22),
+('¿Cuál es la montaña más alta del mundo?', 1, 1, NULL, 23),
+('¿Qué país tiene la mayor población del mundo?', 1, 1, NULL, 24),
+('¿Quién es el autor de "1984"?', 2, 2, NULL, 25),
+('¿Cuál es el país con más medallas olímpicas?', 2, 3, NULL, 26),
+('¿Qué elemento tiene el símbolo Na?', 1, 6, NULL, 27),
+('¿Cuál es el animal más rápido del mundo?', 1, 1, NULL, 28);
 
 INSERT INTO partidas_preguntas (id_Partida, id_Pregunta) VALUES
 (1, 1),
