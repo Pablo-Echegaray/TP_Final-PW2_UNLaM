@@ -10,29 +10,54 @@ class UserController
         $this->model = $model;
     }
 
-    public function register()
-    {
-        $this->presenter->render("view/registroView.mustache");
+    public function get() {
+        if (isset($_SESSION["usuario"])) {
+            $usuario = $_SESSION["usuario"];
+            $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario]);
+        } else {
+            $this->presenter->render("view/iniciarSesionView.mustache");
+        }
     }
 
-    public function codeGenerate()
+    public function home()
     {
-        $user = $_POST["username"] ?? "Completa este campo";
-        $pass = $_POST["password"] ?? "Completa este campo";
-        $usuario = $this->model->registrarUsuario($user, $pass);
-        $this->presenter->render("view/codigoGenerado.mustache", ["usuario" => $usuario]);
+        if (isset($_POST["user"]) && isset($_POST["pass"])) {
+            $user = $_POST["user"];
+            $pass = $_POST["pass"];
+            $usuario = $this->model->obtener($user, $pass);
+
+            if ($usuario) {
+                $_SESSION["usuario"] = $usuario;
+                $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario]);
+                return 0;
+            } else {
+                echo "No registrado";
+            }
+        } else {
+            if (isset($_SESSION["usuario"])) {
+                $usuario = $_SESSION["usuario"];
+                $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario]);
+            } else {
+                $this->presenter->render("view/iniciarSesionView.mustache");
+            }
+        }
+    }
+    
+    public function porfile()
+    {
+        if (isset($_SESSION["usuario"])) {
+            $usuario = $_SESSION["usuario"];
+            $this->presenter->render("view/perfilView.mustache", ["usuario" => $_SESSION["usuario"]]);
+        } else {
+            $this->presenter->render("view/iniciarSesionView.mustache");
+        }
     }
 
-    public function login()
+    public function logout()
     {
-        $this->presenter->render("view/inicioSesion.mustache");
+        $_SESSION = [];
+        session_destroy();
+        $this->presenter->render("view/iniciarSesionView.mustache");
     }
-
-    public function play()
-    {
-        $user = $_POST["user"];
-        $code = $_POST["code"];
-        $pass = $_POST["pass"];
-        echo $user.$code.$pass;
-    }
+    
 }

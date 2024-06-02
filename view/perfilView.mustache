@@ -1,0 +1,84 @@
+{{#usuario}}
+<nav class="py-6 px-4 navbar navbar-expand-lg bg-primary d-flex justify-content-between mq-nav">
+    <p class="m-0 p-0 text-light fs-3 fw-bold">
+        Preguntados
+    </p>
+    <div class="d-flex justify-content-end" id="navbarNav">
+        <ul class="navbar-nav flex-row">
+            <li class="nav-item px-2">
+                <a class="nav-link active text-white fs-5" aria-current="page" href="/TP_Final-PW2_UNLaM/lobby/home">
+                    Home
+                </a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link text-white fs-5" href="#">
+                    Jugar partida
+                </a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link text-white fs-5" href="/TP_Final-PW2_UNLaM/user/logout">
+                    Cerrar Sesión
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<main class="d-flex justify-content-center">
+
+    <form class="m-4 p-4 w-75 bg-light">
+        <fieldset disabled>
+            <div class="d-flex align-items-center mq-perfil">
+                <legend class="fw-bold">
+                    Perfil - <span class="fw-normal">{{usuario}}</span>
+                </legend>
+                <img src="/TP_Final-PW2_UNLaM/public/image/{{foto}}" alt="Foto de perfil" class="w-25">
+            </div>
+            <div class="d-flex mq">
+                <div class="mb-3 w-50 p-2">
+                    <label for="disabledTextInput" class="form-label">Nombre</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="{{nombre}}">
+                </div>
+                <div class="mb-3 w-50 p-2">
+                    <label for="disabledTextInput" class="form-label">Apellido</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="{{apellido}}">
+                </div>
+            </div>
+            <div class="d-flex mq">
+                <div class="mb-3 w-50 p-2">
+                    <label for="disabledTextInput" class="form-label">Edad</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="{{edad}}">
+                </div>
+                <div class="mb-3 w-50 p-2">
+                    <label for="disabledTextInput" class="form-label">Sexo</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="{{sexo}}">
+                </div>
+            </div>
+            <div class="d-flex mq">
+                <div class="mb-3 w-50 p-2">
+                    <label for="disabledTextInput" class="form-label">Pais</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="{{pais}}">
+                </div>
+                <div class="mb-3 w-50 p-2">
+                    <label for="disabledTextInput" class="form-label">Ciudad</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="{{ciudad}}">
+                </div>
+            </div>
+            <div class="d-flex mq">
+                <div class="mb-3 w-50 p-2">
+                    <label for="disabledTextInput" class="form-label">E-mail</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="{{mail}}">
+                </div>
+                <div class="mb-3 w-50 p-2">
+                    <label for="disabledTextInput" class="form-label">Contraseña</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="{{contrasena}}">
+                </div>
+            </div>
+            <div class="p-2 d-flex justify-content-center mq-boton">
+                <button type="submit" value="iniciar" class="w-50 btn btn-primary">
+                    Editar
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</main>
+{{/usuario}}

@@ -3,3 +3,13 @@
     .mq div { width: 100% !important; }
     .mq-boton button { width: 100%!important; }
 }
+
+@media (max-width: 768px) {
+    .mq-perfil { flex-direction: column-reverse; }
+    .mq-perfil legend { text-align:center }
+    .mq-perfil img { width: 75% !important; }
+}
+@media (max-width: 576px) {
+    .mq-nav { flex-direction: column!important; }
+    .mq-nav p { text-align:center; }
+}
