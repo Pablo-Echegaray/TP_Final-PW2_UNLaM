@@ -214,7 +214,7 @@ CREATE TABLE IF NOT EXISTS usuarios_ciudades_paises (
 
 INSERT INTO sexos (descripcion) VALUES
 ('Femenino'),
-('Maasculino'),
+('Masculino'),
 ('No especificado');
 
 INSERT INTO usuarios (nombre, apellido, year_birth, id_sexo, email, password, nombre_usuario, foto, qr) VALUES
@@ -556,7 +556,7 @@ INSERT INTO ciudades (descripcion) VALUES
 ('Bogotá'),
 ('Lima');
 
-INSERT INTO usuarios_ciudades_paises (id_Usuario, id_Ciudad, id_pais) VALUES
+INSERT INTO usuarios_ciudades_paises (id_usuario, id_ciudad, id_pais) VALUES
 (1, 1, 1),
 (2, 1, 1),
 (3, 1, 1),

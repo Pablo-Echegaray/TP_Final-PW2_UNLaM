@@ -13,7 +13,7 @@ class UserModel
         return $this->database->query("
         SELECT * 
         FROM usuarios
-        WHERE usuario = '$user' AND contrasena = '$pass'
+        WHERE nombre_usuario = '$user' AND password = '$pass'
         ");
     }
 }
