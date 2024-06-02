@@ -1,3 +1,5 @@
+/*Creación Base de Datos*/
+
 CREATE DATABASE IF NOT EXISTS preguntados;
        USE preguntados;
 /*
@@ -18,6 +20,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     codigo VARCHAR(100),
     verificado TINYINT(1) NOT NULL DEFAULT 0
 );*/
+/*Creación de Tablas*/
 
 CREATE TABLE IF NOT EXISTS Usuarios (
     id INT AUTO_INCREMENT,
@@ -58,7 +61,9 @@ CREATE TABLE IF NOT EXISTS Jugadores (
 CREATE TABLE IF NOT EXISTS Partidas (
     id INT AUTO_INCREMENT,
     modo VARCHAR(50),
+    id_dificultad INT NOT NULL,
     CONSTRAINT pk_partida PRIMARY KEY (id)
+    CONSTRAINT fk_partida_dificultad FOREIGN KEY (id_dificultad) REFERENCES Dificultades(id)
 );
 
 CREATE TABLE IF NOT EXISTS Jugadores_partidas (
@@ -221,3 +226,196 @@ CREATE TABLE IF NOT EXISTS Sexos (
     descripcion VARCHAR(50) NOT NULL,
     CONSTRAINT pk_sexo PRIMARY KEY (id)
 );
+
+/*INSERTS*/
+
+INSERT INTO Usuarios (nombre, apellido, year_birth, id_sexo, email, password, nombre_usuario, foto, qr) VALUES
+('Pablo', 'Echegaray', 1995, 2, 'pablo.echegaray@example.com', 'password123', 'pabloE', 'public/image/perfil_sin_foto.jpg', 'QR1'),
+('Micaela', 'Mendez', 2000, 1, 'micaela.mendez@example.com', 'password456', 'micaM', 'public/image/perfil_sin_foto.jpg', 'QR2'),
+('Pablo', 'Rocha', 2000, 2, 'pablo.rocha@example.com', 'password789', 'pabloR', 'public/image/perfil_sin_foto.jpg', 'QR3'),
+('Regina', 'Sanchez', 2000, 1, 'regina.sanchez@example.com', 'password101', 'reginaS', 'public/image/perfil_sin_foto.jpg', 'QR4'),
+('Carlos', 'González', 1992, 3, 'carlos.gonzalez@example.com', 'password112', 'carlosg92', 'public/image/perfil_sin_foto.jpg', 'QR5');
+
+INSERT INTO Usuarios_editores (id_Usuario) VALUES
+(1),
+(2),
+(3),
+(4);
+
+INSERT INTO Usuarios_admins (id_Usuario) VALUES
+(1),
+(2),
+(3),
+(4);
+
+INSERT INTO Jugadores (id_Usuario) VALUES
+(1),
+(2),
+(3),
+(4),
+(5);
+
+INSERT INTO Partidas (modo, id_dificultad) VALUES
+('Single Player', 1),
+('Cooperative', 2);
+
+INSERT INTO Jugadores_partidas (id_Jugador, id_Partida, puntaje) VALUES
+(1, 1, 100),
+(1, 2, 200),
+(1, 3, 150),
+(2, 4, 180),
+(3, 5, 170);
+
+INSERT INTO Preguntas (descripcion, id_dificultad, id_categoria, id_trampita, id_respuesta_correcta) VALUES
+('¿Cuál es la capital de Francia?', 1, 1, NULL, 1),
+('¿Quién escribio "Don Quijote"?', 2, 2, NULL, 2),
+('¿Cuál es el equipo que más veces ganó la UEFA Champions League?', 2, 3, NULL, 3),
+('¿En qué año llegó el hombre a la luna?', 3, 5, 3, 5),
+('¿Cuál es el elemento químico con símbolo "O"?', 1, 6, NULL, 6);
+
+INSERT INTO Dificultades (descripcion) VALUES
+('Fácil'),
+('Intermedio'),
+('Difícil');
+
+INSERT INTO Categorias (descripcion) VALUES
+('Geografía'),
+('Literatura'),
+('Deportes'),
+('Geografía')
+('Ciencia'),
+('Historia'),
+('Química')
+('Cultura General');
+
+INSERT INTO Respuestas_correctas (descripcion, id_categoria) VALUES
+('París', 1),
+('Miguel de Cervantes', 2),
+('Real Madrid', 3)
+('Amazonas', 4),
+('1969', 5),
+('Oxígeno', 6);
+
+INSERT INTO Respuestas_incorrectas (descripcion, id_categoria) VALUES
+('Londres', 1),
+('Buenos Aires', 1)
+('Gabriel García Márquez', 2),
+('Barcelona', 3),
+('Bayer Munich', 3),
+('Nilo', 4),
+('Río de la Plata', 4),
+('1970', 5),
+('2000', 5),
+('Carbono', 6),
+('Nitrógeno', 6);
+
+
+INSERT INTO Partidas_preguntas (id_Partida, id_Pregunta) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 4),
+(2, 5),
+(2,1);
+
+INSERT INTO Preguntas_respuestas_incorrectas (id_Pregunta, id_Respuesta_incorrecta) VALUES
+(1, 1),
+(1, 2),
+(2, 3),
+(3, 4),
+(3, 5);
+
+INSERT INTO Trampitas (precio) VALUES
+(9.99),
+(19.99),
+(29.99);
+
+INSERT INTO Jugadores_trampitas (id_Jugador, id_Trampita) VALUES
+(1, 1),
+(2, 2),
+(3, 1);
+
+INSERT INTO Preguntas_reportadas (motivo) VALUES
+('Incorrecta'),
+('Inapropiada'),
+('Mal redactada');
+
+INSERT INTO Reportes_de_preguntas (id_Reporte, id_Pregunta, id_Usuario) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 3, 3);
+
+INSERT INTO Preguntas_sugeridas (descripcion, id_categoria, id_respuesta_correcta_sugerida, id_usuario) VALUES
+('¿Cuál es la capital de Italia?', 1, 1, 1),
+('¿Quién escribió "Cien años de soledad"?', 2, 2, 2),
+('¿Qué deporte jugó profesionalente Michael Jordan además de Basket?', 3, 3, 1)
+('¿Cuál es el océano más grande del mundo?', 4, 4, 3),
+('¿En qué año comenzó la Segunda Guerra Mundial?', 5, 5, 4),
+('¿Cuál es el elemento químico con símbolo "H"?', 6, 6, 5);
+
+INSERT INTO Respuestas_correctas_sugeridas (descripcion, id_categoria) VALUES
+('Roma', 1),
+('Gabriel García Márquez', 2),
+('Baseball', 3)
+('Pacífico', 4),
+('1939', 5),
+('Hidrógeno', 6);
+
+INSERT INTO Respuestas_incorrectas_sugeridas (descripcion, id_categoria) VALUES
+('Milán', 1),
+('Mario Vargas Llosa', 2),
+('Football Americano', 3)
+('Atlántico', 4),
+('1940', 5),
+('Helio', 6);
+
+INSERT INTO Preguntas_y_respuestas_incorrectas_sugeridas (id_Pregunta_sugerida, id_Respuesta_incorrecta_sugerida) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5)
+(6, 6);
+
+INSERT INTO Paises (descripcion) VALUES
+('Argentina'),
+('Brasil'),
+('Chile'),
+('Colombia'),
+('Perú');
+
+INSERT INTO Ciudades (descripcion) VALUES
+('Buenos Aires'),
+('Sao Paulo'),
+('Santiago'),
+('Bogotá'),
+('Lima');
+
+INSERT INTO Usuarios_ciudades_paises (id_Usuario, id_Ciudad, id_pais) VALUES
+(1, 1, 1),
+(2, 1, 1),
+(3, 1, 1),
+(4, 1, 1),
+(5, 5, 5);
+
+INSERT INTO Sexos (descripcion) VALUES
+('Femenino'),
+('Maasculino'),
+('No especificado');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
