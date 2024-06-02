@@ -17,7 +17,7 @@ class RegisterController
     public function add() {
         $nombre = $_POST["nombre"] ?? "";
         $apellido = $_POST["apellido"] ?? "";
-        $edad = self::validarNacimiento($_POST["nacimiento"]);
+        $nacimiento = $_POST["nacimiento"];
         $sexo = $_POST["sexo"] ?? "";
         $pais = $_POST["pais"] ?? "";
         $ciudad = $_POST["ciudad"] ?? "";
@@ -29,7 +29,7 @@ class RegisterController
 
         if ($contrasena != null) {
             if ($usuario != null) {
-                $this->model->agregar($nombre, $apellido, $edad, $sexo, $pais, $ciudad, $mail, $contrasena, $usuario, $foto, $codigo);
+                $this->model->agregar($nombre, $apellido, $nacimiento, $sexo, $pais, $ciudad, $mail, $contrasena, $usuario, $foto, $codigo);
                 header("Location: /TP_Final-PW2_UNLaM/user/get/".$codigo);
                 exit();
             } else {
