@@ -10,7 +10,8 @@ class UserController
         $this->model = $model;
     }
 
-    public function get() {
+    public function get()
+    {
         if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
             $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario]);
@@ -42,7 +43,7 @@ class UserController
             }
         }
     }
-    
+
     public function porfile()
     {
         if (isset($_SESSION["usuario"])) {
@@ -59,5 +60,31 @@ class UserController
         session_destroy();
         $this->presenter->render("view/iniciarSesionView.mustache");
     }
-    
+    public function play()
+    {
+        $idRandom = rand(1, 25);
+        $pregunta = $this->model->getPregunta($idRandom);
+        $respuestas = $this->model->getRespuestas($idRandom);
+
+        $respuestaCorrecta = $this->model->getRespuestaCorrecta($idRandom);
+        $correcta = "París"; // (prueba)
+
+        $this->presenter->render("view/jugarView.mustache", ["usuario" => $_SESSION["usuario"], "preguntas" => $pregunta, "respuestas" => $respuestas, "respuestas_correctas" => $respuestaCorrecta]);
+
+        //(probando)
+        if (isset($_POST['respuesta'])) {
+            $respuestaDelUsuario = $_POST['respuesta'];
+            if ($respuestaDelUsuario == $correcta) {
+                echo "respuesta correcta";
+            } else {
+                echo "incorrecta";
+                echo " correcta: " . $correcta;
+                echo " usuario: " . $respuestaDelUsuario;
+            }
+        } else {
+            echo "sin respuesta";
+        }
+
+    }
+
 }
