@@ -48,7 +48,8 @@ class UserController
     {
         if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
-            $this->presenter->render("view/perfilView.mustache", ["usuario" => $_SESSION["usuario"]]);
+            var_dump($usuario);
+            $this->presenter->render("view/perfilView.mustache", ["usuario" => $usuario]);
         } else {
             $this->presenter->render("view/iniciarSesionView.mustache");
         }
@@ -60,6 +61,7 @@ class UserController
         session_destroy();
         $this->presenter->render("view/iniciarSesionView.mustache");
     }
+
     public function play()
     {
         $idRandom = rand(1, 25);
