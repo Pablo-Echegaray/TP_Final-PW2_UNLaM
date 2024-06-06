@@ -29,11 +29,12 @@
 
 <div id="each-question" class="row">
     
-    <form action="/TP_Final-PW2_UNLaM/user/play" method="post" class="flex">
+    <form action="/TP_Final-PW2_UNLaM/partida/checkAnswer" method="post" class="flex">
            
             {{#preguntas}}
                     <div id="question"></span>
                        <span id="display-question">{{descripcion}}</span>
+                       <!-- <input type="hidden" name="pregunta_id" value="{{id_pregunta}}">-->
                     </div>
             {{/preguntas}}
                   
