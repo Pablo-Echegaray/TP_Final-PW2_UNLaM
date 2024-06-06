@@ -1,12 +1,13 @@
 <?php
-
 include_once ("controller/UserController.php");
 include_once ("controller/RegisterController.php");
 include_once ("controller/PartidaController.php");
+include_once("controller/RankingController.php");
 
 include_once ("model/RegisterModel.php");
 include_once ("model/UserModel.php");
 include_once ("model/PartidaModel.php");
+include_once ("model/RankingModel.php");
 
 include_once("helper/Database.php");
 include_once("helper/Router.php");
@@ -31,6 +32,11 @@ class Configuration
         return new PartidaController(self::getPartidaModel(), self::getPresenter());
     }
 
+    public static function getRankingController()
+    {
+        return new RankingController(self::getRankingModel(), self::getPresenter());
+    }
+
     //MODELS
     private static function getUserModel()
     {
@@ -44,6 +50,11 @@ class Configuration
     private static function getPartidaModel()
     {
         return new PartidaModel(self::getDatabase());
+    }
+
+    public static function getRankingModel()
+    {
+        return new RankingModel(self::getDatabase());
     }
 
     //HELPERS

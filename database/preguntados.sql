@@ -97,11 +97,21 @@ INSERT INTO usuarios (nombre, apellido, year_birth, sexo, ciudad, pais, email, p
 
 /*Este insert debería hacerse cuando se crea una partida y el usuario elike si va a jugar 'single player' o 'multiplayer'.*/
 INSERT INTO partidas (modo) VALUES
+('Single Player'),
+('Single Player'),
+('Single Player'),
+('Single Player'),
+('Single Player'),
 ('Single Player');
 
 /*Este insert se se hace cuando finaliza la partida, y se le pasa el id de la misma, el id del jugador y el puntaje final obtenido.*/
 INSERT INTO jugadores_partidas (id_Jugador, id_Partida, puntaje) VALUES
-(1, 1, 100);
+(1, 1, 100),
+(2, 2, 80),
+(3, 3, 90),
+(4, 4, 110),
+(1, 5, 10),
+(5, 6, 30);
 
 INSERT INTO categorias (descripcion) VALUES
 ('Geografía'),
