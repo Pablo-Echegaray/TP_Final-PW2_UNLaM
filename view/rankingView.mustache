@@ -1,0 +1,17 @@
+<h2>Ranking</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Puntaje</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#ranking}}
+            <tr>
+                <td>{{nombre_usuario}}</td> <!-- <a href="/TP_Final-PW2_UNLaM/user/profile/{{id}}">{{nombre_usuario}}</a> -->
+                <td>{{puntaje}}</td>
+            </tr>
+        {{/ranking}}
+    </tbody>
+</table>
