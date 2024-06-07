@@ -48,25 +48,17 @@ class RegisterModel
 
     public function generarCodigo() { return "ABC".rand("100", "999"); }
 
-    public function agregar($nombre, $apellido, $nacimiento, $sexo, $pais, $ciudad, $email, $contrasena, $usuario, $foto, $codigo)
+    public function agregar($nombre, $apellido, $nacimiento, $sexo, $ciudad, $pais, $email, $contrasena, $usuario, $foto, $codigo)
     {
-        $idSexo = $this->getRowByValueOfField($sexo, "sexos", "descripcion")['id'];
+        //$idSexo = $this->getRowByValueOfField($sexo, "sexos", "descripcion")['id'];
         $this->database->execute(
-            "INSERT INTO usuarios(nombre, apellido, year_birth, id_sexo, email, password, nombre_usuario, foto, qr)
-             VALUES ('$nombre','$apellido','$nacimiento','$idSexo','$email','$contrasena','$usuario','$foto',NULL)"
+            "INSERT INTO usuarios(nombre, apellido, year_birth, sexo, ciudad, pais, email, password, nombre_usuario, foto, qr)
+             VALUES ('$nombre','$apellido','$nacimiento','$sexo','$ciudad','$pais', '$email','$contrasena','$usuario','$foto',NULL)"
         );
-        $this->setCityCountryInUser($pais, $ciudad, $usuario);
+        //$this->setCityCountryInUser($pais, $ciudad, $usuario);
     }
 
-    private function validateIfValueOfFieldExists($value, $table, $field):bool {
-        $result =  $this->database->query_for_one("SELECT * FROM $table WHERE $field = '$value'");
-        if ($result){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+  
 
     private function capitalizeFirstLetter($string):string {
         $string = strtolower($string);
@@ -76,8 +68,18 @@ class RegisterModel
             $string = ucfirst($string);
         }
         return $string;
-    }
+    }  
 
+    /* 
+    private function validateIfValueOfFieldExists($value, $table, $field):bool {
+        $result =  $this->database->query_for_one("SELECT * FROM $table WHERE $field = '$value'");
+        if ($result){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     private function getRowByValueOfField($value, $table, $field){
         return $this->database->query_for_one("SELECT * FROM $table WHERE $field = '$value'");
     }
@@ -118,6 +120,6 @@ class RegisterModel
 
     private function addNewCity($city){
         $this->database->execute("INSERT INTO ciudades(descripcion) VALUES ('$city')");
-    }
+    }*/
 
 }

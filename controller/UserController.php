@@ -61,6 +61,7 @@ class UserController
         session_destroy();
         $this->presenter->render("view/iniciarSesionView.mustache");
     }
+<<<<<<< HEAD
 
     public function play()
     {
@@ -88,5 +89,7 @@ class UserController
         }
 
     }
+=======
+>>>>>>> master
 
 }
