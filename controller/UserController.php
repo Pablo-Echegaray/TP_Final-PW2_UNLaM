@@ -32,7 +32,8 @@ class UserController
                 $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario]);
                 return 0;
             } else {
-                echo "No registrado";
+                $error = "Usuario o contraseña incorrecto";
+                $this->presenter->render("view/iniciarSesionView.mustache", ["error" => $error]);
             }
         } else {
             if (isset($_SESSION["usuario"])) {

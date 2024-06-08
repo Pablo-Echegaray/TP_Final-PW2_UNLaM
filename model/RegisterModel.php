@@ -37,11 +37,11 @@ class RegisterModel
     public function verificarImagen($imagen)
     {
         if (isset($imagen)) {
-                $targetDir = 'public/image/';
-                $targetFile = $targetDir . basename($imagen['name']);
-                if (move_uploaded_file($imagen['tmp_name'], $targetFile)) {
-                    return $imagen["name"];
-                }
+            $targetDir = 'public/image/';
+            $targetFile = $targetDir . basename($imagen['name']);
+            if (move_uploaded_file($imagen['tmp_name'], $targetFile)) {
+                return $imagen["name"];
+            }
         }
         return "perfil_sin_foto.jpg";
     }
@@ -52,13 +52,13 @@ class RegisterModel
     {
         //$idSexo = $this->getRowByValueOfField($sexo, "sexos", "descripcion")['id'];
         $this->database->execute(
-            "INSERT INTO usuarios(nombre, apellido, year_birth, sexo, ciudad, pais, email, password, nombre_usuario, foto, qr)
-             VALUES ('$nombre','$apellido','$nacimiento','$sexo','$ciudad','$pais', '$email','$contrasena','$usuario','$foto',NULL)"
+            "INSERT INTO usuarios(nombre, apellido, year_birth, sexo, ciudad, pais, email, password, nombre_usuario, foto)
+             VALUES ('$nombre','$apellido','$nacimiento','$sexo','$ciudad','$pais', '$email','$contrasena','$usuario','$foto')"
         );
         //$this->setCityCountryInUser($pais, $ciudad, $usuario);
     }
 
-  
+
 
     private function capitalizeFirstLetter($string):string {
         $string = strtolower($string);
@@ -68,7 +68,7 @@ class RegisterModel
             $string = ucfirst($string);
         }
         return $string;
-    }  
+    }
 
     /* 
     private function validateIfValueOfFieldExists($value, $table, $field):bool {
