@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS usuarios(
 CREATE TABLE IF NOT EXISTS partidas(
     id INT AUTO_INCREMENT,
     modo VARCHAR(50) NOT NULL, /* single player | multiplayer */
+    estado VARCHAR(50) NOT NULL, /* playing | finished*/
     CONSTRAINT pk_partida PRIMARY KEY (id)
 );
 
@@ -96,13 +97,13 @@ INSERT INTO usuarios (nombre, apellido, year_birth, sexo, ciudad, pais, email, p
 ('Carlos', 'González', 1992, 'No especificado', 'Lima', 'Perú', 'carlos.gonzalez@example.com', 'password112', 'carlosg92', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR5');
 
 /*Este insert debería hacerse cuando se crea una partida y el usuario elike si va a jugar 'single player' o 'multiplayer'.*/
-INSERT INTO partidas (modo) VALUES
-('Single Player'),
-('Single Player'),
-('Single Player'),
-('Single Player'),
-('Single Player'),
-('Single Player');
+INSERT INTO partidas (modo, estado) VALUES
+('Single Player', 'finished'),
+('Single Player', 'finished'),
+('Single Player', 'finished'),
+('Single Player', 'finished'),
+('Single Player', 'finished'),
+('Single Player', 'playing');
 
 /*Este insert se se hace cuando finaliza la partida, y se le pasa el id de la misma, el id del jugador y el puntaje final obtenido.*/
 INSERT INTO jugadores_partidas (id_Jugador, id_Partida, puntaje) VALUES
