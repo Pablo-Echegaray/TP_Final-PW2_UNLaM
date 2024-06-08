@@ -32,7 +32,8 @@ class UserController
                 $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario]);
                 return 0;
             } else {
-                echo "No registrado";
+                $error = "Usuario o contraseña incorrecto";
+                $this->presenter->render("view/iniciarSesionView.mustache", ["error" => $error]);
             }
         } else {
             if (isset($_SESSION["usuario"])) {
@@ -48,8 +49,7 @@ class UserController
     {
         if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
-            var_dump($usuario);
-            $this->presenter->render("view/perfilView.mustache", ["usuario" => $usuario]);
+            $this->presenter->render("view/perfilView.mustache", ["usuario" => $_SESSION["usuario"]]);
         } else {
             $this->presenter->render("view/iniciarSesionView.mustache");
         }
@@ -61,35 +61,5 @@ class UserController
         session_destroy();
         $this->presenter->render("view/iniciarSesionView.mustache");
     }
-<<<<<<< HEAD
-
-    public function play()
-    {
-        $idRandom = rand(1, 25);
-        $pregunta = $this->model->getPregunta($idRandom);
-        $respuestas = $this->model->getRespuestas($idRandom);
-
-        $respuestaCorrecta = $this->model->getRespuestaCorrecta($idRandom);
-        $correcta = "París"; // (prueba)
-
-        $this->presenter->render("view/jugarView.mustache", ["usuario" => $_SESSION["usuario"], "preguntas" => $pregunta, "respuestas" => $respuestas, "respuestas_correctas" => $respuestaCorrecta]);
-
-        //(probando)
-        if (isset($_POST['respuesta'])) {
-            $respuestaDelUsuario = $_POST['respuesta'];
-            if ($respuestaDelUsuario == $correcta) {
-                echo "respuesta correcta";
-            } else {
-                echo "incorrecta";
-                echo " correcta: " . $correcta;
-                echo " usuario: " . $respuestaDelUsuario;
-            }
-        } else {
-            echo "sin respuesta";
-        }
-
-    }
-=======
->>>>>>> master
 
 }
