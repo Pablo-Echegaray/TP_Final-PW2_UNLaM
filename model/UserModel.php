@@ -11,7 +11,7 @@ class UserModel
     public function obtener($user, $pass)
     {
         return $this->database->query(
-        "SELECT * 
+            "SELECT * 
         FROM usuarios
         WHERE nombre_usuario = '$user' AND password = '$pass'"
         );

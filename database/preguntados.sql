@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS usuarios(
 CREATE TABLE IF NOT EXISTS partidas(
     id INT AUTO_INCREMENT,
     modo VARCHAR(50) NOT NULL, /* single player | multiplayer */
+    estado VARCHAR(50) NOT NULL, /* playing | finished*/
     CONSTRAINT pk_partida PRIMARY KEY (id)
 );
 
@@ -75,16 +76,6 @@ CREATE TABLE IF NOT EXISTS partidas_preguntas (
     CONSTRAINT fk_partida_pregunta_partida FOREIGN KEY (id_partida) REFERENCES partidas(id),
     CONSTRAINT fk_partida_pregunta_pregunta FOREIGN KEY (id_pregunta) REFERENCES preguntas(id)
 );
-/*
-CREATE TABLE IF NOT EXISTS reportes_de_preguntas (
-    id_reporte INT NOT NULL,
-    id_pregunta INT NOT NULL,
-    id_usuario INT NOT NULL,
-    CONSTRAINT pk_reporte_de_pregunta PRIMARY KEY (id_reporte, id_pregunta, id_usuario),
-    CONSTRAINT fk_reporte_de_pregunta_reporte FOREIGN KEY (id_reporte) REFERENCES preguntas_reportadas(id),
-    CONSTRAINT fk_reporte_de_pregunta_pregunta FOREIGN KEY (id_pregunta) REFERENCES preguntas(id),
-    CONSTRAINT fk_reporte_de_pregunta_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
-);*/
 
 /*INSERTS*/
 
@@ -96,15 +87,18 @@ INSERT INTO usuarios (nombre, apellido, year_birth, sexo, ciudad, pais, email, p
 ('Carlos', 'González', 1992, 'No especificado', 'Lima', 'Perú', 'carlos.gonzalez@example.com', 'password112', 'carlosg92', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR5');
 
 /*Este insert debería hacerse cuando se crea una partida y el usuario elike si va a jugar 'single player' o 'multiplayer'.*/
-INSERT INTO partidas (modo) VALUES
-('Single Player'),
-('Single Player'),
-('Single Player'),
-('Single Player'),
-('Single Player'),
-('Single Player');
-
+/*
+INSERT INTO partidas (modo, estado) VALUES
+('Single Player', 'finished'),
+('Single Player', 'finished'),
+('Single Player', 'finished'),
+('Single Player', 'finished'),
+('Single Player', 'finished'),
+('Single Player', 'playing');
+*/
+    
 /*Este insert se se hace cuando finaliza la partida, y se le pasa el id de la misma, el id del jugador y el puntaje final obtenido.*/
+/*
 INSERT INTO jugadores_partidas (id_Jugador, id_Partida, puntaje) VALUES
 (1, 1, 100),
 (2, 2, 80),
@@ -112,7 +106,7 @@ INSERT INTO jugadores_partidas (id_Jugador, id_Partida, puntaje) VALUES
 (4, 4, 110),
 (1, 5, 10),
 (5, 6, 30);
-
+*/
 INSERT INTO categorias (descripcion) VALUES
 ('Geografía'),
 ('Literatura'),
@@ -271,5 +265,7 @@ INSERT INTO respuestas (descripcion, estado, id_pregunta) VALUES
 ('León', 0, 29);
 
 /* Este insert deberia hacerse cuando se crea una partida y updetear cada vez que se entrega una pregunta*/
+/*
 INSERT INTO partidas_preguntas (id_Partida, id_Pregunta) VALUES
 (1, 1);
+*/

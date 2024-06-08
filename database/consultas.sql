@@ -8,3 +8,8 @@ SELECT p.id, p.descripcion, ri.descripcion
 FROM preguntados.preguntas p
 INNER JOIN preguntas_respuestas_incorrectas pri ON pri.id_pregunta = p.id
 INNER JOIN respuestas_incorrectas ri ON ri.id = pri.id_respuesta_incorrecta;
+
+/*Obtener pregunta de una partida específica*/
+SELECT pp.id_partida, pp.id_pregunta, pre.descripcion
+FROM preguntados.partidas_preguntas pp
+INNER JOIN preguntados.preguntas pre ON pp.id_pregunta = pre.id;
