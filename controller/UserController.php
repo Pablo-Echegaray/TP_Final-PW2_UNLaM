@@ -60,5 +60,16 @@ class UserController
         session_destroy();
         $this->presenter->render("view/iniciarSesionView.mustache");
     }
-
+//$_SERVER['REQUEST_URI']
+    public function profile() 
+    {
+        $id = $_GET['id'];
+        $usuario = $this->model->getUserById($id);
+        if (isset($id) && $usuario) {
+            $this->presenter->render("view/otherUsersView.mustache", array("usuario" => $usuario));
+        } else {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/ranking/ranking');
+            exit();
+        }
+    }
 }
