@@ -9,7 +9,7 @@ class RankingController {
         $this->model = $model;
     }
 
-    public function mostrarRanking() {
+    public function ranking() {
         $ranking = $this->model->getRanking();
         $this->presenter->render("view/rankingView.mustache", array("ranking" => $ranking));
     }

@@ -17,4 +17,12 @@ class UserModel
         );
     }
 
+    public function getUserById($id)
+    {
+        return $this->database->query(
+        "SELECT * 
+        FROM usuarios
+        WHERE id = '$id'"
+        );
+    }
 }
