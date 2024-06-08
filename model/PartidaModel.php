@@ -10,8 +10,15 @@ class PartidaModel
 
     public function crearPartida($modo)
     {
-        $this->database->execute("INSERT INTO partidas (modo) VALUES ('$modo')");
+        $this->database->execute("INSERT INTO partidas (modo, estado) VALUES ('$modo', 'playing')");
         return $this->database->query("SELECT * FROM partidas");
+    }
+
+    public function getLastGame(){
+        return $this->database->query_for_one("SELECT id, modo, estado
+                                        FROM partidas
+                                        ORDER BY id DESC
+                                        LIMIT 1;");
     }
 
     public function getPreguntaRandom()
@@ -63,16 +70,32 @@ class PartidaModel
         ");
     }
 
-    public function getRespuestaCorrecta()
+    public function getRespuestaCorrecta($idPregunta)
     {
         return $this->database->query_for_one(
 
             "SELECT descripcion
-            FROM respuestas
-            WHERE id_pregunta = 1
-            AND estado = 1;"
+             FROM preguntados.respuestas
+             WHERE id_pregunta = $idPregunta
+             AND estado = 1;"
         );
         
     }
 
+    public function getLastQuestionInGame(){
+        return $this->database->query_for_one("SELECT subquery.id_partida, subquery.id_pregunta, subquery.descripcion
+                                        FROM (
+                                                SELECT pp.id_partida, pp.id_pregunta, pre.descripcion
+                                                FROM preguntados.partidas_preguntas pp
+                                                INNER JOIN preguntados.preguntas pre ON pp.id_pregunta = pre.id
+                                                ORDER BY pp.id_partida DESC
+                                                LIMIT 1
+                                            ) AS subquery;");
+    }
+
+    public function endGame($idPartida){
+        $this->database->execute("UPDATE partidas
+                                   SET estado = 'finished'
+                                   WHERE id = $idPartida;");
+    }
 }
