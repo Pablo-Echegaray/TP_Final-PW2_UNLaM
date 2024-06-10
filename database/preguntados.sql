@@ -96,7 +96,7 @@ INSERT INTO partidas (modo, estado) VALUES
 ('Single Player', 'finished'),
 ('Single Player', 'playing');
 */
-    
+
 /*Este insert se se hace cuando finaliza la partida, y se le pasa el id de la misma, el id del jugador y el puntaje final obtenido.*/
 /*
 INSERT INTO jugadores_partidas (id_Jugador, id_Partida, puntaje) VALUES

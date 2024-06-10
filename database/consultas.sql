@@ -13,3 +13,8 @@ INNER JOIN respuestas_incorrectas ri ON ri.id = pri.id_respuesta_incorrecta;
 SELECT pp.id_partida, pp.id_pregunta, pre.descripcion
 FROM preguntados.partidas_preguntas pp
 INNER JOIN preguntados.preguntas pre ON pp.id_pregunta = pre.id;
+
+/*Obtener preguntas por partida de cada jugador*/
+SELECT jp.id_jugador, jp.id_partida, pp.id_pregunta
+FROM preguntados.jugadores_partidas jp
+INNER JOIN partidas_preguntas pp ON jp.id_partida = pp.id_partida;
