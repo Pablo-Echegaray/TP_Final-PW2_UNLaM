@@ -23,9 +23,8 @@ class PartidaModel
 
     public function getPreguntaRandom()
     {
-        $inicio = self::obtenerPrimerNumero();
-        $final = self::obtenerSegundoNumero();
-        $id = rand($inicio[0]["id"], $final[0]["id"]);
+        $id = $this->getIdNextQuestion();
+
         return $this->database->query("
             SELECT preguntas.id, preguntas.descripcion
             FROM preguntas 
@@ -83,19 +82,46 @@ class PartidaModel
     }
 
     public function getLastQuestionInGame(){
-        return $this->database->query_for_one("SELECT subquery.id_partida, subquery.id_pregunta, subquery.descripcion
-                                        FROM (
-                                                SELECT pp.id_partida, pp.id_pregunta, pre.descripcion
-                                                FROM preguntados.partidas_preguntas pp
-                                                INNER JOIN preguntados.preguntas pre ON pp.id_pregunta = pre.id
-                                                ORDER BY pp.id_partida DESC
-                                                LIMIT 1
-                                            ) AS subquery;");
+        return $this->database->query_for_one(
+            "SELECT subquery.id_partida, subquery.id_pregunta, subquery.descripcion
+             FROM (
+                    SELECT pp.id_partida, pp.id_pregunta, pre.descripcion
+                    FROM preguntados.partidas_preguntas pp
+                    INNER JOIN preguntados.preguntas pre ON pp.id_pregunta = pre.id
+                    ORDER BY pp.id_partida DESC
+                    LIMIT 1
+                  ) AS subquery;");
     }
 
     public function endGame($idPartida){
         $this->database->execute("UPDATE partidas
                                    SET estado = 'finished'
                                    WHERE id = $idPartida;");
+    }
+
+    public function getQuestionsByPlayer($idJugador){
+        return $this->database->query("
+            SELECT pp.id_pregunta
+            FROM preguntados.jugadores_partidas jp
+            INNER JOIN partidas_preguntas pp ON jp.id_partida = pp.id_partida
+            WHERE id_jugador = $idJugador;
+        ");
+    }
+
+    private function dontRepeatTheQuestionToThePlayer($idJugador, $idNewQuestion){
+        $questionsId = $this->getQuestionsByPlayer($idJugador);
+
+        foreach ($questionsId as $questionId){}
+            if ($questionId == $idNewQuestion){
+                return true;
+            }
+        return false;
+    }
+
+    private function getIdNextQuestion(): int {
+        do {
+            $idNextQuestion = rand($this->obtenerPrimerNumero()[0]["id"], $this->obtenerSegundoNumero()[0]["id"]);
+        } while ($this->dontRepeatTheQuestionToThePlayer(1, 1, $idNextQuestion));
+        return $idNextQuestion;
     }
 }
