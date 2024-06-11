@@ -88,7 +88,7 @@ class PartidaModel
                     SELECT pp.id_partida, pp.id_pregunta, pre.descripcion
                     FROM preguntados.partidas_preguntas pp
                     INNER JOIN preguntados.preguntas pre ON pp.id_pregunta = pre.id
-                    ORDER BY pp.id_partida DESC
+                    ORDER BY pp.fecha_creacion DESC
                     LIMIT 1
                   ) AS subquery;");
     }
@@ -115,13 +115,14 @@ class PartidaModel
             if ($questionId == $idNewQuestion){
                 return true;
             }
+
         return false;
     }
 
     private function getIdNextQuestion(): int {
         do {
             $idNextQuestion = rand($this->obtenerPrimerNumero()[0]["id"], $this->obtenerSegundoNumero()[0]["id"]);
-        } while ($this->dontRepeatTheQuestionToThePlayer(1, 1, $idNextQuestion));
+        } while ($this->dontRepeatTheQuestionToThePlayer(1, $idNextQuestion));
         return $idNextQuestion;
     }
 }

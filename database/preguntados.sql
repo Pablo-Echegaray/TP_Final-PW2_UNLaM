@@ -72,6 +72,7 @@ CREATE TABLE IF NOT EXISTS respuestas(
 CREATE TABLE IF NOT EXISTS partidas_preguntas (
     id_Partida INT NOT NULL,
     id_Pregunta INT NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_partida_pregunta PRIMARY KEY (id_partida, id_pregunta),
     CONSTRAINT fk_partida_pregunta_partida FOREIGN KEY (id_partida) REFERENCES partidas(id),
     CONSTRAINT fk_partida_pregunta_pregunta FOREIGN KEY (id_pregunta) REFERENCES preguntas(id)
