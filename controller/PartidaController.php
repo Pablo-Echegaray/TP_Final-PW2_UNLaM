@@ -16,7 +16,7 @@ class PartidaController
         // CREAR LA PARTIDA
         $modo = "single player";//ejemplo
         $lastGame = $this->model->getLastGame();
-        if ($lastGame != null && $lastGame["estado"] == "finished") {
+        if ($lastGame == null || $lastGame["estado"] == "finished") {
             $partida = $this->model->crearPartida($modo);//como hago para q deje de seguir creando partidaas??
         }
         // OBTENER PREGUNTA ALEATORIA
