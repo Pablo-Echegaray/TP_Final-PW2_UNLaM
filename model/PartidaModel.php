@@ -108,14 +108,13 @@ class PartidaModel
         ");
     }
 
-    private function dontRepeatTheQuestionToThePlayer($idJugador, $idNewQuestion){
+    private function dontRepeatTheQuestionToThePlayer($idJugador, $idNewQuestion): bool{
         $questionsId = $this->getQuestionsByPlayer($idJugador);
-
-        foreach ($questionsId as $questionId){}
-            if ($questionId == $idNewQuestion){
+        foreach ($questionsId as $questionId) {
+            if ($questionId == $idNewQuestion) {
                 return true;
             }
-
+        }
         return false;
     }
 
