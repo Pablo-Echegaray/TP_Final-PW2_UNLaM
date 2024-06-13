@@ -23,12 +23,13 @@ class PartidaController
             $partida = $this->model->crearPartida($modo);
             // asignarPartidaAJugador()
         }
+
         // OBTENER PREGUNTA ALEATORIA
         $pregunta = $this->model->getPreguntaRandom();
         $game = $this->model->getLastGame();
+
         // REGISTRAR PREGUNTA A PARTIDA
         $partidaPregunta = $this->model->asignarPreguntaAPartida($game["id"], $pregunta[0]["id"]);
-
 
         // OBTENER RESPUESTAS
         $respuestas = $this->model->getRespuestas($pregunta[0]["id"]);
