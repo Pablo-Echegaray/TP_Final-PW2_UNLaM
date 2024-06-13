@@ -12,7 +12,10 @@ class PartidaController
 
     public function play()
     {
-
+        /*if (isset($_SESSION["usuario"])){
+            $usuario = $_SESSION["usuario"];
+            echo $usuario[0]["id"];
+        }*/
         // CREAR LA PARTIDA
         $modo = "single player";//ejemplo
         $lastGame = $this->model->getLastGame();
