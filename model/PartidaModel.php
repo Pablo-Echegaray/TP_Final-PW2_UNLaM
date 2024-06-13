@@ -14,16 +14,17 @@ class PartidaModel
         return $this->database->query("SELECT * FROM partidas");
     }
 
-    public function getLastGame(){
+    public function getLastGame()
+    {
         return $this->database->query_for_one("SELECT id, modo, estado
                                         FROM partidas
                                         ORDER BY id DESC
                                         LIMIT 1;");
     }
 
-    public function getPreguntaRandom()
+    public function getPreguntaRandom($usuario)
     {
-        $id = $this->getIdNextQuestion();
+        $id = $this->getIdNextQuestion($usuario);
 
         return $this->database->query("
             SELECT preguntas.id, preguntas.descripcion
@@ -49,6 +50,23 @@ class PartidaModel
             FROM preguntas
             ORDER BY preguntas.id DESC 
             LIMIT 1;
+        ");
+    }
+
+    public function asignarPartidaAJugador($idJugador, $idPartida, $puntaje)
+    {
+        return $this->database->execute("
+           INSERT INTO jugadores_partidas (id_Jugador, id_Partida, puntaje) 
+           VALUES ('$idJugador', '$idPartida', '$puntaje');
+        ");
+    }
+
+    public function buscarPartidaAsignadaAJugador($idJugador, $idPartida)
+    {
+        return $this->database->query("
+        SELECT jugadores_partidas.id_partida
+        FROM jugadores_partidas
+        WHERE jugadores_partidas.id_jugador = '$idJugador' AND jugadores_partidas.id_partida = '$idPartida';
         ");
     }
 
@@ -81,7 +99,8 @@ class PartidaModel
 
     }
 
-    public function getLastQuestionInGame(){
+    public function getLastQuestionInGame()
+    {
         return $this->database->query_for_one(
             "SELECT subquery.id_partida, subquery.id_pregunta, subquery.descripcion
              FROM (
@@ -90,16 +109,19 @@ class PartidaModel
                     INNER JOIN preguntados.preguntas pre ON pp.id_pregunta = pre.id
                     ORDER BY pp.fecha_creacion DESC
                     LIMIT 1
-                  ) AS subquery;");
+                  ) AS subquery;"
+        );
     }
 
-    public function endGame($idPartida){
+    public function endGame($idPartida)
+    {
         $this->database->execute("UPDATE partidas
                                    SET estado = 'finished'
                                    WHERE id = $idPartida;");
     }
 
-    public function getQuestionsByPlayer($idJugador){
+    public function getQuestionsByPlayer($idJugador)
+    {
         return $this->database->query("
             SELECT pp.id_pregunta
             FROM preguntados.jugadores_partidas jp
@@ -108,20 +130,19 @@ class PartidaModel
         ");
     }
 
-    private function dontRepeatTheQuestionToThePlayer($idJugador, $idNewQuestion): bool{
+    private function dontRepeatTheQuestionToThePlayer($idJugador, $idNewQuestion): bool
+    {
         $questionsId = $this->getQuestionsByPlayer($idJugador);
-        foreach ($questionsId as $questionId) {
-            if ($questionId == $idNewQuestion) {
-                return true;
-            }
-        }
-        return false;
+        return in_array($idNewQuestion, $questionsId);
     }
 
-    private function getIdNextQuestion(): int {
+    private function getIdNextQuestion($idJugador): int
+    {
         do {
             $idNextQuestion = rand($this->obtenerPrimerNumero()[0]["id"], $this->obtenerSegundoNumero()[0]["id"]);
-        } while ($this->dontRepeatTheQuestionToThePlayer(1, $idNextQuestion));
+        } while ($this->dontRepeatTheQuestionToThePlayer($idJugador, $idNextQuestion));
         return $idNextQuestion;
     }
+
+
 }
