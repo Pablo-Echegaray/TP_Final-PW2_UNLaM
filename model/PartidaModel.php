@@ -78,7 +78,7 @@ class PartidaModel
              WHERE id_pregunta = $idPregunta
              AND estado = 1;"
         );
-        
+
     }
 
     public function getLastQuestionInGame(){
