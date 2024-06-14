@@ -12,20 +12,21 @@ class PartidaController
 
     public function play()
     {
-        /*if (isset($_SESSION["usuario"])){
+        if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
             echo $usuario[0]["id"];
-        }*/
+        }
         // CREAR LA PARTIDA
         $modo = "single player";//ejemplo
         $lastGame = $this->model->getLastGame();
         if ($lastGame == null || $lastGame["estado"] == "finished") {
             $partida = $this->model->crearPartida($modo);
-            // asignarPartidaAJugador()
+            $game = $this->model->getLastGame();
+            $this->model->asignarPartidaAJugador($usuario[0]["id"], $game["id"], 50);
         }
 
         // OBTENER PREGUNTA ALEATORIA
-        $pregunta = $this->model->getPreguntaRandom();
+        $pregunta = $this->model->getPreguntaRandom($usuario[0]["id"]);
         $game = $this->model->getLastGame();
 
         // REGISTRAR PREGUNTA A PARTIDA
@@ -51,7 +52,7 @@ class PartidaController
             $this->play();
         } else {
             $this->model->endGame($lastquestion["id_partida"]);
-            echo "Respuesta incorrecta";
+            echo "Respuesta incorrecta PERDISTE";
         }
     }
 
