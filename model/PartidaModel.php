@@ -21,9 +21,9 @@ class PartidaModel
                                         LIMIT 1;");
     }
 
-    public function getPreguntaRandom()
+    public function getPreguntaRandom($usuarioId)
     {
-        $id = $this->getIdNextQuestion();
+        $id = $this->getIdNextQuestion($usuarioId);
 
         return $this->database->query("
             SELECT preguntas.id, preguntas.descripcion
@@ -108,20 +108,39 @@ class PartidaModel
         ");
     }
 
+    public function asignarPartidaAJugador($idJugador, $idPartida, $puntaje)
+    {
+        return $this->database->execute("
+           INSERT INTO jugadores_partidas (id_Jugador, id_Partida, puntaje) 
+           VALUES ('$idJugador', '$idPartida', '$puntaje');
+        ");
+    }
+
+    public function buscarPartidaAsignadaAJugador($idJugador, $idPartida)
+    {
+        return $this->database->query("
+        SELECT jugadores_partidas.id_partida
+        FROM jugadores_partidas
+        WHERE jugadores_partidas.id_jugador = '$idJugador' AND jugadores_partidas.id_partida = '$idPartida';
+        ");
+    }
+
     private function dontRepeatTheQuestionToThePlayer($idJugador, $idNewQuestion): bool{
         $questionsId = $this->getQuestionsByPlayer($idJugador);
         foreach ($questionsId as $questionId) {
-            if ($questionId == $idNewQuestion) {
+            if ($questionId["id_pregunta"] == $idNewQuestion) {
+                echo "id pregunta". $questionId["id_pregunta"];
+                echo "id new question". $idNewQuestion;
                 return true;
             }
         }
         return false;
     }
 
-    private function getIdNextQuestion(): int {
+    private function getIdNextQuestion($usuarioId): int {
         do {
             $idNextQuestion = rand($this->obtenerPrimerNumero()[0]["id"], $this->obtenerSegundoNumero()[0]["id"]);
-        } while ($this->dontRepeatTheQuestionToThePlayer(1, $idNextQuestion));
+        } while ($this->dontRepeatTheQuestionToThePlayer($usuarioId, $idNextQuestion));
         return $idNextQuestion;
     }
 }
