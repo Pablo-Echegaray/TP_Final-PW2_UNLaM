@@ -116,7 +116,7 @@ INSERT INTO categorias (descripcion) VALUES
 ('Historia'),
 ('Cultura General');
 
-INSERT INTO preguntas (descripcion, estado, entregadas, hit, id_categoria) VA
+INSERT INTO preguntas (descripcion, estado, entregadas, hit, id_categoria) VALUES
    ('¿Cuál es la capital de Francia?', 'activa', 100, 50, 1),
     ('¿Quién escribió "Don Quijote"?', 'activa', 100, 50, 2),
     ('¿Cuál es el equipo que más veces ganó la UEFA Champions League?', 'activa', 100, 50, 3),
