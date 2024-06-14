@@ -22,9 +22,9 @@ class PartidaModel
                                         LIMIT 1;");
     }
 
-    public function getPreguntaRandom($usuario)
+    public function getPreguntaRandom($usuarioId)
     {
-        $id = $this->getIdNextQuestion($usuario);
+        $id = $this->getIdNextQuestion($usuarioId);
 
         return $this->database->query("
             SELECT preguntas.id, preguntas.descripcion
