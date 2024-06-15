@@ -81,11 +81,11 @@ CREATE TABLE IF NOT EXISTS partidas_preguntas (
 /*INSERTS*/
 
 INSERT INTO usuarios (nombre, apellido, year_birth, sexo, ciudad, pais, email, password, nombre_usuario, foto, rol, activo, entregadas, hit, qr) VALUES
-('Pablo', 'Echegaray', 1995, 'Masculino', 'Buenos Aires', 'Argentina', 'pablo.echegaray@example.com', 'password123', 'pabloE', 'public/image/perfil_sin_foto.jpg', 'A', 1, 100, 50, 'QR1'),
-('Micaela', 'Mendez', 2002, 'Femenino', 'Buenos Aires', 'Argentina','micaela.mendez@example.com', 'password456', 'micaM', 'public/image/perfil_sin_foto.jpg', 'A', 1, 100, 50, 'QR2'),
-('Pablo', 'Rocha', 2002, 'Masculino', 'Buenos Aires', 'Argentina','pablo.rocha@example.com', 'password789', 'pabloR', 'public/image/perfil_sin_foto.jpg', 'A',1, 100, 50, 'QR3'),
-('Regina', 'Sanchez', 2002, 'Femenino', 'Buenos Aires', 'Argentina','regina.sanchez@example.com', 'password101', 'reginaS', 'public/image/perfil_sin_foto.jpg', 'A', 1, 100, 50, 'QR4'),
-('Carlos', 'González', 1992, 'No especificado', 'Lima', 'Perú', 'carlos.gonzalez@example.com', 'password112', 'carlosg92', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR5');
+    ('Pablo', 'Echegaray', 1995, 'Masculino', 'Buenos Aires', 'Argentina', 'pablo.echegaray@example.com', 'password123', 'pabloE', 'public/image/perfil_sin_foto.jpg', 'A', 1, 100, 50, 'QR1'),
+    ('Micaela', 'Mendez', 2002, 'Femenino', 'Buenos Aires', 'Argentina','micaela.mendez@example.com', 'password456', 'micaM', 'public/image/perfil_sin_foto.jpg', 'A', 1, 100, 50, 'QR2'),
+    ('Pablo', 'Rocha', 2002, 'Masculino', 'Buenos Aires', 'Argentina','pablo.rocha@example.com', 'password789', 'pabloR', 'public/image/perfil_sin_foto.jpg', 'A',1, 100, 50, 'QR3'),
+    ('Regina', 'Sanchez', 2002, 'Femenino', 'Buenos Aires', 'Argentina','regina.sanchez@example.com', 'password101', 'reginaS', 'public/image/perfil_sin_foto.jpg', 'A', 1, 100, 50, 'QR4'),
+    ('Carlos', 'González', 1992, 'No especificado', 'Lima', 'Perú', 'carlos.gonzalez@example.com', 'password112', 'carlosg92', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR5');
 
 /*Este insert debería hacerse cuando se crea una partida y el usuario elike si va a jugar 'single player' o 'multiplayer'.*/
 /*

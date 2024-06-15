@@ -53,23 +53,6 @@ class PartidaModel
         ");
     }
 
-    public function asignarPartidaAJugador($idJugador, $idPartida, $puntaje)
-    {
-        return $this->database->execute("
-           INSERT INTO jugadores_partidas (id_Jugador, id_Partida, puntaje) 
-           VALUES ('$idJugador', '$idPartida', '$puntaje');
-        ");
-    }
-
-    public function buscarPartidaAsignadaAJugador($idJugador, $idPartida)
-    {
-        return $this->database->query("
-        SELECT jugadores_partidas.id_partida
-        FROM jugadores_partidas
-        WHERE jugadores_partidas.id_jugador = '$idJugador' AND jugadores_partidas.id_partida = '$idPartida';
-        ");
-    }
-
     public function asignarPreguntaAPartida($idPartida, $id_Pregunta)
     {
         return $this->database->execute("
@@ -130,17 +113,39 @@ class PartidaModel
         ");
     }
 
-    private function dontRepeatTheQuestionToThePlayer($idJugador, $idNewQuestion): bool
+    public function asignarPartidaAJugador($idJugador, $idPartida, $puntaje)
     {
-        $questionsId = $this->getQuestionsByPlayer($idJugador);
-        return in_array($idNewQuestion, $questionsId);
+        return $this->database->execute("
+           INSERT INTO jugadores_partidas (id_Jugador, id_Partida, puntaje) 
+           VALUES ('$idJugador', '$idPartida', '$puntaje');
+        ");
     }
 
-    private function getIdNextQuestion($idJugador): int
+    public function buscarPartidaAsignadaAJugador($idJugador, $idPartida)
     {
+        return $this->database->query("
+        SELECT jugadores_partidas.id_partida
+        FROM jugadores_partidas
+        WHERE jugadores_partidas.id_jugador = '$idJugador' AND jugadores_partidas.id_partida = '$idPartida';
+        ");
+    }
+
+    private function dontRepeatTheQuestionToThePlayer($idJugador, $idNewQuestion): bool{
+        $questionsId = $this->getQuestionsByPlayer($idJugador);
+        foreach ($questionsId as $questionId) {
+            if ($questionId["id_pregunta"] == $idNewQuestion) {
+                echo "id pregunta". $questionId["id_pregunta"];
+                echo "id new question". $idNewQuestion;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private function getIdNextQuestion($usuarioId): int {
         do {
             $idNextQuestion = rand($this->obtenerPrimerNumero()[0]["id"], $this->obtenerSegundoNumero()[0]["id"]);
-        } while ($this->dontRepeatTheQuestionToThePlayer($idJugador, $idNextQuestion));
+        } while ($this->dontRepeatTheQuestionToThePlayer($usuarioId, $idNextQuestion));
         return $idNextQuestion;
     }
 
