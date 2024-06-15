@@ -14,8 +14,7 @@ class PartidaModel
         return $this->database->query("SELECT * FROM partidas");
     }
 
-    public function getLastGame()
-    {
+    public function getLastGame(){
         return $this->database->query_for_one("SELECT id, modo, estado
                                         FROM partidas
                                         ORDER BY id DESC
@@ -82,8 +81,7 @@ class PartidaModel
 
     }
 
-    public function getLastQuestionInGame()
-    {
+    public function getLastQuestionInGame(){
         return $this->database->query_for_one(
             "SELECT subquery.id_partida, subquery.id_pregunta, subquery.descripcion
              FROM (
@@ -92,19 +90,16 @@ class PartidaModel
                     INNER JOIN preguntados.preguntas pre ON pp.id_pregunta = pre.id
                     ORDER BY pp.fecha_creacion DESC
                     LIMIT 1
-                  ) AS subquery;"
-        );
+                  ) AS subquery;");
     }
 
-    public function endGame($idPartida)
-    {
+    public function endGame($idPartida){
         $this->database->execute("UPDATE partidas
                                    SET estado = 'finished'
                                    WHERE id = $idPartida;");
     }
 
-    public function getQuestionsByPlayer($idJugador)
-    {
+    public function getQuestionsByPlayer($idJugador){
         return $this->database->query("
             SELECT pp.id_pregunta
             FROM preguntados.jugadores_partidas jp
@@ -148,6 +143,4 @@ class PartidaModel
         } while ($this->dontRepeatTheQuestionToThePlayer($usuarioId, $idNextQuestion));
         return $idNextQuestion;
     }
-
-
 }
