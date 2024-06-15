@@ -14,7 +14,9 @@ include_once ("model/PreguntaModel.php");
 include_once("helper/Database.php");
 include_once("helper/Router.php");
 include_once("helper/MustachePresenter.php");
+include_once("helper/DataConversion.php");
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
+
 
 class Configuration
 {
@@ -64,7 +66,7 @@ class Configuration
     }
 
     public static function getPreguntaModel(){
-        return new PreguntaModel(self::getDatabase());
+        return new PreguntaModel(self::getDatabase(), self::getDataConversion());
     }
 
     //HELPERS
@@ -79,4 +81,6 @@ class Configuration
     public static function getRouter(){ return new Router("getUserController", "get"); }
 
     public static function getPresenter(){ return new MustachePresenter("view/template"); }
+
+    public static function getDataConversion(){ return new DataConversion(); }
 }
