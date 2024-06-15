@@ -16,7 +16,6 @@ class PartidaController
             $usuario = $_SESSION["usuario"];
             echo $usuario[0]["id"];
         }
-
         // CREAR LA PARTIDA
         $modo = "single player";//ejemplo
         $lastGame = $this->model->getLastGame();
@@ -25,32 +24,12 @@ class PartidaController
             $game = $this->model->getLastGame();
             $this->model->asignarPartidaAJugador($usuario[0]["id"], $game["id"], 50);
         }
-        
         // OBTENER PREGUNTA ALEATORIA
         $pregunta = $this->model->getPreguntaRandom($usuario[0]["id"]);
         $game = $this->model->getLastGame();
-
         // REGISTRAR PREGUNTA A PARTIDA
         $partidaPregunta = $this->model->asignarPreguntaAPartida($game["id"], $pregunta[0]["id"]);
 
-        if ($lastGame == null || $lastGame["estado"] == "finished") {
-            $this->model->crearPartida($modo);
-        }
-
-        // OBTENER PARTIDA ACTUAL
-        $game = $this->model->getLastGame();
-
-        // REGISTRAR PARTIDA A JUGADOR
-        $partidaAsignadaAJugador = $this->model->buscarPartidaAsignadaAJugador($usuario[0]["id"], $game["id"]);
-        if(!$partidaAsignadaAJugador){
-            $this->model->asignarPartidaAJugador($usuario[0]["id"], $game["id"], 50);
-        }
-        
-        // OBTENER PREGUNTA ALEATORIA
-        $pregunta = $this->model->getPreguntaRandom($usuario[0]["id"]);
-
-        // REGISTRAR PREGUNTA A PARTIDA
-        $this->model->asignarPreguntaAPartida($game["id"], $pregunta[0]["id"]);
 
         // OBTENER RESPUESTAS
         $respuestas = $this->model->getRespuestas($pregunta[0]["id"]);
