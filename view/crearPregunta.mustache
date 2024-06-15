@@ -1,0 +1,86 @@
+<nav class="py-6 px-4 navbar navbar-expand-lg bg-primary d-flex justify-content-between mq-nav">
+    <p class="m-0 p-0 text-light fs-3 fw-bold">
+        Preguntados
+    </p>
+</nav>
+
+<main class="d-flex justify-content-center --bs-tertiary-color">
+
+<fieldset class="my-5 p-4 w-50 bg-light rounded-4" style="height: max-content">
+<legend class="text-center fw-bold">Nueva pregunta</legend>
+
+<form action="" method="post" class="p-3">
+
+    <div class="d-flex flex-column">
+        <div class="row mb-3">
+            <label for="categoria" class="col-2 col-form-label">Categoría:</label>
+            <div class="col-sm-3">
+                <select name="categoria" id="categoria" class="form-select" required>
+                    <option value="1">Geografia</option>
+                    <option value="2">Historia</option>
+                    <option value="3">Entretenimiento</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="pregunta"  class="col-2 col-form-label">Pregunta:</label>
+            <div class="col-10">
+                <input type="text" class="form-control"  name="pregunta" id="pregunta" value="" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="opcionA" class="col-2 col-form-label">Opción A</label>
+            <div class="col-10">
+                <input type="text" class="form-control" name="opcionA" id="opcionA" value="" required>
+            </div>
+        </div>
+
+   
+        <div class="row mb-3">
+            <label for="opcionB" class="col-2 col-form-label">Opción B</label>
+            <div class="col-10">
+                <input type="text" class="form-control"  name="opcionB" id="opcionB" value="" required>
+            </div>
+            </div>
+
+    
+        <div class="row mb-3">
+            <label for="opcionC" class="col-2 col-form-label">Opción C</label>
+            <div class="col-10">
+                <input type="text" class="form-control" name="opcionC" id="opcionC" value="" required>
+            </div>
+        </div>
+
+    
+        <div class="row mb-3">
+            <label for="opcionD" class="col-2 col-form-label">Opción D</label>
+            <div class="col-10">
+                <input type="text" class="form-control" name="opcionD" id="opcionD" value="" required>
+            </div>
+        </div>
+    
+   
+        <div class="row mb-3">
+            <label class="col-2 col-form-label" for="correcta">Correcta:</label>
+            <div class="col-sm-3">
+                <select class="form-select" name="correcta" id="correcta" required>
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">C</option>
+                    <option value="4">D</option>
+                </select>
+            </div>
+        </div>
+
+    <div class="p-2 d-flex justify-content-center mq-boton">
+        <button type="submit" id="" name="" class="btn btn-primary">Guardar</button>
+    </div>
+
+</form>
+
+</div>
+
+</fieldset>
+</main>
