@@ -73,11 +73,4 @@ class UserController
             exit();
         }
     }
-    public function addQuestion() 
-    {
-        if (isset($_SESSION["usuario"])) {
-            $categorias = $this->model->getCategorias();
-            $this->presenter->render("view/crearPregunta.mustache",[ "usuario" => $_SESSION["usuario"], "categorias" => $categorias]);
-        }
-    }
 }
