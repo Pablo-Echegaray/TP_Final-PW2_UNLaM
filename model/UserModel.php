@@ -25,4 +25,5 @@ class UserModel
         WHERE id = '$id'"
         );
     }
+
 }
