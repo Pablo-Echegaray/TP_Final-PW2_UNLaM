@@ -25,4 +25,13 @@ class UserModel
         WHERE id = '$id'"
         );
     }
+
+    // quizás habría que repensar si está bien poner la func de sugerir preguntas en user controller/model
+    public function getCategorias(){
+        return $this->database->query(
+            "SELECT * 
+             FROM categorias"
+        );
+    }
+
 }
