@@ -20,5 +20,8 @@ class PreguntaController
 
     public function createQuestion(){
         echo "crear pregunta";
+        $question = $_POST['pregunta'];
+        $categoriaId = $_POST['categoria'];
+        $this->model->createQuestion($question, $categoriaId);
     }
 }
