@@ -24,4 +24,17 @@ class PreguntaController
         $categoriaId = $_POST['categoria'];
         $this->model->createQuestion($question, $categoriaId);
     }
+
+    public function reportQuestion()
+    {
+        if (isset($_POST['id_pregunta'])) {
+            $preguntaId = $_POST['id_pregunta'];
+            $this->model->reportarPregunta($preguntaId);
+            
+            header("Location: /TP_Final-PW2_UNLaM/partida/play");
+            exit;
+        }
+        echo "Error al reportar la pregunta";
+        exit;
+    }
 }

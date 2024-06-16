@@ -51,4 +51,13 @@ class PreguntaModel
         return false;
     }
 
+    public function reportarPregunta($preguntaId)
+    {
+        $this->database->execute("
+            UPDATE preguntas
+            SET estado = 'reportada'
+            WHERE id = $preguntaId
+        ");
+    }
+
 }
