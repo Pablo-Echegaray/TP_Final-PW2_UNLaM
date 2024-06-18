@@ -20,7 +20,7 @@ class PartidaController
         $modo = "single player";//ejemplo
         $lastGame = $this->model->getLastGame();
         if ($lastGame == null || $lastGame["estado"] == "finished") {
-            $partida = $this->model->crearPartida($modo);
+            $this->model->crearPartida($modo);
             $game = $this->model->getLastGame();
             $this->model->asignarPartidaAJugador($usuario[0]["id"], $game["id"], 50);
         }
