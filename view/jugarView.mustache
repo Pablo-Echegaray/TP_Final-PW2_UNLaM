@@ -6,10 +6,12 @@
 <main id="each-question" class="row">
     <form action="/TP_Final-PW2_UNLaM/partida/checkAnswer" method="post" class="flex">
             {{#preguntas}}
-                    <div id="question">
-                       <p class="text-center">{{descripcion}}</p>
-                       <!-- <input type="hidden" name="pregunta_id" value="{{id_pregunta}}">-->
-                    </div>
+                {{#color}}
+                <div id="question" style="background-color: {{color}}">
+                {{/color}}
+                    <p class="text-center">{{descripcion}}</p>
+                <!-- <input type="hidden" name="pregunta_id" value="{{id_pregunta}}">-->
+                </div>
             {{/preguntas}}
                   
             {{#respuestas}}

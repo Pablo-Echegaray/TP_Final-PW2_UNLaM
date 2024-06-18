@@ -12,10 +12,11 @@ class PartidaController
 
     public function play()
     {
-        if (isset($_SESSION["usuario"])) {
-            $usuario = $_SESSION["usuario"];
-            echo $usuario[0]["id"];
+        if (!isset($_SESSION["usuario"])) {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
         }
+        $usuario = $_SESSION["usuario"];
         // CREAR LA PARTIDA
         $modo = "single player";//ejemplo
         $lastGame = $this->model->getLastGame();
@@ -29,6 +30,10 @@ class PartidaController
         $pregunta = $this->model->getPreguntaRandom($usuario[0]["id"]);
         $game = $this->model->getLastGame();
 
+        //OBTENER CATEGORIA y ASIGNAR COLOR
+        $categoria = $this->model->obtenerCategoriaPregunta($pregunta[0]["id"]);
+        $color = self::obtenerColorPorCategoria($categoria[0]["descripcion"]);
+
         // REGISTRAR PREGUNTA A PARTIDA
         $partidaPregunta = $this->model->asignarPreguntaAPartida($game["id"], $pregunta[0]["id"]);
 
@@ -36,7 +41,7 @@ class PartidaController
         $respuestas = $this->model->getRespuestas($pregunta[0]["id"]);
 
         // VISTA
-        $this->presenter->render("view/jugarView.mustache", ["usuario" => $_SESSION["usuario"], "preguntas" => $pregunta, "respuestas" => $respuestas]);
+        $this->presenter->render("view/jugarView.mustache", ["usuario" => $_SESSION["usuario"], "preguntas" => $pregunta, "respuestas" => $respuestas, "color" => $color]);
     }
 
     public function checkAnswer()
@@ -56,5 +61,29 @@ class PartidaController
         }
     }
 
-
+    private static function obtenerColorPorCategoria($descripcion)
+    {
+        $color = "";
+        switch($descripcion){
+            case "Geografía":
+                $color = "#0487d9";
+                break;
+            case "Literatura":
+                $color = "#7325a6";
+                break;
+            case "Deportes":
+                $color = "#a1a61f";
+                break;
+            case "Ciencia":
+                $color = "#f27141";
+                break;
+            case "Historia":
+                $color = "#f2cb05";
+                break;
+            default:
+                $color = "#f23568";
+                break;
+        }
+        return $color;
+    }
 }
