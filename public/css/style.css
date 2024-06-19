@@ -121,3 +121,34 @@ td {
     float: left;
     margin-top: 30px;
 }
+
+#messageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    font-size: 3vw;
+    font-weight: 700;
+    animation: agrandarTexto 1s forwards;
+}
+
+@keyframes agrandarTexto {
+    from {
+        font-size: 3vw;
+    }
+    to {
+        font-size: 4vw;
+    }
+}
+
+.texto-verde {
+    color: green;
+}
+    
+.texto-rojo {
+    color: red;
+}

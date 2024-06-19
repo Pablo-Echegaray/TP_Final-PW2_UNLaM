@@ -23,7 +23,7 @@ class PartidaController
         if ($lastGame == null || $lastGame["estado"] == "finished") {
             $this->model->crearPartida($modo);
             $game = $this->model->getLastGame();
-            $this->model->asignarPartidaAJugador($usuario[0]["id"], $game["id"], 50);
+            $this->model->asignarPartidaAJugador($usuario[0]["id"], $game["id"], 0);
         }
 
         // OBTENER PREGUNTA ALEATORIA
@@ -48,17 +48,30 @@ class PartidaController
     {
         //Como extraigo la preguntaaa
         $lastquestion = $this->model->getLastQuestionInGame();
+        $idPartida = $lastquestion["id_partida"];
         $respuestaUsuario = $_POST['respuesta'];
-        echo $respuestaUsuario;
         $respuestaCorrecta = $this->model->getRespuestaCorrecta($lastquestion["id_pregunta"]);
+
         if ($respuestaUsuario == $respuestaCorrecta['descripcion']) {
-            echo "RESPUESTA CORRECTA";
-            //$this->model->actualizarPuntaje();
-            $this->play();
+            $mensaje= "RESPUESTA CORRECTA";
+            $claseTexto = "texto-verde";
+            $this->model->actualizarPuntaje($idPartida);
+            $this->presenter->render("view/mensajePartida.mustache", ["mensaje"=>$mensaje, "claseTexto"=>$claseTexto]);
+            header('Refresh: 2; URL=/TP_Final-PW2_UNLaM/partida/play');
         } else {
-            $this->model->endGame($lastquestion["id_partida"]);
-            echo "RESPUESTA INCORRECTA";
+            $this->model->endGame($idPartida);
+            $mensaje= "RESPUESTA INCORRECTA";
+            $claseTexto = "texto-rojo";
+            $this->presenter->render("view/mensajePartida.mustache", ["mensaje"=>$mensaje, "claseTexto"=>$claseTexto]);
+            header('Refresh: 2; URL=/TP_Final-PW2_UNLaM/partida/finishGame');
         }
+    }
+
+    public function finishGame()
+    {
+        $lastquestion = $this->model->getLastQuestionInGame();
+        $puntaje=$this->model->getPuntajeJugadorEnPartida($lastquestion["id_partida"]);
+        $this->presenter->render("view/finalizarPartidaView.mustache", ["puntaje"=>$puntaje]);
     }
 
     private static function obtenerColorPorCategoria($descripcion)
