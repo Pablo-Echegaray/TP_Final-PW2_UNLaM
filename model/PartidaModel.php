@@ -125,6 +125,16 @@ class PartidaModel
         ");
     }
 
+    public function obtenerCategoriaPregunta($idPregunta)
+    {
+        return $this->database->query("
+            SELECT c.descripcion
+            FROM preguntas p
+            INNER JOIN categorias c ON p.id_categoria = c.id
+            WHERE p.id = '$idPregunta';
+        ");
+    }
+
     private function dontRepeatTheQuestionToThePlayer($idJugador, $idNewQuestion): bool{
         $questionsId = $this->getQuestionsByPlayer($idJugador);
         foreach ($questionsId as $questionId) {

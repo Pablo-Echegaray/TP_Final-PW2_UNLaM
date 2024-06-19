@@ -6,8 +6,8 @@ USE preguntados;
 /*Creación de Tablas*/
 
 CREATE TABLE IF NOT EXISTS usuarios(
-    id INT AUTO_INCREMENT,
-    nombre VARCHAR(50) NOT NULL,
+                                       id INT AUTO_INCREMENT,
+                                       nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
     year_birth INT NOT NULL,
     sexo VARCHAR(50) NOT NULL,
@@ -28,31 +28,31 @@ CREATE TABLE IF NOT EXISTS usuarios(
     );
 
 CREATE TABLE IF NOT EXISTS partidas(
-    id INT AUTO_INCREMENT,
-    modo VARCHAR(50) NOT NULL, /* single player | multiplayer */
+                                       id INT AUTO_INCREMENT,
+                                       modo VARCHAR(50) NOT NULL, /* single player | multiplayer */
     estado VARCHAR(50) NOT NULL, /* playing | finished*/
     CONSTRAINT pk_partida PRIMARY KEY (id)
     );
 
 CREATE TABLE IF NOT EXISTS jugadores_partidas(
-    id_jugador INT NOT NULL,
-    id_partida INT NOT NULL,
-    puntaje INT,
-    CONSTRAINT pk_jugador_partida PRIMARY KEY (id_jugador, id_partida),
+                                                 id_jugador INT NOT NULL,
+                                                 id_partida INT NOT NULL,
+                                                 puntaje INT,
+                                                 CONSTRAINT pk_jugador_partida PRIMARY KEY (id_jugador, id_partida),
     CONSTRAINT fk_jugador_partida_jugador FOREIGN KEY (id_jugador) REFERENCES usuarios(id),
     CONSTRAINT fk_jugador_partida_partida FOREIGN KEY (id_partida) REFERENCES partidas(id)
     );
 
 CREATE TABLE IF NOT EXISTS categorias (
-    id INT AUTO_INCREMENT,
-    descripcion VARCHAR(50) NOT NULL,
+                                          id INT AUTO_INCREMENT,
+                                          descripcion VARCHAR(50) NOT NULL,
     CONSTRAINT pk_categoria PRIMARY KEY (id)
     );
 
 CREATE TABLE IF NOT EXISTS preguntas (
-    id INT AUTO_INCREMENT,
-    descripcion TEXT NOT NULL,
-    estado VARCHAR(20) NOT NULL, /* activa - reportada - sugerida*/
+                                         id INT AUTO_INCREMENT,
+                                         descripcion TEXT NOT NULL,
+                                         estado VARCHAR(20) NOT NULL, /* activa - reportada - sugerida*/
     entregadas INT NOT NULL, /* 100 -> valor por default*/
     hit INT NOT NULL, /* 50 -> valor por default*/
     id_categoria INT NOT NULL,
@@ -61,8 +61,8 @@ CREATE TABLE IF NOT EXISTS preguntas (
     );
 
 CREATE TABLE IF NOT EXISTS respuestas(
-    id INT AUTO_INCREMENT,
-    descripcion VARCHAR(255) NOT NULL,
+                                         id INT AUTO_INCREMENT,
+                                         descripcion VARCHAR(255) NOT NULL,
     estado INT NOT NULL, /* 0 = incorrecta | 1= correcta*/
     id_pregunta INT NOT NULL,
     CONSTRAINT pk_respuesta PRIMARY KEY (id),
@@ -70,10 +70,10 @@ CREATE TABLE IF NOT EXISTS respuestas(
     );
 
 CREATE TABLE IF NOT EXISTS partidas_preguntas (
-    id_Partida INT NOT NULL,
-    id_Pregunta INT NOT NULL,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT pk_partida_pregunta PRIMARY KEY (id_partida, id_pregunta),
+                                                  id_Partida INT NOT NULL,
+                                                  id_Pregunta INT NOT NULL,
+                                                  fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                                  CONSTRAINT pk_partida_pregunta PRIMARY KEY (id_partida, id_pregunta),
     CONSTRAINT fk_partida_pregunta_partida FOREIGN KEY (id_partida) REFERENCES partidas(id),
     CONSTRAINT fk_partida_pregunta_pregunta FOREIGN KEY (id_pregunta) REFERENCES preguntas(id)
     );
@@ -109,12 +109,12 @@ INSERT INTO jugadores_partidas (id_Jugador, id_Partida, puntaje) VALUES
 (5, 6, 30);
 */
 INSERT INTO categorias (descripcion) VALUES
-('Geografía'),
-('Literatura'),
-('Deportes'),
-('Ciencia'),
-('Historia'),
-('Cultura General');
+                                         ('Geografía'),
+                                         ('Literatura'),
+                                         ('Deportes'),
+                                         ('Ciencia'),
+                                         ('Historia'),
+                                         ('Cultura General');
 
 INSERT INTO preguntas (descripcion, estado, entregadas, hit, id_categoria) VALUES
    ('¿Cuál es la capital de Francia?', 'activa', 100, 50, 1),
