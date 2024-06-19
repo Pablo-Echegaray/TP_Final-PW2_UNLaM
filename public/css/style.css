@@ -16,6 +16,7 @@
 
 body {
     margin: 50px;
+    background-color: #f1f2f8;
 }
 h1 {
     text-align: center;
@@ -112,6 +113,7 @@ td {
 #button {
     margin: 30px;
 }
+
 #report{
     float: right;
     margin-top: 30px;
@@ -120,4 +122,61 @@ td {
 #submit-answer {
     float: left;
     margin-top: 30px;
+}
+
+
+.contenedor {
+    max-width: 50%;
+    width: 100%;
+    margin: auto;
+    background-color: #ffffff;
+    padding: 20px;
+ 
+}
+
+
+.contenedor .icono i {
+    line-height: 40px;
+}
+
+
+/*LISTADO DE PREGUNTAS */
+
+#listadoPreguntas {
+    border: 1px solid #c0c0c0;
+    padding: 10px;
+}
+
+#listadoPreguntas .contenedor-pregunta header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#listadoPreguntas .contenedor-pregunta header .tema {
+    display: block;
+    background: #7cafe9;
+    color: #fff;
+    font-size: 12px;
+    padding: 8px 6px; 
+    border-radius: 10px;
+
+}
+
+#listadoPreguntas .contenedor-pregunta header .opciones {
+    display: flex;
+    align-items: center; 
+}
+
+#listadoPreguntas .contenedor-pregunta header .opciones i {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+#listadoPreguntas .contenedor-pregunta .pregunta {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+#listadoPreguntas .opcion {
+    margin-bottom: 10px;
 }
