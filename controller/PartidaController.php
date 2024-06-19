@@ -52,12 +52,12 @@ class PartidaController
         echo $respuestaUsuario;
         $respuestaCorrecta = $this->model->getRespuestaCorrecta($lastquestion["id_pregunta"]);
         if ($respuestaUsuario == $respuestaCorrecta['descripcion']) {
-            echo "Respuesta correcta";
+            echo "RESPUESTA CORRECTA";
             //$this->model->actualizarPuntaje();
             $this->play();
         } else {
             $this->model->endGame($lastquestion["id_partida"]);
-            echo "Respuesta incorrecta PERDISTE";
+            echo "RESPUESTA INCORRECTA";
         }
     }
 
