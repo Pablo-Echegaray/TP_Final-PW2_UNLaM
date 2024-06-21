@@ -21,6 +21,7 @@ class PartidaModel
                                         LIMIT 1;");
     }
 
+
     public function getPreguntaRandom($usuarioId)
     {
         $id = $this->getIdNextQuestion($usuarioId);
@@ -185,9 +186,55 @@ class PartidaModel
     }
 
     private function getIdNextQuestion($usuarioId): int {
+        $apropriateQuestions = $this->selectQuestionsByDifficulty($usuarioId);
+        foreach ($apropriateQuestions[0] as $question) {
+            echo $question["descripcion"];
+        }
         do {
-            $idNextQuestion = rand($this->obtenerPrimerNumero()[0]["id"], $this->obtenerSegundoNumero()[0]["id"]);
+            //$idNextQuestion = rand($this->obtenerPrimerNumero()[0]["id"], $this->obtenerSegundoNumero()[0]["id"]);
+            $idNextQuestion = $apropriateQuestions[0][rand(0, count($apropriateQuestions[0])-1)]["id"];
         } while ($this->dontRepeatTheQuestionToThePlayer($usuarioId, $idNextQuestion));
         return $idNextQuestion;
+    }
+
+    private function setDifficulty(){
+        $questions = $this->database->query("SELECT * FROM preguntas");
+        $easyQuestions = [];
+        $mediumQuestions = [];
+        $hardQuestions = [];
+        //array_push($array, "valor1", "valor2");
+        foreach ($questions as $question) {
+            if ($question["hit"] /$question["entregadas"] > 0.6) {
+                array_push($easyQuestions, $question);
+
+            }else if ($question["hit"] /$question["entregadas"] < 0.6 && $question["hit"] /$question["entregadas"] > 0.4) {
+                array_push($mediumQuestions, $question);
+            }else{
+                array_push($hardQuestions, $question);
+            }
+        }
+        return array("easyQuestions" => $easyQuestions, "mediumQuestions" => $mediumQuestions, "hardQuestions" => $hardQuestions);
+    }
+
+    private function getPlayerExperience($playerId){
+        $user = $this->database->query("SELECT * FROM usuarios WHERE id = $playerId;");
+        return $user[0]["hit"] / $user[0]["entregadas"];
+    }
+
+    private function selectQuestionsByDifficulty($playerId){
+        $questionsByDifficulty = $this->setDifficulty();
+        $playerExperience = $this->getPlayerExperience($playerId);
+        $apropriateQuestions = [];
+        if ($playerExperience > 0.6) {
+            array_push($apropriateQuestions, $questionsByDifficulty["hardQuestions"]);
+            //$apropriateQuestions = $questionsByDifficulty["hardQuestions"];
+        }else if ($playerExperience > 0.4 && $playerExperience < 0.6){
+            array_push($apropriateQuestions, $questionsByDifficulty["mediumQuestions"]);
+            //$apropriateQuestions = $questionsByDifficulty["mediumQuestions"];
+        }else{
+            array_push($apropriateQuestions, $questionsByDifficulty["easyQuestions"]);
+            //$apropriateQuestions = $questionsByDifficulty["easyQuestions"];
+        }
+        return $apropriateQuestions;
     }
 }
