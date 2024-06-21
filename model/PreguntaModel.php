@@ -55,13 +55,18 @@ class PreguntaModel
         echo "Respuesta4: " . $answers[3]['descripcion'] . "Estado" . $answers[3]['estado'];
         //$answers[$i] = ["id" => "$respuestaIds[$i]", "descripcion" => $respuestaDescripciones[$i]];
         //echo $data;
+        $this->updateQuestion($idPregunta, $pregunta, $idCategoria);
+
+        for ($i=0; $i < count($answers); $i++){
+            $this->updateAnswer($answers[$i]['id'],$answers[$i]['descripcion'], $answers[$i]['estado']);
+        }
     }
 
     private function updateQuestion($idPregunta, $pregunta, $idCategoria){
         $this->database->execute(
             "UPDATE preguntas
              SET
-                descripcion = $pregunta,
+                descripcion = '$pregunta',
                 id_categoria = $idCategoria
              WHERE
                 id = $idPregunta;"
@@ -79,7 +84,7 @@ class PreguntaModel
         $this->database->execute(
             "UPDATE respuestas
              SET
-                descripcion = $answer,
+                descripcion = '$answer',
                 estado = $state
              WHERE
                 id = $idAnswer;"
