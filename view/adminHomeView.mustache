@@ -1,0 +1,28 @@
+{{>header}}
+{{>navAdmin}}
+{{#usuario}}
+    <h2>¡Hola {{nombre}}!</h2>
+
+    <div>
+        <div class="row mb-3">
+            <div class="col-sm-4">
+                {{jugadoresActivos}} 
+                <p>JUGADORES ACTIVOS</p>
+            </div>
+            <div class="col-sm-4">
+                {{totalPartidas}}
+                <p>PARTIDAS JUGADAS</p>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-4">
+                {{totalPreguntas}} 
+                <p>PREGUNTAS ACTIVAS</p>
+            </div>
+            <div class="col-sm-4">
+                {{totalPreguntasCreadas}} 
+                <p>PREGUNTAS SUGERIDAS</p>
+            </div>
+        </div>
+    </div>
+{{/usuario}}
