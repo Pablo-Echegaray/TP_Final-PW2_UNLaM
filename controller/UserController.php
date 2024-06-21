@@ -16,7 +16,7 @@ class UserController
 
     public function get()
     {
-        if (isset($_SESSION["usuario"])) {
+        if (!isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
             $this->renderHomeView($usuario);
         } else {
@@ -56,7 +56,12 @@ class UserController
 
         switch ($rol) {
             case 'J':
-                $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario]);
+                if ($usuario[0]["activo"] == 0){
+                    $error = "Debes verificar tu correo para iniciar sesion";
+                    $this->presenter->render("view/iniciarSesionView.mustache", ["error" => $error]);
+                } else {
+                    $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario]);
+                }
                 break;
             case 'E':
                 $estado = "activa";
@@ -181,4 +186,24 @@ class UserController
         $this->modelQuestion->editQuestionAndAnswers($idPregunta, $idCategoria, $pregunta, $answers, $correcta);
     }
 
+    public function validation(){
+
+        $this->presenter->render("view/validarUsuarioView.mustache");
+    }
+
+    public function activar()
+    {
+        $username = $_POST["username"] ?? "";
+        $codigo = $_POST["codigo"] ?? "";
+
+        $esValido = $this->modelUser->validarCodigo($username, $codigo);
+        if ($esValido){
+            $exito = "Validacion correcta, ya puedes iniciar sesion";
+            $this->presenter->render("view/iniciarSesionView.mustache", ["exito" => $exito]);
+
+        } else {
+            $error = "Codigo incorrecto";
+            $this->presenter->render("view/validarUsuarioView.mustache", ["error" => $error]);
+        }
+    }
 }
