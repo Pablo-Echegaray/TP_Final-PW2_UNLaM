@@ -8,7 +8,7 @@
 <fieldset class="my-5 p-4 w-50 bg-light rounded-4" style="height: max-content">
 <legend class="text-center fw-bold">Editar pregunta</legend>
 
-<form action="" method="post" class="p-3">
+<form action="/TP_Final-PW2_UNLaM/user/updateQuestion" method="post" class="p-3">
 
     {{#pregunta}}
     <div class="d-flex flex-column">
@@ -37,12 +37,12 @@
        <div class="row mb-3">
             <label class="col-2 col-form-label">Opción:</label>
             <div class="col-10">
-                <textarea name="opcion" class="form-control">{{descripcion}}</textarea>
-                <input type="hidden" name="respuestaId" value="{{id}}">
+                <textarea name="opcion[]" class="form-control">{{descripcion}}</textarea>
+                <input type="hidden" name="respuestaId[]" value="{{id}}">
             </div>
         </div>
     {{/respuestas}}
-   
+
         <div class="row mb-3">
             <label class="col-2 col-form-label" for="correcta">Correcta:</label>
             <div class="col-sm-3">
