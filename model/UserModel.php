@@ -20,7 +20,7 @@ class UserModel
     public function getUserById($id)
     {
         return $this->database->query(
-        "SELECT * 
+            "SELECT * 
         FROM usuarios
         WHERE id = '$id'"
         );

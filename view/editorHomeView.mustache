@@ -1,0 +1,126 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<nav class="py-6 px-4 navbar navbar-expand-lg bg-primary d-flex justify-content-between mq-nav">
+    <p class="m-0 p-0 text-light fs-3 fw-bold">
+        Preguntados
+    </p>
+    <div class="d-flex justify-content-end" id="navbarNav">
+        <ul class="navbar-nav flex-row">
+          <li class="nav-item px-2">
+                <a class="nav-link text-white fs-5" href="/TP_Final-PW2_UNLaM/pregunta/suggestQuestion">
+                    Crear Pregunta
+                </a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link text-white fs-5" href="/TP_Final-PW2_UNLaM/view/editorHomeView">
+                    Activas
+                </a>
+            </li>
+           <li class="nav-item px-2">
+                <a class="nav-link text-white fs-5" href="/TP_Final-PW2_UNLaM/user/inactiveQuestions">
+                    Inactivas
+                </a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link text-white fs-5" href="/TP_Final-PW2_UNLaM/user/reportedQuestions">
+                    Reportadas
+                </a>
+            </li>
+              <li class="nav-item px-2">
+                <a class="nav-link text-white fs-5" href="/TP_Final-PW2_UNLaM/user/suggestedQuestions">
+                    Sugeridas
+                </a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link text-white fs-5" href="/TP_Final-PW2_UNLaM/user/logout">
+                    Cerrar Sesión
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+{{#usuario}}
+
+{{#preguntas}}
+
+<div class="contenedor">
+ <section id="listadoPreguntas">
+    <div class="contenedor-pregunta">
+         
+         <header>
+             <span class="tema">{{categoria}}</span>
+
+               <!-- BOTONES SEGUN LA PREGUNTA -->
+                {{#activas}} <!-- el editor va a poder editar/inactivar preguntas -->
+                <div class="opciones">
+                    <form action="/TP_Final-PW2_UNLaM/user/editQuestion" method="post">
+                        <input type="hidden" name="preguntaId" value="{{id}}">
+                        <button type="submit"  class="btn btn-link">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                    </form>
+
+                    <form action='/TP_Final-PW2_UNLaM/user/disapproveQuestion' method='post'>
+                        <input type="hidden" name="preguntaId" value="{{id}}">
+                        <button type='submit' class="btn btn-link">
+                             <i class="fa-solid fa-circle-minus"></i>
+                        </button>
+                    </form>
+                </div>
+                {{/activas}}
+
+                {{#sugeridas}} <!-- el editor va a poder aprobar/eliminar preguntas -->
+                <div class="opciones">
+                    <form action="/TP_Final-PW2_UNLaM/user/approveQuestion" method="post">
+                        <input type="hidden" name="preguntaId" value="{{id}}">
+                        <button type="submit"  class="btn btn-link">
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                    </form>
+
+                    <form action='/TP_Final-PW2_UNLaM/user/deleteQuestion' method='post'>
+                        <input type="hidden" name="preguntaId" value="{{id}}">
+                        <button type='submit' class="btn btn-link">
+                             <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
+                {{/sugeridas}}
+
+                {{#reportadas}}<!-- el editor va a poder aprobar/inactivar preguntas -->
+                <div class="opciones">
+                    <form action="/TP_Final-PW2_UNLaM/user/approveQuestion" method="post">
+                        <input type="hidden" name="preguntaId" value="{{id}}">
+                        <button type="submit"  class="btn btn-link">
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                    </form>
+                
+                    <form action='/TP_Final-PW2_UNLaM/user/disapproveQuestion' method='post'>
+                        <input type="hidden" name="preguntaId" value="{{id}}">
+                        <button type='submit' class="btn btn-link">
+                            <i class="fa-solid fa-circle-minus"></i>
+                        </button>
+                    </form>
+                </div>
+                {{/reportadas}}
+        </header>
+    
+        <p class="pregunta">{{descripcion}}</p>
+        
+               {{#respuestas}}
+                    <div class="opcion">
+                        <span class="texto">{{descripcion}}</span>
+                    </div>
+                {{/respuestas}}
+
+</section>
+</div>
+</div>
+
+{{/preguntas}}
+{{/usuario}}
