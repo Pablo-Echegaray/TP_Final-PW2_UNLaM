@@ -23,7 +23,7 @@ class Configuration
     //CONTROLLERS
     public static function getUserController()
     {
-        return new UserController(self::getUserModel(), self::getPresenter());
+        return new UserController(self::getUserModel(), self::getPreguntaModel(), self::getPresenter());
     }
 
     public static function getRegisterController()
