@@ -99,6 +99,21 @@ class PartidaModel
                                    WHERE id = $idPartida;");
     }
 
+    public function actualizarPuntaje($idPartida){
+        $this->database->execute("UPDATE jugadores_partidas
+                                   SET puntaje = puntaje + 5
+                                   WHERE id_partida = $idPartida;");
+    }
+
+    public function getPuntajeJugadorEnPartida($idPartida)
+    {
+        return $this->database->query_for_one("
+            SELECT puntaje
+            FROM jugadores_partidas
+            WHERE id_partida = '$idPartida';
+        ");
+    }
+        
     public function getQuestionsByPlayer($idJugador){
         return $this->database->query("
             SELECT pp.id_pregunta
