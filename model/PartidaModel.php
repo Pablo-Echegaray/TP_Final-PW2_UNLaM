@@ -150,6 +150,28 @@ class PartidaModel
         ");
     }
 
+    public function updateQuestionDeliveredAndHit($idPregunta, $value){
+        $this->database->execute("
+               UPDATE preguntas
+                SET
+                    entregadas = entregadas + 1,
+                    hit = hit + $value
+                WHERE
+                    id = $idPregunta;");
+
+    }
+
+    public function updateUserDeliveredAndHit($idUsuario, $value){
+        $this->database->execute("
+               UPDATE usuarios
+                SET
+                    entregadas = entregadas + 1,
+                    hit = hit + $value
+                WHERE
+                    id = $idUsuario;");
+
+    }
+
     private function dontRepeatTheQuestionToThePlayer($idJugador, $idNewQuestion): bool{
         $questionsId = $this->getQuestionsByPlayer($idJugador);
         foreach ($questionsId as $questionId) {
