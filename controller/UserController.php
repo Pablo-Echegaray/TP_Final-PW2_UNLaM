@@ -167,30 +167,10 @@ class UserController
         $correcta = isset($_POST['correcta']) ? $_POST['correcta'] : null;
         $answers = [];
 
-
-        echo "id pregunta controller:". $idPregunta . "<br>";
-        /*
-        echo "pregunta controller" . $pregunta . "<br>";
-        echo "categoriaID desde controller" . $categoriaId . "<br>";
-        echo "respuestaID" . $_POST['respuestaId'][0] . "descripcion res" . $_POST['opcion'][0] . "<br>";
-        echo "respuestaID" . $_POST['respuestaId'][1] . "descripcion res" . $_POST['opcion'][1] . "<br>";
-        echo "respuestaID" . $_POST['respuestaId'][2] . "descripcion res" . $_POST['opcion'][2] . "<br>";
-        echo "respuestaID" . $_POST['respuestaId'][3] . "descripcion res" . $_POST['opcion'][3] . "<br>";
-*/
-
-        //echo "respuestaID" . $_POST['respuestaId'][0];
-       // echo "respuestaID" . $_POST['respuestaId'][1];
         for ($i=0; $i < count($respuestaIds); $i++) {
             $answers[$i] = ["id" => "$respuestaIds[$i]", "descripcion" => $respuestaDescripciones[$i], "estado" => 0];
-            //echo "respuestaID " . $respuestaIds[$i] . "<br>";
-            //echo "respuestaDescripcion " . $respuestaDescripciones[$i] . "<br>";
+
         }
-        /*
-        echo "id respuesta: " . $answers[0]['id'] . "descripcion res: " . $answers[0]['descripcion'] . "<br>";
-        echo "id respuesta: " . $answers[1]['id'] . "descripcion res: " . $answers[1]['descripcion'] . "<br>";
-        echo "id respuesta: " . $answers[2]['id'] . "descripcion res: " . $answers[2]['descripcion'] . "<br>";
-        echo "id respuesta: " . $answers[3]['id'] . "descripcion res: " . $answers[3]['descripcion'] . "<br>";
-        */
 
         $this->modelQuestion->editQuestionAndAnswers($idPregunta, $idCategoria, $pregunta, $answers, $correcta);
     }

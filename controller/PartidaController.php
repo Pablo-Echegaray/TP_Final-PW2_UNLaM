@@ -51,15 +51,20 @@ class PartidaController
         $idPartida = $lastquestion["id_partida"];
         $respuestaUsuario = $_POST['respuesta'];
         $respuestaCorrecta = $this->model->getRespuestaCorrecta($lastquestion["id_pregunta"]);
+        $usuario = $_SESSION["usuario"];
 
         if ($respuestaUsuario == $respuestaCorrecta['descripcion']) {
             $mensaje= "RESPUESTA CORRECTA";
             $claseTexto = "texto-verde";
             $this->model->actualizarPuntaje($idPartida);
+            $this->model->updateQuestionDeliveredAndHit($lastquestion["id_pregunta"], 1);
+            $this->model->updateUserDeliveredAndHit($usuario[0]["id"], 1);
             $this->presenter->render("view/mensajePartida.mustache", ["mensaje"=>$mensaje, "claseTexto"=>$claseTexto]);
             header('Refresh: 2; URL=/TP_Final-PW2_UNLaM/partida/play');
         } else {
             $this->model->endGame($idPartida);
+            $this->model->updateQuestionDeliveredAndHit($lastquestion["id_pregunta"], -1);
+            $this->model->updateUserDeliveredAndHit($usuario[0]["id"], -1);
             $mensaje= "RESPUESTA INCORRECTA";
             $claseTexto = "texto-rojo";
             $this->presenter->render("view/mensajePartida.mustache", ["mensaje"=>$mensaje, "claseTexto"=>$claseTexto]);

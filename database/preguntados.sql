@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS partidas_preguntas (
 /*INSERTS*/
 
 INSERT INTO usuarios (nombre, apellido, year_birth, sexo, ciudad, pais, email, password, nombre_usuario, foto, rol, activo, entregadas, hit, qr) VALUES
-    ('Pablo', 'Echegaray', 1995, 'Masculino', 'Buenos Aires', 'Argentina', 'pablo.echegaray@example.com', 'password123', 'pabloE', 'public/image/perfil_sin_foto.jpg', 'E', 1, 100, 50, 'QR1'),
+    ('Pablo', 'Echegaray', 1995, 'Masculino', 'Buenos Aires', 'Argentina', 'pablo.echegaray@example.com', 'password123', 'pabloE', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR1'),
     ('Micaela', 'Mendez', 2002, 'Femenino', 'Buenos Aires', 'Argentina','micaela.mendez@example.com', 'password456', 'micaM', 'public/image/perfil_sin_foto.jpg', 'A', 1, 100, 50, 'QR2'),
     ('Pablo', 'Rocha', 2002, 'Masculino', 'Buenos Aires', 'Argentina','pablo.rocha@example.com', 'password789', 'pabloR', 'public/image/perfil_sin_foto.jpg', 'A',1, 100, 50, 'QR3'),
     ('Regina', 'Sanchez', 2002, 'Femenino', 'Buenos Aires', 'Argentina','regina.sanchez@example.com', 'password101', 'reginaS', 'public/image/perfil_sin_foto.jpg', 'A', 1, 100, 50, 'QR4'),
@@ -117,35 +117,35 @@ INSERT INTO categorias (descripcion) VALUES
                                          ('Cultura General');
 
 INSERT INTO preguntas (descripcion, estado, entregadas, hit, id_categoria) VALUES
-   ('¿Cuál es la capital de Francia?', 'activa', 100, 50, 1),
+   ('¿Cuál es la capital de Francia?', 'activa', 100, 70, 1),
     ('¿Quién escribió "Don Quijote"?', 'activa', 100, 50, 2),
     ('¿Cuál es el equipo que más veces ganó la UEFA Champions League?', 'activa', 100, 50, 3),
-    ('¿En qué año llegó el hombre a la luna?', 'activa', 100, 50, 5),
+    ('¿En qué año llegó el hombre a la luna?', 'activa', 100, 70, 5),
     ('¿Cuál es el elemento químico con símbolo "O"?','activa', 100, 50, 4),
     ('¿Cuál es el río más largo del mundo?','activa', 100, 50, 1),
-    ('¿Qué ciudad es conocida como la Gran Manzana?','activa', 100, 50, 1),
+    ('¿Qué ciudad es conocida como la Gran Manzana?','activa', 100, 70, 1),
     ('¿Quién pintó la Mona Lisa?','activa', 100, 50, 6),
-    ('¿Quién escribió "Cien años de soledad"?', 'activa', 100, 50, 2),
+    ('¿Quién escribió "Cien años de soledad"?', 'activa', 100, 70, 2),
     ('¿Cuál es el deporte más popular del mundo?', 'activa', 100, 50, 3),
     ('¿En qué año se fundó la FIFA?', 'activa', 100, 50, 3),
-    ('¿Cuál es la fórmula química del agua?', 'activa', 100, 50, 4),
-    ('¿Quién descubrió la penicilina?', 'activa', 100, 50, 6),
+    ('¿Cuál es la fórmula química del agua?', 'activa', 100, 70, 4),
+    ('¿Quién descubrió la penicilina?', 'activa', 100, 70, 6),
     ('¿Cuál es la capital de Japón?', 'activa', 100, 50, 1),
     ('¿Quién escribió "Hamlet"?', 'activa', 100, 50, 2),
-    ('¿Cuál es el planeta más cercano al sol?', 'activa', 100, 50, 4),
+    ('¿Cuál es el planeta más cercano al sol?', 'activa', 100, 70, 4),
     ('¿Quién es conocido como el padre de la física moderna?', 'activa', 100, 50, 4),
     ('¿Cuál es el océano más grande del mundo?', 'activa', 100, 50, 1),
-    ('¿Qué país es el mayor productor de café?', 'activa', 100, 50, 1),
+    ('¿Qué país es el mayor productor de café?', 'activa', 100, 70, 1),
     ('¿Quién escribió "La Divina Comedia"?', 'activa', 100, 50, 2),
-    ('¿Quién ganó el primer Mundial de Fútbol?', 'activa', 100, 50, 3),
+    ('¿Quién ganó el primer Mundial de Fútbol?', 'activa', 100, 70, 3),
     ('¿Qué científico propuso la teoría de la relatividad?', 'activa', 100, 50, 4),
     ('¿Cuál es el símbolo químico del oro?', 'activa', 100, 50, 4),
     ('¿Cuál es la montaña más alta del mundo?', 'activa', 100, 50, 1),
-    ('¿Qué país tiene la mayor población del mundo?', 'activa', 100, 50, 1),
+    ('¿Qué país tiene la mayor población del mundo?', 'activa', 100, 70, 1),
     ('¿Quién es el autor de "1984"?', 'activa', 100, 50, 2),
     ('¿Cuál es el país con más medallas olímpicas?', 'activa', 100, 50, 3),
     ('¿Qué elemento tiene el símbolo Na?', 'activa', 100, 50, 4),
-    ('¿Cuál es el animal terrestre más rápido del mundo?', 'activa', 100, 50, 6);
+    ('¿Cuál es el animal terrestre más rápido del mundo?', 'activa', 100, 70, 6);
 
 INSERT INTO respuestas (descripcion, estado, id_pregunta) VALUES
 ('Londres', 0, 1),
