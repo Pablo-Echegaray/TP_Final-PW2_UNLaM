@@ -30,7 +30,8 @@ class PreguntaController
         if (isset($_POST['id_pregunta'])) {
             $preguntaId = $_POST['id_pregunta'];
             $this->model->reportarPregunta($preguntaId);
-            
+            //vista que diga "pregunta repostada" y boton de "seguir jugando"?
+            //pop up?
             header("Location: /TP_Final-PW2_UNLaM/partida/play");
             exit;
         }
