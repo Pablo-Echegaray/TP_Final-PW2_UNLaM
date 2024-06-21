@@ -1,4 +1,8 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 include_once ("controller/UserController.php");
 include_once ("controller/RegisterController.php");
 include_once ("controller/PartidaController.php");
@@ -17,6 +21,9 @@ include_once("helper/MustachePresenter.php");
 include_once("helper/DataConversion.php");
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 
+include_once ("helper/PHPMailer/src/Exception.php");
+include_once ("helper/PHPMailer/src/PHPMailer.php");
+include_once ("helper/PHPMailer/src/SMTP.php");
 
 class Configuration
 {
@@ -53,7 +60,7 @@ class Configuration
 
     private static function getRegisterModel()
     {
-        return new RegisterModel(self::getDatabase());
+        return new RegisterModel(self::getDatabase(), self::getMailer());
     }
     private static function getPartidaModel()
     {
@@ -83,4 +90,19 @@ class Configuration
     public static function getPresenter(){ return new MustachePresenter("view/template"); }
 
     public static function getDataConversion(){ return new DataConversion(); }
+
+    public static function getMailer()
+    {
+        $mailer = new PHPMailer(true);
+        $mailer->SMTPDebug = SMTP::DEBUG_OFF;
+        $mailer->isSMTP();
+        $mailer->Host = "smtp.gmail.com";
+        $mailer->SMTPAuth = true;
+        $mailer->Username = "preguntados.ejemplo@gmail.com";
+        $mailer->Password = "nmjo nlsj mvfl gbdx";
+        $mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mailer->Port = 465;
+
+        return $mailer;
+    }
 }
