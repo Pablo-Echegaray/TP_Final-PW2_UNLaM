@@ -49,12 +49,6 @@ class PreguntaModel
             }
 
         }
-        echo "Respuesta1: " . $answers[0]['descripcion'] . "Estado" . $answers[0]['estado'] . "<br>";
-        echo "Respuesta2: " . $answers[1]['descripcion'] . "Estado" . $answers[1]['estado'] . "<br>";
-        echo "Respuesta3: " . $answers[2]['descripcion'] . "Estado" . $answers[2]['estado'] . "<br>";
-        echo "Respuesta4: " . $answers[3]['descripcion'] . "Estado" . $answers[3]['estado'];
-        //$answers[$i] = ["id" => "$respuestaIds[$i]", "descripcion" => $respuestaDescripciones[$i]];
-        //echo $data;
         $this->updateQuestion($idPregunta, $pregunta, $idCategoria);
 
         for ($i=0; $i < count($answers); $i++){
@@ -71,13 +65,6 @@ class PreguntaModel
              WHERE
                 id = $idPregunta;"
         );
-        /*UPDATE preguntas
-            SET
-            descripcion = $pregunta,
-            id_categoria = $idCategoria
-         WHERE
-            id = $idPregunta;*/
-
     }
 
     private function updateAnswer($idAnswer, $answer, $state){
@@ -89,14 +76,6 @@ class PreguntaModel
              WHERE
                 id = $idAnswer;"
         );
-        //respuestas (descripcion, estado, id_pregunta)
-        /*UPDATE respuestas
-           SET
-           descripcion = $answer,
-           estado = $state
-        WHERE
-           id = $idAnswer;*/
-
     }
 
     private function validateIfQuestionExists($question): bool
