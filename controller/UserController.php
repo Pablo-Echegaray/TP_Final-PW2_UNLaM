@@ -16,7 +16,7 @@ class UserController
 
     public function get()
     {
-        if (!isset($_SESSION["usuario"])) {
+        if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
             $this->renderHomeView($usuario);
         } else {
@@ -184,6 +184,8 @@ class UserController
         }
 
         $this->modelQuestion->editQuestionAndAnswers($idPregunta, $idCategoria, $pregunta, $answers, $correcta);
+        header("Location: /TP_Final-PW2_UNLaM/view/editorHomeView.mustache");
+        exit;
     }
 
     public function validation(){

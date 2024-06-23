@@ -27,15 +27,14 @@ class PreguntaController
 
     public function reportQuestion()
     {
-        if (isset($_POST['id_pregunta'])) {
-            $preguntaId = $_POST['id_pregunta'];
+        if (isset($_POST['preguntaId'])) {
+            $preguntaId = $_POST['preguntaId'];
             $this->model->reportarPregunta($preguntaId);
-            //vista que diga "pregunta repostada" y boton de "seguir jugando"?
-            //pop up?
             header("Location: /TP_Final-PW2_UNLaM/partida/play");
             exit;
-        }
+        } else {
         echo "Error al reportar la pregunta";
         exit;
+        }
     }
 }
