@@ -14,7 +14,7 @@ class UserController
 
     public function get()
     {
-        if (!isset($_SESSION["usuario"])) {
+        if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
             $this->renderHomeView($usuario);
         } else {
