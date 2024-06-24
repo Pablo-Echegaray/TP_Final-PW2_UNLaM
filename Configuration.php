@@ -14,6 +14,7 @@ include_once ("model/UserModel.php");
 include_once ("model/PartidaModel.php");
 include_once ("model/RankingModel.php");
 include_once ("model/PreguntaModel.php");
+include_once("model/AdminModel.php");
 
 include_once("helper/Database.php");
 include_once("helper/Router.php");
@@ -30,7 +31,7 @@ class Configuration
     //CONTROLLERS
     public static function getUserController()
     {
-        return new UserController(self::getUserModel(), self::getPreguntaModel(), self::getPresenter());
+        return new UserController(self::getUserModel(), self::getAdminModel(), self::getPreguntaModel(), self::getPresenter());
     }
 
     public static function getRegisterController()
@@ -56,6 +57,11 @@ class Configuration
     private static function getUserModel()
     {
         return new UserModel(self::getDatabase());
+    }
+
+    private static function getAdminModel()
+    {
+        return new AdminModel(self::getDatabase());
     }
 
     private static function getRegisterModel()

@@ -4,12 +4,14 @@ class UserController
     private $presenter;
     private $modelUser;
     private $modelQuestion;
+    private $modelAdmin;
 
-    public function __construct($modelUser, $modelQuestion, $presenter)
+    public function __construct($modelUser, $modelAdmin, $modelQuestion, $presenter)
     {
         $this->presenter = $presenter;
         $this->modelUser = $modelUser;
         $this->modelQuestion = $modelQuestion;
+        $this->modelAdmin = $modelAdmin;
     }
 
     public function get()
@@ -67,7 +69,11 @@ class UserController
                 $this->presenter->render("view/editorHomeView.mustache", ["usuario" => $usuario, "preguntas" => $preguntas, "activas" => true]);
                 break;
             case 'A':
-                $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario]);
+                $jugadoresActivos = $this->modelAdmin->getActivePlayers();
+                $totalPartidas = $this->modelAdmin->getTotalGames();
+                $totalPreguntas = $this->modelAdmin->getTotalQuestions();
+                $totalPreguntasCreadas = $this->modelAdmin->getTotalCreatedQuestions();
+                $this->presenter->render("view/adminHomeView.mustache", ["usuario" => $usuario, 'jugadoresActivos' => $jugadoresActivos, 'totalPartidas' => $totalPartidas, 'totalPreguntas' => $totalPreguntas, 'totalPreguntasCreadas' => $totalPreguntasCreadas]);
                 break;
         }
     }
