@@ -116,7 +116,7 @@ class UserController
         }
     }
 
-    // Funciones editor
+    /******** Funciones EDITOR ********/
     public function approveQuestion()
     {
         $idPregunta = $_POST['preguntaId'];
@@ -152,41 +152,57 @@ class UserController
         $respuestas = $this->modelQuestion->getAnswers($idPregunta);
         $categorias =  $this->modelQuestion->getCategorias();
 
-
         $this->presenter->render("view/editarPreguntaView.mustache", ["pregunta" => $pregunta, "usuario" => $_SESSION['usuario'], "respuestas" => $respuestas, "categorias" => $categorias]);
     }
 
     public function inactiveQuestions()
     {
-        if (!isset($_SESSION["usuario"])) {
+        if (isset($_SESSION["usuario"])) {
+            $usuario = $_SESSION["usuario"];
+            $rol = $usuario[0]["rol"];
+            if ($rol == "E"){
+                $estado = "inactiva";
+                $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
+                $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "reportadas" => true]);
+            } else { $this->renderHomeView($usuario); }
+        } else {
             header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
             exit();
         }
-        $estado = "inactiva";
-        $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
-        $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "reportadas" => true]);
     }
 
     public function suggestedQuestions()
     {
-        if (!isset($_SESSION["usuario"])) {
+        if (isset($_SESSION["usuario"])) {
+            $usuario = $_SESSION["usuario"];
+            $rol = $usuario[0]["rol"];
+            if ($rol == "E"){
+                $estado = "sugerida";
+                $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
+                $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "sugeridas" => true]);
+            } else { $this->renderHomeView($usuario); }
+        } else {
             header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
             exit();
         }
-        $estado = "sugerida";
-        $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
-        $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "sugeridas" => true]);
+
     }
 
     public function reportedQuestions()
     {
-        if (!isset($_SESSION["usuario"])) {
+        if (isset($_SESSION["usuario"])) {
+            $usuario = $_SESSION["usuario"];
+            $rol = $usuario[0]["rol"];
+            if ($rol == "E"){
+                $estado = "reportada";
+                $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
+                $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "reportadas" => true]);
+            } else { $this->renderHomeView($usuario); }
+
+        } else {
             header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
             exit();
         }
-        $estado = "reportada";
-        $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
-        $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "reportadas" => true]);
     }
 
 
