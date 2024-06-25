@@ -38,6 +38,20 @@ class PreguntaModel
         }
     }
 
+    public function createQuestionEditor($question, $categoriaId){
+        if ($this->validateIfQuestionExists($question)){
+            echo "La pregunta ya existe";
+        }
+        else{
+            $validatedQuestion = "¿".ucfirst($question)."?";
+            echo $validatedQuestion;
+            $this->database->execute(
+                "INSERT INTO preguntados.preguntas (descripcion, estado, entregadas, hit, id_categoria)
+                VALUES ('$validatedQuestion', 'activa', 100, 50, $categoriaId);"
+            );
+        }
+    }
+
     public function editQuestionAndAnswers($idPregunta, $idCategoria, $pregunta, $answers, $correcta){
         $states = ["A"=> 0, "B"=> 1, "C"=> 2, "D"=> 3];
         foreach ($states as $key => $value) {
@@ -93,8 +107,8 @@ class PreguntaModel
 
     public function reportarPregunta($preguntaId)
     {
-        $this->database->execute("
-            UPDATE preguntas
+        $this->database->execute(
+            "UPDATE preguntas
             SET estado = 'reportada'
             WHERE id = $preguntaId
         ");

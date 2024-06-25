@@ -10,7 +10,6 @@
                 <div id="question" style="background-color: {{color}}">
                 {{/color}}
                     <p class="text-center">{{descripcion}}</p>
-                <!-- <input type="hidden" name="pregunta_id" value="{{id_pregunta}}">-->
                 </div>
             {{/preguntas}}
                   
@@ -22,9 +21,42 @@
             {{/respuestas}}
 
         <div class="form-group" id="board-button">
-        <!--<a class="btn btn-info" href="/TP_Final-PW2_UNLaM/pregunta/reportQuestion">Reportar</a> -->
             <button type="submit" class="btn btn-info" id="submit-answer">Confirmar</button>
-            <button class="btn btn-info" id="report">Reportar</button>
+            <a class="btn btn-info" id="report">Reportar</a>
         </div>
+  
     </form>
+
+  
+    <div class="modalContainer" id="modalContainer">
+        <div class="pop">
+            <form action="/TP_Final-PW2_UNLaM/pregunta/reportQuestion" method="post" class="ml-2">
+                <h3>REPORTAR</h3>
+                <p>¿Estás seguro que quieres reportar esta pregunta?</p>
+                {{#preguntas}}
+                <input type="hidden" name="preguntaId" value="{{id}}">
+                {{/preguntas}}
+                <button type="submit" class="btn btn-info" id="close">SI</button>
+                <a class="btn btn-danger" id="denegar">NO</a>
+        </form>
+    </div>
+    </div>
+
+    <script src="/TP_Final-PW2_UNLaM/public/js/report.js" defer></script>
+    
 </main>
+
+    <!--  <form action="/TP_Final-PW2_UNLaM/pregunta/reportQuestion" method="post" class="ml-2">
+        {{#preguntas}}
+        <input type="hidden" name="preguntaId" value="{{id}}">
+        {{/preguntas}}
+        <button type="submit" class="btn btn-info" id="report">Reportar</button>
+    </form>
+
+    <div class="modalContainer" id="modalContainer">
+        <div class="pop">
+            <h3>¡PREGUNTA REPORTADA!</h3>
+            <p>Seguir jugando?</p>
+            <button class="btn btn-info" id="close">SI</button>
+        </div>
+    </div>-->
