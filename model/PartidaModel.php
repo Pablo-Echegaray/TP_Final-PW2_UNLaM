@@ -29,7 +29,7 @@ class PartidaModel
         return $this->database->query("
             SELECT preguntas.id, preguntas.descripcion
             FROM preguntas 
-            WHERE preguntas.id = '$id';
+            WHERE preguntas.id = '$id' ;
         ");
     }
 
@@ -198,7 +198,7 @@ class PartidaModel
     }
 
     private function setDifficulty(){
-        $questions = $this->database->query("SELECT * FROM preguntas");
+        $questions = $this->database->query("SELECT * FROM preguntas WHERE estado = 'activa'");
         $easyQuestions = [];
         $mediumQuestions = [];
         $hardQuestions = [];
