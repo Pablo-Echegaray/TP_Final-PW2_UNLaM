@@ -15,11 +15,18 @@ class PreguntaController
         if (isset($_SESSION["usuario"])) {
             $categorias = $this->model->getCategorias();
             $this->presenter->render("view/crearPregunta.mustache", ["usuario" => $_SESSION["usuario"], "categorias" => $categorias]);
+        } else {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
         }
     }
 
     public function createQuestion()
     {
+        if (!isset($_SESSION["usuario"])) {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
         echo "crear pregunta";
         $question = $_POST['pregunta'];
         $categoriaId = $_POST['categoria'];
@@ -41,6 +48,10 @@ class PreguntaController
 
     public function reportQuestion()
     {
+        if (!isset($_SESSION["usuario"])) {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
         if (isset($_POST['preguntaId'])) {
             $preguntaId = $_POST['preguntaId'];
             $this->model->reportarPregunta($preguntaId);

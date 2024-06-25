@@ -51,6 +51,7 @@ class UserController
     // Vista para cada uno de los usuarios
     private function renderHomeView($usuario)
     {
+
         $rol = $usuario[0]["rol"];
         echo $rol;
 
@@ -80,6 +81,10 @@ class UserController
 
     public function porfile()
     {
+        if (!isset($_SESSION["usuario"])) {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
         if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
             $this->presenter->render("view/perfilView.mustache", ["usuario" => $_SESSION["usuario"]]);
@@ -97,6 +102,10 @@ class UserController
 
     public function profile() 
     {
+        if (!isset($_SESSION["usuario"])) {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
         $id = $_GET['id'];
         $usuario = $this->modelUser->getUserById($id);
         if (isset($id) && $usuario) {
@@ -149,6 +158,10 @@ class UserController
 
     public function inactiveQuestions()
     {
+        if (!isset($_SESSION["usuario"])) {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
         $estado = "inactiva";
         $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
         $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "reportadas" => true]);
@@ -156,6 +169,10 @@ class UserController
 
     public function suggestedQuestions()
     {
+        if (!isset($_SESSION["usuario"])) {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
         $estado = "sugerida";
         $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
         $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "sugeridas" => true]);
@@ -163,6 +180,10 @@ class UserController
 
     public function reportedQuestions()
     {
+        if (!isset($_SESSION["usuario"])) {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
         $estado = "reportada";
         $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
         $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "reportadas" => true]);
