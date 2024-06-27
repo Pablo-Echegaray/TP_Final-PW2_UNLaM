@@ -46,6 +46,10 @@ class PartidaController
 
     public function checkAnswer()
     {
+        if (!isset($_SESSION["usuario"])) {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
         //Como extraigo la preguntaaa
         $lastquestion = $this->model->getLastQuestionInGame();
         $idPartida = $lastquestion["id_partida"];
@@ -75,6 +79,10 @@ class PartidaController
 
     public function finishGame()
     {
+        if (!isset($_SESSION["usuario"])) {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
         $lastquestion = $this->model->getLastQuestionInGame();
         $puntaje=$this->model->getPuntajeJugadorEnPartida($lastquestion["id_partida"]);
         $this->presenter->render("view/finalizarPartidaView.mustache", ["puntaje"=>$puntaje]);

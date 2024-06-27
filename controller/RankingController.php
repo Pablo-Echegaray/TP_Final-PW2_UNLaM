@@ -10,6 +10,10 @@ class RankingController {
     }
 
     public function ranking() {
+        if (!isset($_SESSION["usuario"])) {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
         $ranking = $this->model->getRanking();
         $this->presenter->render("view/rankingView.mustache", array("ranking" => $ranking));
     }
