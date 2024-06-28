@@ -16,11 +16,102 @@
 
 body {
     margin: 50px;
-    background-color: #f1f2f8;
+    background-color: #ffffff;
 }
+
 h1 {
     text-align: center;
 }
+
+.titulo{
+    margin-top: 10px;
+    margin-left: 25px;
+    color: #314056;
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #d6d4d4; 
+
+}
+
+.container {
+    display: flex;
+    background-color: #f2f2f2;
+
+}
+
+.nav {
+    /* Estilos adicionales para el nav si es necesario */
+    flex: 0 0 auto; /* Esto asegura que el nav no se expanda */
+    width: 250px;
+    border-right: 1px solid #d6d4d4;
+}
+
+main {
+    flex: 1; /* El main ocupará el espacio restante */
+}
+
+.nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav ul li {
+    margin: 15px 0;
+}
+
+.nav ul li .icono {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    color: #314056;
+    border-radius: 15px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.nav ul li .icono i {
+    line-height: 40px;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    color: #31415a;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.tabla-historial {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.tabla-historial table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Estilos para las filas y celdas */
+.tabla-historial th,
+.tabla-historial td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd; /* Borde inferior gris */
+}
+
+.tabla-historial th {
+    background-color: #f2f2f2; /* Fondo gris claro para las cabeceras */
+    font-weight: bold;
+    color: #333;
+}
+.tabla-historial tbody tr:nth-child(odd) {
+    background-color: #f9f9f9; /* Fondo gris claro para filas impares */
+}
+
+
 #page {
     color:red;
     margin-bottom:20px;
