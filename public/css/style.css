@@ -110,19 +110,57 @@ td {
     float: right;
 }
 
-#button {
-    margin: 30px;
-}
-
 #report{
     float: right;
     margin-top: 30px;
-
 }
+
 #submit-answer {
     float: left;
     margin-top: 30px;
 }
+.modalContainer {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.3);
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;  
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    transition: opacity 0.3s ease;
+  }
+  
+  .show {
+    pointer-events: auto;
+    opacity: 1;
+  }
+  
+  .pop {
+    background-color: #fff;
+    width: 600px;
+    max-width: 100%;
+    padding: 30px 50px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .pop h3 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .pop p {
+    opacity: 0.7;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #666;
+  }
 
 #messageContainer {
     display: flex;
@@ -209,4 +247,28 @@ td {
 
 #listadoPreguntas .opcion {
     margin-bottom: 10px;
+}
+
+.contenedor-grafico {
+    width: 100%; /* Ajustar el ancho según sea necesario */
+    max-width: 600px; /* Ancho máximo del div */
+    height: auto; /* La altura se ajustará automáticamente según la proporción */
+    border: 1px solid #ccc; /* Borde para resaltar el div */
+    overflow: hidden; /* Ocultar cualquier desbordamiento */
+    margin: 0 auto; /* Centrar el div horizontalmente */
+}
+
+.contenedor-grafico img {
+    width: 100%; /* La imagen ocupa el 100% del ancho del div */
+    height: auto; /* La altura se ajusta automáticamente según la proporción */
+    display: block; /* Asegura que la imagen sea un elemento de bloque */
+}
+
+.box-datos{
+    background: linear-gradient(135deg, #F8D7B8, #824A71, #2c2d4c);
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    margin: 1em;
+    width: 30%;
 }

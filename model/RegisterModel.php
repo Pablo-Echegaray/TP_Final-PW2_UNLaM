@@ -2,10 +2,12 @@
 class RegisterModel
 {
     private $database;
+    private $mailer;
 
-    public function __construct($database)
+    public function __construct($database, $mailer)
     {
         $this->database = $database;
+        $this->mailer = $mailer;
     }
 
     public function calcularEdad($nacimiento)
@@ -46,19 +48,42 @@ class RegisterModel
         return "perfil_sin_foto.jpg";
     }
 
-    public function generarCodigo() { return "ABC".rand("100", "999"); }
-
-    public function agregar($nombre, $apellido, $nacimiento, $sexo, $ciudad, $pais, $email, $contrasena, $usuario, $foto, $codigo)
+    public function agregar($nombre, $apellido, $nacimiento, $sexo, $ciudad, $pais, $email, $contrasena, $usuario, $foto)
     {
-        //$idSexo = $this->getRowByValueOfField($sexo, "sexos", "descripcion")['id'];
-        $this->database->execute(
-            "INSERT INTO usuarios(nombre, apellido, year_birth, sexo, ciudad, pais, email, password, nombre_usuario, foto)
-             VALUES ('$nombre','$apellido','$nacimiento','$sexo','$ciudad','$pais', '$email','$contrasena','$usuario','$foto')"
-        );
-        //$this->setCityCountryInUser($pais, $ciudad, $usuario);
+        //Rol, qr, entregadas y hit valores por defecto
+        $this->database->execute("
+            INSERT INTO
+            usuarios
+            (nombre, apellido, year_birth, sexo, ciudad, pais, email, password, nombre_usuario, foto, rol, activo, qr, entregadas, hit)
+            VALUES
+            ('$nombre','$apellido','$nacimiento','$sexo','$ciudad','$pais', '$email','$contrasena','$usuario','$foto', 'J', 0, 'QR', 100, 50)
+        ");
     }
 
+    public function enviarCorreoVerificacion($email, $nombre, $usuario)
+    {
+        $codigoVerificacion = "ABC".rand("100", "999");
+        //POR EL MOMENTO LO VA A GUARDAR EN EL QR EL CODIGO DE VERIFICACION, hasta cambiar la tabla usuario
+        $this->guardarCodigoVerificacion($usuario, $codigoVerificacion);
 
+        try{
+            $this->mailer->setFrom('preguntados.ejemplo@info.com', 'Preguntados');
+            $this->mailer->addAddress($email, $nombre);
+            $this->mailer->addReplyTo('preguntados.ejemplo@info.com', 'Preguntados');
+
+            $this->mailer->isHTML(true);
+            $this->mailer->Subject = 'Verifica tu mail para Jugar!';
+            $this->mailer->Body =
+                '<b>¡Verificacion!<b> <br>
+                    <h1>Tu codigo es: '.$codigoVerificacion.'</h1><br>
+                Para jugar, haz click en el siguiente link y copia tu codigo: <br>
+                http://localhost/TP_Final-PW2_UNLaM/user/validation';
+
+            $this->mailer->send();
+        } catch (Exception $e) {
+            echo "El mensaje no pudo ser enviado: {$this->mailer->ErrorInfo}";
+        }
+    }
 
     private function capitalizeFirstLetter($string):string {
         $string = strtolower($string);
@@ -121,5 +146,13 @@ class RegisterModel
     private function addNewCity($city){
         $this->database->execute("INSERT INTO ciudades(descripcion) VALUES ('$city')");
     }*/
+    private function guardarCodigoVerificacion($usuario, $codigoVerificacion)
+    {
+        $this->database->execute("
+            UPDATE usuarios
+            SET codigo_verificacion = '$codigoVerificacion'
+            WHERE nombre_usuario = '$usuario';
+        ");
+    }
 
 }

@@ -51,12 +51,18 @@ class UserController
     // Vista para cada uno de los usuarios
     private function renderHomeView($usuario)
     {
+
         $rol = $usuario[0]["rol"];
         echo $rol;
 
         switch ($rol) {
             case 'J':
-                $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario]);
+                if ($usuario[0]["activo"] == 0){
+                    $error = "Debes verificar tu correo para iniciar sesion";
+                    $this->presenter->render("view/iniciarSesionView.mustache", ["error" => $error]);
+                } else {
+                    $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario]);
+                }
                 break;
             case 'E':
                 $estado = "activa";
@@ -75,6 +81,10 @@ class UserController
 
     public function porfile()
     {
+        if (!isset($_SESSION["usuario"])) {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
         if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
             $this->presenter->render("view/perfilView.mustache", ["usuario" => $_SESSION["usuario"]]);
@@ -92,6 +102,10 @@ class UserController
 
     public function profile() 
     {
+        if (!isset($_SESSION["usuario"])) {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
         $id = $_GET['id'];
         $usuario = $this->modelUser->getUserById($id);
         if (isset($id) && $usuario) {
@@ -102,7 +116,7 @@ class UserController
         }
     }
 
-    // Funciones editor
+    /******** Funciones EDITOR ********/
     public function approveQuestion()
     {
         $idPregunta = $_POST['preguntaId'];
@@ -138,29 +152,57 @@ class UserController
         $respuestas = $this->modelQuestion->getAnswers($idPregunta);
         $categorias =  $this->modelQuestion->getCategorias();
 
-
         $this->presenter->render("view/editarPreguntaView.mustache", ["pregunta" => $pregunta, "usuario" => $_SESSION['usuario'], "respuestas" => $respuestas, "categorias" => $categorias]);
     }
 
     public function inactiveQuestions()
     {
-        $estado = "inactiva";
-        $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
-        $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "reportadas" => true]);
+        if (isset($_SESSION["usuario"])) {
+            $usuario = $_SESSION["usuario"];
+            $rol = $usuario[0]["rol"];
+            if ($rol == "E"){
+                $estado = "inactiva";
+                $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
+                $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "reportadas" => true]);
+            } else { $this->renderHomeView($usuario); }
+        } else {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
     }
 
     public function suggestedQuestions()
     {
-        $estado = "sugerida";
-        $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
-        $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "sugeridas" => true]);
+        if (isset($_SESSION["usuario"])) {
+            $usuario = $_SESSION["usuario"];
+            $rol = $usuario[0]["rol"];
+            if ($rol == "E"){
+                $estado = "sugerida";
+                $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
+                $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "sugeridas" => true]);
+            } else { $this->renderHomeView($usuario); }
+        } else {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
+
     }
 
     public function reportedQuestions()
     {
-        $estado = "reportada";
-        $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
-        $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "reportadas" => true]);
+        if (isset($_SESSION["usuario"])) {
+            $usuario = $_SESSION["usuario"];
+            $rol = $usuario[0]["rol"];
+            if ($rol == "E"){
+                $estado = "reportada";
+                $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
+                $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "reportadas" => true]);
+            } else { $this->renderHomeView($usuario); }
+
+        } else {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
     }
 
 
@@ -179,6 +221,28 @@ class UserController
         }
 
         $this->modelQuestion->editQuestionAndAnswers($idPregunta, $idCategoria, $pregunta, $answers, $correcta);
+        header("Location: /TP_Final-PW2_UNLaM/view/editorHomeView.mustache");
+        exit;
     }
 
+    public function validation(){
+
+        $this->presenter->render("view/validarUsuarioView.mustache");
+    }
+
+    public function activar()
+    {
+        $username = $_POST["username"] ?? "";
+        $codigo = $_POST["codigo"] ?? "";
+
+        $esValido = $this->modelUser->validarCodigo($username, $codigo);
+        if ($esValido){
+            $exito = "Validacion correcta, ya puedes iniciar sesion";
+            $this->presenter->render("view/iniciarSesionView.mustache", ["exito" => $exito]);
+
+        } else {
+            $error = "Codigo incorrecto";
+            $this->presenter->render("view/validarUsuarioView.mustache", ["error" => $error]);
+        }
+    }
 }
