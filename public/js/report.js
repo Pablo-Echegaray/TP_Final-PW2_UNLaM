@@ -16,3 +16,14 @@ modal_container.classList.remove('show');
 denegar.addEventListener('click', ()=> {
 modal_container.classList.remove('show');
 });
+
+let numero = 5;
+function conteo() {
+    document.getElementById('contador').innerText = `Lanzamiento en ${numero} segundos`;
+    numero--;
+    if (numero == 0) {
+        clearInterval(lanzamiento);
+        window.location.href = "http://localhost/TP_Final-PW2_UNLaM/partida/timerRefresh";
+    }
+}
+let lanzamiento = setInterval(conteo, 1000);

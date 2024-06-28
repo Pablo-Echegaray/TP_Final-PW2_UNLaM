@@ -2,7 +2,9 @@
 
 <main class="m-4 p-4 w-75 bg-light">
 <h2>PARTIDA FINALIZADA</h2>
-
+{{#error}}
+<h4 class="text-danger">{{error}}</h4>
+{{/error}}
 {{#puntaje}}
     <p>Puntaje total: {{puntaje}}</p>
 {{/puntaje}}
