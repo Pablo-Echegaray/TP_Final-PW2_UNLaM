@@ -17,7 +17,7 @@ denegar.addEventListener('click', ()=> {
 modal_container.classList.remove('show');
 });
 
-let numero = 5;
+let numero = 15;
 function conteo() {
     document.getElementById('contador').innerText = `Lanzamiento en ${numero} segundos`;
     numero--;
