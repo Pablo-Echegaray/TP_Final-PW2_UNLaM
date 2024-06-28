@@ -8,13 +8,15 @@ include_once ("controller/RegisterController.php");
 include_once ("controller/PartidaController.php");
 include_once("controller/RankingController.php");
 include_once("controller/PreguntaController.php");
+include_once ("controller/AdminController.php");
 
 include_once ("model/RegisterModel.php");
 include_once ("model/UserModel.php");
 include_once ("model/PartidaModel.php");
 include_once ("model/RankingModel.php");
 include_once ("model/PreguntaModel.php");
-include_once("model/AdminModel.php");
+include_once ("model/AdminModel.php");
+include_once ("model/GraphicModel.php");
 
 include_once("helper/Database.php");
 include_once("helper/Router.php");
@@ -53,6 +55,10 @@ class Configuration
         return new PreguntaController(self::getPreguntaModel(), self::getPresenter());
     }
 
+    public static function getAdminController(){
+        return new AdminController(self::getAdminModel(), self::getGraphicModel(), self::getPresenter());
+    }
+
     //MODELS
     private static function getUserModel()
     {
@@ -80,6 +86,11 @@ class Configuration
 
     public static function getPreguntaModel(){
         return new PreguntaModel(self::getDatabase(), self::getDataConversion());
+    }
+
+    private static function getGraphicModel()
+    {
+        return new GraphicModel(self::getDatabase());
     }
 
     //HELPERS

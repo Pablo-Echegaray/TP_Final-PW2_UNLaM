@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS usuarios(
     qr VARCHAR(255), /* ni idea*/
     entregadas INT NOT NULL, /* 100 -> valor por default*/  /* hit / entregadas */
     hit INT NOT NULL, /* 50 -> valor por default*/
-    codigo_verificacion VARCHAR(50) NOT NULL,
+    codigo_verificacion VARCHAR(50),
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_usuario PRIMARY KEY (id),
     CONSTRAINT unique_email UNIQUE (email),
     CONSTRAINT unique_nombre_usuario UNIQUE (nombre_usuario)
@@ -32,6 +33,7 @@ CREATE TABLE IF NOT EXISTS partidas(
     id INT AUTO_INCREMENT,
     modo VARCHAR(50) NOT NULL, /* single player | multiplayer */
     estado VARCHAR(50) NOT NULL, /* playing | finished*/
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_partida PRIMARY KEY (id)
     );
 
@@ -57,6 +59,7 @@ CREATE TABLE IF NOT EXISTS preguntas (
     entregadas INT NOT NULL, /* 100 -> valor por default*/
     hit INT NOT NULL, /* 50 -> valor por default*/
     id_categoria INT NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_pregunta PRIMARY KEY (id),
     CONSTRAINT fk_pregunta_categoria FOREIGN KEY (id_categoria) REFERENCES categorias(id)
     );
@@ -81,34 +84,61 @@ CREATE TABLE IF NOT EXISTS partidas_preguntas (
 
 /*INSERTS*/
 
-INSERT INTO usuarios (nombre, apellido, year_birth, sexo, ciudad, pais, email, password, nombre_usuario, foto, rol, activo, entregadas, hit, qr) VALUES
-    ('Pablo', 'Echegaray', 1995, 'Masculino', 'Buenos Aires', 'Argentina', 'pablo.echegaray@example.com', 'password123', 'pabloE', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR1'),
-    ('Micaela', 'Mendez', 2002, 'Femenino', 'Buenos Aires', 'Argentina','micaela.mendez@example.com', 'password456', 'micaM', 'public/image/perfil_sin_foto.jpg', 'A', 1, 100, 50, 'QR2'),
-    ('Pablo', 'Rocha', 2002, 'Masculino', 'Buenos Aires', 'Argentina','pablo.rocha@example.com', 'password789', 'pabloR', 'public/image/perfil_sin_foto.jpg', 'A',1, 100, 50, 'QR3'),
-    ('Regina', 'Sanchez', 2002, 'Femenino', 'Buenos Aires', 'Argentina','regina.sanchez@example.com', 'password101', 'reginaS', 'public/image/perfil_sin_foto.jpg', 'A', 1, 100, 50, 'QR4'),
-    ('Carlos', 'González', 1992, 'No especificado', 'Lima', 'Perú', 'carlos.gonzalez@example.com', 'password112', 'carlosg92', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR5');
+INSERT INTO usuarios (nombre, apellido, year_birth, sexo, ciudad, pais, email, password, nombre_usuario, foto, rol, activo, entregadas, hit, qr, fecha_creacion) VALUES
+    ('Pablo', 'Echegaray', 1995, 'Masculino', 'Buenos Aires', 'Argentina', 'pablo.echegaray@example.com', 'password123', 'pabloE', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR1', '2023-12-01 12:00:00'),
+    ('Micaela', 'Mendez', 2002, 'Femenino', 'Buenos Aires', 'Argentina', 'micaela.mendez@example.com', 'password456', 'micaM', 'public/image/perfil_sin_foto.jpg', 'A', 1, 100, 50, 'QR2', '2023-12-02 10:30:00'),
+    ('Pablo', 'Rocha', 2002, 'Masculino', 'Buenos Aires', 'Argentina', 'pablo.rocha@example.com', 'password789', 'pabloR', 'public/image/perfil_sin_foto.jpg', 'E', 1, 100, 50, 'QR3', '2023-12-03 15:45:00'),
+    ('Regina', 'Sanchez', 2002, 'Femenino', 'Buenos Aires', 'Argentina', 'regina.sanchez@example.com', 'password101', 'reginaS', 'public/image/perfil_sin_foto.jpg', 'A', 1, 100, 50, 'QR4', '2023-12-04 08:00:00'),
+    ('Carlos', 'González', 1992, 'No especificado', 'Lima', 'Perú', 'carlos.gonzalez@example.com', 'password112', 'carlosg92', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR5', '2024-01-01 14:20:00'),
+    ('José', 'González', 1995, 'Masculino', 'Ciudad de México', 'México', 'jose.gonzalez@example.com', 'password123', 'joseG', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR16', '2024-01-10 09:30:00'),
+    ('Ana', 'Martín', 2010, 'Femenino', 'Buenos Aires', 'Argentina', 'ana.martin@example.com', 'passwordabc', 'anaM', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR21', '2024-01-20 10:00:00'),
+    ('Fernanda', 'López', 1980, 'Femenino', 'Bogotá', 'Colombia', 'fernanda.lopez@example.com', 'password456', 'fernandaL', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR17', '2024-02-05 14:45:00'),
+    ('Alejandro', 'Martínez', 1975, 'Masculino', 'Santiago', 'Chile', 'alejandro.martinez@example.com', 'password789', 'alejandroM', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR18', '2024-03-03 11:00:00'),
+    ('Valeria', 'Fernández', 1990, 'Femenino', 'Lima', 'Perú', 'valeria.fernandez@example.com', 'password101', 'valeriaF', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR19', '2024-04-15 16:20:00'),
+    ('Carlos', 'Sánchez', 2005, 'No especificado', 'San José', 'Costa Rica', 'carlos.sanchez@example.com', 'password112', 'carlosS', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR20', '2024-05-08 08:30:00'),
+    ('Miguel', 'Hernández', 1995, 'Masculino', 'Quito', 'Ecuador', 'miguel.hernandez@example.com', 'passwordjkl', 'miguelH', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR24', '2024-05-13 16:45:00'),
+    ('Laura', 'Gutiérrez', 1983, 'Femenino', 'Medellín', 'Colombia', 'laura.gutierrez@example.com', 'password123', 'lauraG', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR26', '2024-06-28 10:00:00'),
+    ('Jorge', 'Pérez', 1990, 'Masculino', 'Buenos Aires', 'Argentina', 'jorge.perez@example.com', 'password456', 'jorgeP', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR27', '2024-07-01 14:30:00'),
+    ('María', 'López', 1978, 'Femenino', 'Lima', 'Perú', 'maria.lopez@example.com', 'password789', 'mariaL', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR28', '2024-07-01 08:45:00'),
+    ('Roberto', 'Sánchez', 1985, 'Masculino', 'Santiago', 'Chile', 'roberto.sanchez@example.com', 'password101', 'robertoS', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR29', '2024-07-02 12:00:00'),
+    ('Ana', 'Paredes', 1980, 'Femenino', 'Madrid', 'España', 'ana.martinez@example.com', 'password123', 'anaP', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR30', '2024-07-03 09:00:00'),
+    ('Lucía', 'Pérez', 1970, 'Femenino', 'Montevideo', 'Uruguay', 'lucia.perez@example.com', 'passwordghi', 'luciaP', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR23', '2024-07-07 14:30:00'),
+    ('Sara', 'Díaz', 1988, 'Femenino', 'Santiago', 'Chile', 'sara.diaz@example.com', 'passwordmno', 'saraD', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR25', '2024-07-10 18:00:00'),
+    ('Elena', 'López', 1988, 'Femenino', 'Bogotá', 'Colombia', 'elena.lopez@example.com', 'password789', 'elenaL', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR32', '2024-07-10 11:00:00'),
+    ('Elena', 'Fernandez', 1988, 'Femenino', 'Bogotá', 'Colombia', 'elena.fernandez@example.com', 'password789', 'elenaF', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR32', '2024-07-10 11:00:00'),
+    ('Javier', 'Gómez', 1955, 'Masculino', 'Madrid', 'España', 'javier.gomez@example.com', 'passworddef', 'javierG', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR22', '2024-07-14 12:15:00'),
+    ('María', 'González', 1983, 'Femenino', 'Santiago', 'Chile', 'maria.gonzalez@example.com', 'password112', 'mariaG', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR34', '2024-07-17 10:30:00'),
+    ('Pedro', 'Rodríguez', 1992, 'Masculino', 'Buenos Aires', 'Argentina', 'pedro.rodriguez@example.com', 'password101', 'pedroR', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR33', '2024-07-21 14:00:00'),
+    ('Juan', 'García', 1975, 'Masculino', 'Ciudad de México', 'México', 'juan.garcia@example.com', 'password456', 'juanG', 'public/image/perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR31', '2024-07-25 15:30:00');
 
 /*Este insert debería hacerse cuando se crea una partida y el usuario elike si va a jugar 'single player' o 'multiplayer'.*/
-/*
-INSERT INTO partidas (modo, estado) VALUES
-('Single Player', 'finished'),
-('Single Player', 'finished'),
-('Single Player', 'finished'),
-('Single Player', 'finished'),
-('Single Player', 'finished'),
-('Single Player', 'playing');
-*/
+INSERT INTO partidas (modo, estado, fecha_creacion) VALUES
+('Single Player', 'finished', '2024-01-15'),
+('Single Player', 'finished', '2024-02-20'),
+('Single Player', 'finished', '2024-03-10'),
+('Single Player', 'finished', '2024-03-25'),
+('Single Player', 'finished', '2024-04-05'),
+('Single Player', 'finished', '2024-05-12'),
+('Single Player', 'finished', '2024-06-03'),
+('Single Player', 'finished', '2024-06-15'),
+('Single Player', 'finished', '2024-06-28'),
+('Single Player', 'finished', '2024-07-05'),
+('Single Player', 'finished', '2024-07-12');
 
 /*Este insert se se hace cuando finaliza la partida, y se le pasa el id de la misma, el id del jugador y el puntaje final obtenido.*/
-/*
 INSERT INTO jugadores_partidas (id_Jugador, id_Partida, puntaje) VALUES
 (1, 1, 100),
-(2, 2, 80),
-(3, 3, 90),
-(4, 4, 110),
+(5, 2, 80),
+(6, 3, 90),
+(7, 4, 110),
 (1, 5, 10),
-(5, 6, 30);
-*/
+(8, 6, 150),
+(9, 7, 30),
+(6, 8, 90),
+(7, 9, 10),
+(1, 10, 180),
+(5, 11, 30);
+
 INSERT INTO categorias (descripcion) VALUES
     ('Geografía'),
     ('Literatura'),
@@ -117,36 +147,36 @@ INSERT INTO categorias (descripcion) VALUES
     ('Historia'),
     ('Cultura General');
 
-INSERT INTO preguntas (descripcion, estado, entregadas, hit, id_categoria) VALUES
-    ('¿Cuál es la capital de Francia?', 'activa', 100, 70, 1),
-    ('¿Quién escribió "Don Quijote"?', 'activa', 100, 50, 2),
-    ('¿Cuál es el equipo que más veces ganó la UEFA Champions League?', 'activa', 100, 50, 3),
-    ('¿En qué año llegó el hombre a la luna?', 'activa', 100, 70, 5),
-    ('¿Cuál es el elemento químico con símbolo "O"?','activa', 100, 50, 4),
-    ('¿Cuál es el río más largo del mundo?','activa', 100, 50, 1),
-    ('¿Qué ciudad es conocida como la Gran Manzana?','activa', 100, 70, 1),
-    ('¿Quién pintó la Mona Lisa?','activa', 100, 50, 6),
-    ('¿Quién escribió "Cien años de soledad"?', 'activa', 100, 70, 2),
-    ('¿Cuál es el deporte más popular del mundo?', 'activa', 100, 50, 3),
-    ('¿En qué año se fundó la FIFA?', 'activa', 100, 50, 3),
-    ('¿Cuál es la fórmula química del agua?', 'activa', 100, 70, 4),
-    ('¿Quién descubrió la penicilina?', 'activa', 100, 70, 6),
-    ('¿Cuál es la capital de Japón?', 'activa', 100, 50, 1),
-    ('¿Quién escribió "Hamlet"?', 'activa', 100, 50, 2),
-    ('¿Cuál es el planeta más cercano al sol?', 'activa', 100, 70, 4),
-    ('¿Quién es conocido como el padre de la física moderna?', 'activa', 100, 50, 4),
-    ('¿Cuál es el océano más grande del mundo?', 'activa', 100, 50, 1),
-    ('¿Qué país es el mayor productor de café?', 'activa', 100, 70, 1),
-    ('¿Quién escribió "La Divina Comedia"?', 'activa', 100, 50, 2),
-    ('¿Quién ganó el primer Mundial de Fútbol?', 'activa', 100, 70, 3),
-    ('¿Qué científico propuso la teoría de la relatividad?', 'activa', 100, 50, 4),
-    ('¿Cuál es el símbolo químico del oro?', 'activa', 100, 50, 4),
-    ('¿Cuál es la montaña más alta del mundo?', 'activa', 100, 50, 1),
-    ('¿Qué país tiene la mayor población del mundo?', 'activa', 100, 70, 1),
-    ('¿Quién es el autor de "1984"?', 'activa', 100, 50, 2),
-    ('¿Cuál es el país con más medallas olímpicas?', 'activa', 100, 50, 3),
-    ('¿Qué elemento tiene el símbolo Na?', 'activa', 100, 50, 4),
-    ('¿Cuál es el animal terrestre más rápido del mundo?', 'activa', 100, 70, 6);
+INSERT INTO preguntas (descripcion, estado, entregadas, hit, id_categoria, fecha_creacion) VALUES
+    ('¿Cuál es la capital de Francia?', 'activa', 100, 70, 1, '2023-11-01 08:00:00'),
+    ('¿Quién escribió "Don Quijote"?', 'activa', 100, 50, 2, '2023-11-10 10:00:00'),
+    ('¿Cuál es el equipo que más veces ganó la UEFA Champions League?', 'activa', 100, 50, 3, '2023-11-20 12:00:00'),
+    ('¿En qué año llegó el hombre a la luna?', 'activa', 100, 70, 5, '2023-12-01 14:00:00'),
+    ('¿Cuál es el elemento químico con símbolo "O"?', 'activa', 100, 50, 4, '2023-12-10 16:00:00'),
+    ('¿Cuál es el río más largo del mundo?', 'activa', 100, 50, 1, '2023-12-20 18:00:00'),
+    ('¿Qué ciudad es conocida como la Gran Manzana?', 'activa', 100, 70, 1, '2024-01-01 20:00:00'),
+    ('¿Quién pintó la Mona Lisa?', 'activa', 100, 50, 6, '2024-01-10 22:00:00'),
+    ('¿Quién escribió "Cien años de soledad"?', 'activa', 100, 70, 2, '2024-01-20 08:00:00'),
+    ('¿Cuál es el deporte más popular del mundo?', 'activa', 100, 50, 3, '2024-02-01 10:00:00'),
+    ('¿En qué año se fundó la FIFA?', 'activa', 100, 50, 3, '2024-02-10 12:00:00'),
+    ('¿Cuál es la fórmula química del agua?', 'activa', 100, 70, 4, '2024-02-20 14:00:00'),
+    ('¿Quién descubrió la penicilina?', 'activa', 100, 70, 6, '2024-03-01 16:00:00'),
+    ('¿Cuál es la capital de Japón?', 'activa', 100, 50, 1, '2024-03-10 18:00:00'),
+    ('¿Quién escribió "Hamlet"?', 'activa', 100, 50, 2, '2024-03-20 20:00:00'),
+    ('¿Cuál es el planeta más cercano al sol?', 'activa', 100, 70, 4, '2024-04-01 22:00:00'),
+    ('¿Quién es conocido como el padre de la física moderna?', 'activa', 100, 50, 4, '2024-04-10 08:00:00'),
+    ('¿Cuál es el océano más grande del mundo?', 'activa', 100, 50, 1, '2024-04-20 10:00:00'),
+    ('¿Qué país es el mayor productor de café?', 'activa', 100, 70, 1, '2024-05-01 12:00:00'),
+    ('¿Quién escribió "La Divina Comedia"?', 'activa', 100, 50, 2, '2024-05-10 14:00:00'),
+    ('¿Quién ganó el primer Mundial de Fútbol?', 'activa', 100, 70, 3, '2024-05-20 16:00:00'),
+    ('¿Qué científico propuso la teoría de la relatividad?', 'activa', 100, 50, 4, '2024-06-01 18:00:00'),
+    ('¿Cuál es el símbolo químico del oro?', 'activa', 100, 50, 4, '2024-06-10 20:00:00'),
+    ('¿Cuál es la montaña más alta del mundo?', 'activa', 100, 50, 1, '2024-06-20 08:00:00'),
+    ('¿Qué país tiene la mayor población del mundo?', 'activa', 100, 70, 1, '2024-06-25 10:00:00'),
+    ('¿Quién es el autor de "1984"?', 'activa', 100, 50, 2, '2024-06-30 12:00:00'),
+    ('¿Cuál es el país con más medallas olímpicas?', 'activa', 100, 50, 3, '2024-07-05 14:00:00'),
+    ('¿Qué elemento tiene el símbolo Na?', 'activa', 100, 50, 4, '2024-07-10 16:00:00'),
+    ('¿Cuál es el animal terrestre más rápido del mundo?', 'activa', 100, 70, 6, '2024-07-20 18:00:00');
 
 INSERT INTO respuestas (descripcion, estado, id_pregunta) VALUES
     ('Londres', 0, 1),

@@ -1,28 +1,104 @@
 {{>header}}
 {{>navAdmin}}
-{{#usuario}}
-    <h2>¡Hola {{nombre}}!</h2>
+<main class="container">
+    {{#usuario}}
+        <h2>¡Hola {{nombre}}!</h2>
 
-    <div>
-        <div class="row mb-3">
-            <div class="col-sm-4">
-                {{jugadoresActivos}} 
+        <div class="row mb-3 justify-content-center">
+            <div class="box-datos col-sm-4 text-center p-4">
+                {{jugadoresActivos}}
                 <p>JUGADORES ACTIVOS</p>
             </div>
-            <div class="col-sm-4">
+            <div class="box-datos col-sm-4 text-center p-4">
+                {{jugadoresNuevos}}
+                <p>JUGADORES NUEVOS</p>
+            </div>
+            <div class="box-datos col-sm-4 text-center p-4">
                 {{totalPartidas}}
                 <p>PARTIDAS JUGADAS</p>
             </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-sm-4">
-                {{totalPreguntas}} 
+            <div class="box-datos col-sm-4 text-center p-4">
+                {{totalPreguntas}}
                 <p>PREGUNTAS ACTIVAS</p>
             </div>
-            <div class="col-sm-4">
-                {{totalPreguntasCreadas}} 
+            <div class="box-datos col-sm-4 text-center p-4">
+                {{totalPreguntasCreadas}}
                 <p>PREGUNTAS SUGERIDAS</p>
             </div>
         </div>
+    {{/usuario}}
+
+    <div id="botones-graficos" class="row">
+        <div class="col-md-6 mb-3">
+            <div id="filtrarFecha" class="d-flex align-items-center">
+                <select id="filtrar" name="filtrar" class="form-select me-2">
+                    <option value="noFilter">Sin filtro</option>
+                    <option value="day">Día</option>
+                    <option value="week">Semana</option>
+                    <option value="month">Mes</option>
+                    <option value="year">Año</option>
+                </select>
+                <button id="aplicarFiltro" class="btn btn-primary">Aplicar filtro</button>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3 text-end">
+            <div class="imprimir">
+                <button id="imprimir-pdf" class="btn btn-secondary">Imprimir</button>
+            </div>
+        </div>
     </div>
-{{/usuario}}
+
+    <div class="row mb-3">
+        <div class="contenedor-grafico">
+            <img src="/TP_Final-PW2_UNLaM/admin/players">
+        </div>
+
+        <div class="contenedor-grafico">
+            <img src="/TP_Final-PW2_UNLaM/admin/games">
+        </div>
+
+        <div class="contenedor-grafico">
+            <img src="/TP_Final-PW2_UNLaM/admin/questions">
+        </div>
+
+        <div class="contenedor-grafico">
+            <img src="/TP_Final-PW2_UNLaM/admin/percentageOfCorrectAnswers">
+        </div>
+
+        <div class="contenedor-grafico">
+            <img src="/TP_Final-PW2_UNLaM/admin/usersByCountry">
+        </div>
+
+        <div class="contenedor-grafico">
+            <img src="/TP_Final-PW2_UNLaM/admin/usersBySex">
+        </div>
+
+        <div class="contenedor-grafico">
+            <img src="/TP_Final-PW2_UNLaM/admin/usersByAgeGroup">
+        </div>
+    </div>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('aplicarFiltro').addEventListener('click', function() {
+        var filtro = document.getElementById('filtrar').value;
+        var urls = document.querySelectorAll('img[src*="/TP_Final-PW2_UNLaM/admin/"]');
+
+        urls.forEach(function(url) {
+            url.src = updateUrl(url.src, filtro);
+        });
+    });
+});
+
+function updateUrl(url, filter) {
+    var separator = (url.indexOf('?') !== -1) ? '&' : '?';
+
+    if (filter === "noFilter") {
+        return url.split('?')[0];
+    } else {
+        return url.split('?')[0] + separator + 'filtro=' + filter;
+    }
+}
+</script>
