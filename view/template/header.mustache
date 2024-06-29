@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="description" content="Preguntados - Juego de Preguntas y Respuestas">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet"
@@ -21,4 +22,21 @@
     <title>Preguntados - PW2</title>
     <script src="/TP_Final-PW2_UNLaM/public/js/validateFields.js" defer></script>
 </head>
-<body>
+{{#usuario}}
+<nav class="py-6 px-4 navbar navbar-expand-lg bg-primary d-flex justify-content-between mq-nav">
+   
+   <p class="m-0 p-0 text-light fs-3 fw-bold">Preguntados</p>
+
+    <div class="d-flex justify-content-end" id="navbarNav">
+        <ul class="navbar-nav flex-row">
+            <li class="nav-item px-2">
+                <a class="nav-link text-white fs-5" href="/TP_Final-PW2_UNLaM/user/porfile">
+                     {{nombre_usuario}}
+                     <img src="/TP_Final-PW2_UNLaM/{{foto}}" alt="Foto de perfil" class="img-perfil">
+                   
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav> 
+{{/usuario}}

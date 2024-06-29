@@ -83,6 +83,23 @@ h1 {
     font-weight: 600;
 }
 
+.nav ul li a:hover {
+    color: #007bff;
+}
+
+.nav ul li a:hover .icono {
+    background-color: #cccccc;
+    color: #007bff;
+}
+
+.img-perfil{
+    border-radius: 50%; /* Hace que la imagen sea completamente redonda */
+    border: 2px solid #ccc; /* Borde opcional para la imagen */
+    width: 50px; /* Ancho deseado para la imagen */
+    height: 50px; /* Altura deseada para la imagen */
+    margin-left: 15px;
+}
+
 .tabla-historial {
     width: 100%;
     margin-top: 20px;
@@ -329,8 +346,13 @@ td {
 
 #listadoPreguntas .contenedor-pregunta header .opciones i {
     margin-right: 5px;
+    color: #31415a;
     cursor: pointer;
     
+}
+
+#listadoPreguntas .contenedor-pregunta header .opciones i:hover {
+    color: #007bff;
 }
 
 #listadoPreguntas .contenedor-pregunta .pregunta {
