@@ -34,21 +34,21 @@ h1 {
 
 }
 
-.container {
+.container2 {
     display: flex;
-    background-color: #f2f2f2;
+    background-color: #ffffff;
+ 
+}
 
+#main {
+    flex: 1;
 }
 
 .nav {
-    /* Estilos adicionales para el nav si es necesario */
-    flex: 0 0 auto; /* Esto asegura que el nav no se expanda */
+    flex: 0 0 auto; 
     width: 250px;
     border-right: 1px solid #d6d4d4;
-}
-
-main {
-    flex: 1; /* El main ocupará el espacio restante */
+    margin-left: 15px;
 }
 
 .nav ul {
@@ -65,7 +65,7 @@ main {
     display: inline-block;
     width: 40px;
     height: 40px;
-    background-color: #fff;
+    background-color: #eeeeee;
     color: #314056;
     border-radius: 15px;
     text-align: center;
@@ -94,16 +94,15 @@ main {
     border-collapse: collapse;
 }
 
-/* Estilos para las filas y celdas */
 .tabla-historial th,
 .tabla-historial td {
     padding: 12px 15px;
     text-align: center;
-    border-bottom: 1px solid #ddd; /* Borde inferior gris */
+    border-bottom: 1px solid #ddd; 
 }
 
 .tabla-historial th {
-    background-color: #f2f2f2; /* Fondo gris claro para las cabeceras */
+    background-color: #f2f2f2; 
     font-weight: bold;
     color: #333;
 }
@@ -293,7 +292,6 @@ td {
  
 }
 
-
 .contenedor .icono i {
     line-height: 40px;
 }
@@ -302,13 +300,14 @@ td {
 /*LISTADO DE PREGUNTAS */
 
 #listadoPreguntas {
-    border: 1px solid #c0c0c0;
-    padding: 10px;
+    border-top: 1px solid #c0c0c0;
+    width: 100%;
 }
 
 #listadoPreguntas .contenedor-pregunta header {
     display: flex;
     justify-content: space-between;
+    margin-top: 15px;
 }
 
 #listadoPreguntas .contenedor-pregunta header .tema {
@@ -318,26 +317,31 @@ td {
     font-size: 12px;
     padding: 8px 6px; 
     border-radius: 10px;
+    margin-left: 30px;
 
 }
 
 #listadoPreguntas .contenedor-pregunta header .opciones {
     display: flex;
-    align-items: center; 
+    align-items: center;
+    margin-left: 30px; 
 }
 
 #listadoPreguntas .contenedor-pregunta header .opciones i {
     margin-right: 5px;
     cursor: pointer;
+    
 }
 
 #listadoPreguntas .contenedor-pregunta .pregunta {
     margin-top: 10px;
     font-size: 20px;
+    margin-left: 30px;
 }
 
 #listadoPreguntas .opcion {
     margin-bottom: 10px;
+    margin-left: 30px;
 }
 
 .contenedor-grafico {
