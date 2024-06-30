@@ -272,3 +272,17 @@ td {
     margin: 1em;
     width: 30%;
 }
+
+<!--Google Maps -->
+.container-maps {
+    height: 10%;
+}
+
+#map {
+    width: 80%;
+    height: 80%;
+    border: 1px solid blue;
+}
+#data, #allData {
+    display: none;
+}

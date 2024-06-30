@@ -82,6 +82,18 @@ CREATE TABLE IF NOT EXISTS partidas_preguntas (
     CONSTRAINT fk_partida_pregunta_pregunta FOREIGN KEY (id_pregunta) REFERENCES preguntas(id)
     );
 
+CREATE TABLE IF NOT EXISTS google_maps_persistence (
+    id INT AUTO_INCREMENT,
+    id_user INT DEFAULT NULL,
+    city VARCHAR(150) DEFAULT NULL,
+    country VARCHAR(20) DEFAULT NULL,
+    lat FLOAT(10,6) DEFAULT NULL,
+    lng FLOAT(10,6) DEFAULT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT pk_maps PRIMARY KEY (id),
+    CONSTRAINT fk_usuario_map FOREIGN KEY (id_user) REFERENCES usuarios(id)
+);
+
 /*INSERTS*/
 
 INSERT INTO usuarios (nombre, apellido, year_birth, sexo, ciudad, pais, email, password, nombre_usuario, foto, rol, activo, entregadas, hit, qr, fecha_creacion) VALUES
@@ -295,6 +307,17 @@ INSERT INTO respuestas (descripcion, estado, id_pregunta) VALUES
     ('Leopardo', 0, 29),
     ('Dogo Argentino', 0, 29),
     ('León', 0, 29);
+
+/*id INT AUTO_INCREMENT,
+    id_user INT NOT NULL,
+    description VARCHAR(100) NOT NULL,
+    city VARCHAR(150) NOT NULL,
+    country VARCHAR(20) NOT NULL,
+    lat FLOAT(10,6) DEFAULT NULL,
+    lng FLOAT(10,6) DEFAULT NULL,
+  -34.792035526341564, -58.4904372303487*/
+INSERT INTO google_maps_persistence (id_user, city, country, lat, lng) VALUES
+    (1, 'Monte Grande', 'Argentina', -34.792035526341564, -58.4904372303487);
 
 /* Este insert deberia hacerse cuando se crea una partida y updetear cada vez que se entrega una pregunta*/
 /*
