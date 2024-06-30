@@ -102,7 +102,7 @@ class PartidaModel
 
     public function actualizarPuntaje($idPartida){
         $this->database->execute("UPDATE jugadores_partidas
-                                   SET puntaje = puntaje + 5
+                                   SET puntaje = puntaje + 10
                                    WHERE id_partida = $idPartida;");
     }
 

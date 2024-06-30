@@ -1,8 +1,22 @@
 <main class="container">
-    {{#usuario}}
-        <h2>¡Hola {{nombre}}!</h2>
+<div class="container2">
+<nav class="nav" id="nav">
+    <ul>
+        <li>
+            <a href="/TP_Final-PW2_UNLaM/user/logout">
+                <div class="icono" id="2">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </div>
+                Cerrar Sesión
+            </a>
+        </li>
+    </ul>
+</nav>
 
-        <div class="row mb-3 justify-content-center">
+    {{#usuario}}
+         <div class="row mb-3 justify-content-center">
+            <p class="titulo"> Hola {{nombre}} </p>
+
             <div class="box-datos col-sm-4 text-center p-4">
                 {{jugadoresActivos}}
                 <p>JUGADORES ACTIVOS</p>
@@ -24,7 +38,8 @@
                 <p>PREGUNTAS SUGERIDAS</p>
             </div>
         </div>
-    {{/usuario}}
+    {{/usuario}}</div>
+    <br>
 
     <div id="botones-graficos" class="row">
         <div class="col-md-6 mb-3">
@@ -36,7 +51,7 @@
                     <option value="month">Mes</option>
                     <option value="year">Año</option>
                 </select>
-                <button id="aplicarFiltro" class="btn btn-primary">Aplicar filtro</button>
+                <button id="aplicarFiltro" class="btn btn-primary">Filtrar</button>
             </div>
         </div>
 
@@ -46,10 +61,12 @@
             </div>
         </div>
     </div>
+    <br>
 
-    <div class="row mb-3">
+    <div id="graficos" class="row mb-3">
         <div class="contenedor-grafico">
             <img src="/TP_Final-PW2_UNLaM/admin/players">
+            <!--<img src="http://localhost/TP_Final-PW2_UNLaM/admin/players">-->
         </div>
 
         <div class="contenedor-grafico">
@@ -80,6 +97,31 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('imprimir-pdf').addEventListener('click', function() {
+        var graficos = document.getElementById('graficos').innerHTML;
+        
+        var form = document.createElement('form');
+        form.action = '/TP_Final-PW2_UNLaM/Admin/generarPdf';
+        form.method = 'POST';
+        form.style.display = '_blank';
+        
+        var inputHtml = document.createElement('input');
+        inputHtml.type = 'hidden';
+        inputHtml.name = 'htmlGrafico';
+        inputHtml.value = graficos;
+        
+        form.appendChild(inputHtml);
+        
+        document.body.appendChild(form);
+        
+        form.submit();
+    });
+});
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('aplicarFiltro').addEventListener('click', function() {
         var filtro = document.getElementById('filtrar').value;
         var urls = document.querySelectorAll('img[src*="/TP_Final-PW2_UNLaM/admin/"]');
@@ -88,15 +130,17 @@ document.addEventListener('DOMContentLoaded', function() {
             url.src = updateUrl(url.src, filtro);
         });
     });
-});
 
-function updateUrl(url, filter) {
-    var separator = (url.indexOf('?') !== -1) ? '&' : '?';
+    function updateUrl(url, filter) {
+        var baseUrl = url.split('?')[0]; // URL base sin parámetros de consulta
+        var params = new URLSearchParams(url.split('?')[1]);
 
-    if (filter === "noFilter") {
-        return url.split('?')[0];
-    } else {
-        return url.split('?')[0] + separator + 'filtro=' + filter;
+        if (filter === "noFilter") {
+            return baseUrl;
+        } else {
+            params.set('filtro', filter);
+            return baseUrl + '?' + params.toString();
+        }
     }
-}
+});
 </script>

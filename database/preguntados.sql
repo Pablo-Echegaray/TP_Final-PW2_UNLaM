@@ -1,9 +1,5 @@
-/*Creación Base de Datos*/
-
 CREATE DATABASE IF NOT EXISTS preguntados;
 USE preguntados;
-
-/*Creación de Tablas*/
 
 CREATE TABLE IF NOT EXISTS usuarios(
     id INT AUTO_INCREMENT,
@@ -136,7 +132,7 @@ INSERT INTO jugadores_partidas (id_Jugador, id_Partida, puntaje) VALUES
 (9, 7, 30),
 (6, 8, 90),
 (7, 9, 10),
-(1, 10, 180),
+(1, 10, 130),
 (5, 11, 30);
 
 INSERT INTO categorias (descripcion) VALUES

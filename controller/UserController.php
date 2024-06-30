@@ -48,10 +48,8 @@ class UserController
         }
     }
 
-    // Vista para cada uno de los usuarios
     private function renderHomeView($usuario)
     {
-
         $rol = $usuario[0]["rol"];
 
         switch ($rol) {
@@ -72,10 +70,11 @@ class UserController
                 break;
             case 'A':
                 $jugadoresActivos = $this->modelAdmin->getActivePlayers();
+                $jugadoresNuevos = $this->modelAdmin->getNewPlayers();
                 $totalPartidas = $this->modelAdmin->getTotalGames();
                 $totalPreguntas = $this->modelAdmin->getTotalQuestions();
                 $totalPreguntasCreadas = $this->modelAdmin->getTotalCreatedQuestions();
-                $this->presenter->render("view/adminHomeView.mustache", ["usuario" => $usuario, 'jugadoresActivos' => $jugadoresActivos, 'totalPartidas' => $totalPartidas, 'totalPreguntas' => $totalPreguntas, 'totalPreguntasCreadas' => $totalPreguntasCreadas]);
+                $this->presenter->render("view/adminHomeView.mustache", ["usuario" => $usuario, 'jugadoresActivos' => $jugadoresActivos, 'jugadoresNuevos' => $jugadoresNuevos, 'totalPartidas' => $totalPartidas, 'totalPreguntas' => $totalPreguntas, 'totalPreguntasCreadas' => $totalPreguntasCreadas]);
                 break;
         }
     }

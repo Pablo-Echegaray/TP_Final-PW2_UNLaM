@@ -39,7 +39,7 @@ class GraphicModel
             }
         }
 
-        $graph = new Graph(600, 400);
+        $graph = new Graph(800, 600);
         $graph->SetScale('textlin');
 
         $graph->title->Set('JUGADORES REGISTRADOS');
@@ -83,7 +83,7 @@ class GraphicModel
             }
         }
     
-        $graph = new Graph(600, 400);
+        $graph = new Graph(800, 600);
         $graph->SetScale('textlin');
     
         $graph->title->Set('PARTIDAS JUGADAS');
@@ -106,7 +106,7 @@ class GraphicModel
         $data = array($activeQuestions, $createdQuestions);
         $labels = array("Preguntas Activas", "Preguntas Creadas");
     
-        $graph = new Graph(600, 400);
+        $graph = new Graph(800, 600);
         $graph->SetScale("textlin");
     
         $barplot = new BarPlot($data);
@@ -127,7 +127,7 @@ class GraphicModel
     {
         $result = $this->prepareDataAndLabels($query, 'porcentaje_correctas', 'nombre_usuario');
     
-        $graph = new Graph(600, 400);
+        $graph = new Graph(800, 600);
         $graph->SetScale('textlin');
     
         $barplot = new BarPlot($result['data']);
@@ -155,7 +155,7 @@ class GraphicModel
     {
         $result = $this->prepareDataAndLabels($query, 'cantidad_usuarios', 'pais');
     
-        $graph = new Graph(600, 400);
+        $graph = new Graph(800, 600);
         $graph->SetScale('textlin');
     
         $bplot = new BarPlot($result['data']);
@@ -181,7 +181,7 @@ class GraphicModel
     {
         $result = $this->prepareDataAndLabels($query, 'cantidad_usuarios', 'sexo');
     
-        $graph = new PieGraph(600, 400);
+        $graph = new PieGraph(800, 600);
         $graph->SetShadow();
     
         $pieplot = new PiePlot($result['data']);
@@ -201,7 +201,7 @@ class GraphicModel
     {
         $result = $this->prepareDataAndLabels($query, 'cantidad_usuarios', 'grupo_etario');
     
-        $graph = new PieGraph(600, 400);
+        $graph = new PieGraph(800, 600);
         $graph->SetShadow();
     
         $pieplot = new PiePlot($result['data']);
