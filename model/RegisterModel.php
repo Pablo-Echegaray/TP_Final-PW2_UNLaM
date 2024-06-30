@@ -115,7 +115,7 @@ class RegisterModel
         $allData = $this->maps->getMarkers();
         //echo $allData;
         $allData = json_encode($allData, true);
-        echo $allData;
+        echo $allData; //Este es el echo supremo que si es borrado o comentado el mapa no se muestra.
         return array("coll"=>$coll, "allData"=>$allData);
     }
 
