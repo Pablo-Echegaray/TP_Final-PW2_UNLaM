@@ -16,7 +16,7 @@
 
 body {
     margin: 50px;
-    background-color: #ffffff;
+    background-color: white;
 }
 
 h1 {
@@ -47,7 +47,7 @@ h1 {
 .nav {
     flex: 0 0 auto; 
     width: 250px;
-    border-right: 1px solid #d6d4d4;
+    border-right: 1px solid #d5d4d6;
     margin-left: 15px;
 }
 
@@ -99,6 +99,12 @@ h1 {
     height: 50px; /* Altura deseada para la imagen */
     margin-left: 15px;
 }
+
+.logo{
+    height: 70x;
+    width: 270px;
+}
+
 
 .tabla-historial {
     width: 100%;
@@ -220,6 +226,10 @@ td {
 #report{
     float: right;
     margin-top: 30px;
+}
+
+#volver{
+    margin-left: 20px;
 }
 
 #submit-answer {
@@ -388,4 +398,13 @@ td {
     font-weight: bold;
     margin: 1em;
     width: 30%;
+}
+
+.nombre-ranking{
+    color: black;
+    text-decoration: none;
+}
+
+.nombre-ranking:hover{
+    color: #007bff;
 }

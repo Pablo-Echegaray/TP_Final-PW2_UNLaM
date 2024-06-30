@@ -1,5 +1,5 @@
 <nav class="py-6 px-4 navbar navbar-expand-lg bg-primary d-flex justify-content-between mq-nav">
-   <p class="m-0 p-0 text-light fs-3 fw-bold">Preguntados</p>
+    <img src="/TP_Final-PW2_UNLaM/public/image/interrogados0.png" class="logo">
 </nav> 
 
 <div class="container2">
@@ -63,7 +63,7 @@
     <tbody>
         {{#ranking}}
             <tr>
-                <td><a href="/TP_Final-PW2_UNLaM/user/profile/id={{id}}">{{nombre_usuario}}</a></td>
+                <td><a href="/TP_Final-PW2_UNLaM/user/profile/id={{id}}" class="nombre-ranking">{{nombre_usuario}}</a></td>
                 <td>{{puntaje}}</td>
             </tr>
         {{/ranking}}
