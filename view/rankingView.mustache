@@ -1,10 +1,63 @@
-{{>navJugador}}
-<h2>Ranking</h2>
+<nav class="py-6 px-4 navbar navbar-expand-lg bg-primary d-flex justify-content-between mq-nav">
+   <p class="m-0 p-0 text-light fs-3 fw-bold">Preguntados</p>
+</nav> 
+
+<div class="container2">
+
+<nav class="nav" id="nav">
+    <ul>
+     <li>
+            <a href="/TP_Final-PW2_UNLaM/user/homeView.mustache">
+                <div class="icono" id="0">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </div>
+                Historial
+            </a>
+        </li>
+        <li>
+            <a href="/TP_Final-PW2_UNLaM/partida/play">
+                <div class="icono" id="0">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                Crear Nueva Partida
+            </a>
+        </li>
+        <li>
+            <a href="/TP_Final-PW2_UNLaM/pregunta/suggestQuestion">
+                <div class="icono" id="1">
+                    <i class="fa-solid fa-question"></i>
+                </div>
+                Sugerir Nueva Pregunta
+            </a>
+        </li>
+        <li>
+            <a href="/TP_Final-PW2_UNLaM/ranking/ranking">
+                <div class="icono" id="2">
+                    <i class="fa-solid fa-ranking-star"></i>
+                </div>
+                Ranking
+            </a>
+        </li>
+         <li>
+            <a href="/TP_Final-PW2_UNLaM/user/logout">
+                <div class="icono" id="2">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </div>
+                Cerrar Sesión
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<main id="main" class="d-flex justify-content-center">   
+
+<div class="tabla-historial">  
+ <p class="titulo">Ranking</p>
 <table>
     <thead>
         <tr>
-            <th>Usuario</th>
-            <th>Puntaje</th>
+            <th scope='col'>Usuario</th>
+            <th scope='col'>Puntaje</th>
         </tr>
     </thead>
     <tbody>
@@ -16,3 +69,6 @@
         {{/ranking}}
     </tbody>
 </table>
+
+</main>
+</div>

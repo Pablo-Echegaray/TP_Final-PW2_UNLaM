@@ -1,8 +1,3 @@
-<nav class="py-6 px-4 navbar navbar-expand-lg bg-primary d-flex justify-content-between mq-nav">
-    <p class="m-0 p-0 text-light fs-3 fw-bold">
-        Preguntados
-    </p>
-</nav>
 <main id="each-question" class="row">
     <form action="/TP_Final-PW2_UNLaM/partida/checkAnswer" method="post" class="flex">
             {{#preguntas}}
@@ -21,8 +16,8 @@
             {{/respuestas}}
 
         <div class="form-group" id="board-button">
-            <button type="submit" class="btn btn-info" id="submit-answer">Confirmar</button>
-            <a class="btn btn-info" id="report">Reportar</a>
+            <button type="submit" class="btn btn-success" id="submit-answer">Confirmar</button>
+            <a class="btn btn-danger" id="report">Reportar</a>
         </div>
   
     </form>
@@ -45,18 +40,3 @@
     <script src="/TP_Final-PW2_UNLaM/public/js/report.js" defer></script>
     
 </main>
-
-    <!--  <form action="/TP_Final-PW2_UNLaM/pregunta/reportQuestion" method="post" class="ml-2">
-        {{#preguntas}}
-        <input type="hidden" name="preguntaId" value="{{id}}">
-        {{/preguntas}}
-        <button type="submit" class="btn btn-info" id="report">Reportar</button>
-    </form>
-
-    <div class="modalContainer" id="modalContainer">
-        <div class="pop">
-            <h3>¡PREGUNTA REPORTADA!</h3>
-            <p>Seguir jugando?</p>
-            <button class="btn btn-info" id="close">SI</button>
-        </div>
-    </div>-->
