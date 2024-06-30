@@ -63,7 +63,7 @@ class PartidaController
             $this->model->actualizarPuntaje($idPartida);
             $this->model->updateQuestionDeliveredAndHit($lastquestion["id_pregunta"], 1);
             $this->model->updateUserDeliveredAndHit($usuario[0]["id"], 1);
-            $this->presenter->render("view/mensajePartida.mustache", ["mensaje"=>$mensaje, "claseTexto"=>$claseTexto]);
+            //$this->presenter->render("view/mensajePartida.mustache", ["mensaje"=>$mensaje, "claseTexto"=>$claseTexto]);
             $this->presenter->render("view/mensajePartidaView.mustache", ["mensaje"=>$mensaje, "claseTexto"=>$claseTexto]);
             header('Refresh: 2; URL=/TP_Final-PW2_UNLaM/partida/play');
         } else {

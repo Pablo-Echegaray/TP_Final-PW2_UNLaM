@@ -177,8 +177,8 @@ class PartidaModel
         $questionsId = $this->getQuestionsByPlayer($idJugador);
         foreach ($questionsId as $questionId) {
             if ($questionId["id_pregunta"] == $idNewQuestion) {
-                echo "id pregunta". $questionId["id_pregunta"];
-                echo "id new question". $idNewQuestion;
+                //echo "id pregunta". $questionId["id_pregunta"];
+                //echo "id new question". $idNewQuestion;
                 return true;
             }
         }
@@ -188,7 +188,7 @@ class PartidaModel
     private function getIdNextQuestion($usuarioId): int {
         $apropriateQuestions = $this->selectQuestionsByDifficulty($usuarioId);
         foreach ($apropriateQuestions[0] as $question) {
-            echo $question["descripcion"];
+            //echo $question["descripcion"];
         }
         do {
             //$idNextQuestion = rand($this->obtenerPrimerNumero()[0]["id"], $this->obtenerSegundoNumero()[0]["id"]);
