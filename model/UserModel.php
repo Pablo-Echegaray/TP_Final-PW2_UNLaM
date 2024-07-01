@@ -2,12 +2,13 @@
 class UserModel
 {
     private $database;
+    private $maps;
 
 
-    public function __construct($database)
+    public function __construct($database, $maps)
     {
         $this->database = $database;
-
+        $this->maps = $maps;
     }
 
     public function obtener($user, $pass)
@@ -74,6 +75,10 @@ class UserModel
             return true;
         }
         return false;
+    }
+
+    public function getMarkByUser($userId){
+        return $this->maps->getMarkByUser($userId);
     }
 
     private function obtenerCodigoDeUsuario($username)

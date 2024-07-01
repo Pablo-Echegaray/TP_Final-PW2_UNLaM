@@ -27,6 +27,7 @@ include_once('vendor/mustache/src/Mustache/Autoloader.php');
 include_once ("helper/PHPMailer/src/Exception.php");
 include_once ("helper/PHPMailer/src/PHPMailer.php");
 include_once ("helper/PHPMailer/src/SMTP.php");
+include_once("helper/googleMaps/GoogleMaps.php");
 
 class Configuration
 {
@@ -62,7 +63,7 @@ class Configuration
     //MODELS
     private static function getUserModel()
     {
-        return new UserModel(self::getDatabase());
+        return new UserModel(self::getDatabase(), self::getGoogleMaps());
     }
 
     private static function getAdminModel()
@@ -72,7 +73,7 @@ class Configuration
 
     private static function getRegisterModel()
     {
-        return new RegisterModel(self::getDatabase(), self::getMailer());
+        return new RegisterModel(self::getDatabase(), self::getMailer(), self::getGoogleMaps());
     }
     private static function getPartidaModel()
     {
@@ -122,4 +123,6 @@ class Configuration
 
         return $mailer;
     }
+
+    public static function getGoogleMaps(){ return new GoogleMaps(self::getDatabase()); }
 }
