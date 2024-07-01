@@ -3,11 +3,13 @@ class RegisterModel
 {
     private $database;
     private $mailer;
+    private $maps;
 
-    public function __construct($database, $mailer)
+    public function __construct($database, $mailer, $maps)
     {
         $this->database = $database;
         $this->mailer = $mailer;
+        $this->maps = $maps;
     }
 
     public function calcularEdad($nacimiento)
@@ -50,7 +52,6 @@ class RegisterModel
 
     public function agregar($nombre, $apellido, $nacimiento, $sexo, $ciudad, $pais, $email, $contrasena, $usuario, $foto)
     {
-        //Rol, qr, entregadas y hit valores por defecto
         $this->database->execute("
             INSERT INTO
             usuarios
@@ -63,7 +64,6 @@ class RegisterModel
     public function enviarCorreoVerificacion($email, $nombre, $usuario)
     {
         $codigoVerificacion = "ABC".rand("100", "999");
-        //POR EL MOMENTO LO VA A GUARDAR EN EL QR EL CODIGO DE VERIFICACION, hasta cambiar la tabla usuario
         $this->guardarCodigoVerificacion($usuario, $codigoVerificacion);
 
         try{
@@ -95,57 +95,6 @@ class RegisterModel
         return $string;
     }
 
-    /* 
-    private function validateIfValueOfFieldExists($value, $table, $field):bool {
-        $result =  $this->database->query_for_one("SELECT * FROM $table WHERE $field = '$value'");
-        if ($result){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    private function getRowByValueOfField($value, $table, $field){
-        return $this->database->query_for_one("SELECT * FROM $table WHERE $field = '$value'");
-    }
-
-    private function setCityIdCountryId($country, $city):array {
-        $countryId = null;
-        $cityId = null;
-        if ($this->validateIfValueOfFieldExists($this->capitalizeFirstLetter($country), "paises", "descripcion")){
-            $countryId = $this->getRowByValueOfField($country, "paises", "descripcion")['id'];
-        }else{
-            $this->addNewCountry($this->capitalizeFirstLetter($country));
-            $countryId = $this->getRowByValueOfField($country, "paises", "descripcion")['id'];
-        }
-        if ($this->validateIfValueOfFieldExists($this->capitalizeFirstLetter($city), "ciudades", "descripcion")){
-            $cityId = $this->getRowByValueOfField($city, "ciudades", "descripcion")['id'];
-        }else{
-            $this->addNewCity($this->capitalizeFirstLetter($city));
-            $cityId = $this->getRowByValueOfField($city, "ciudades", "descripcion")['id'];
-        }
-
-        return array("countryId" => $countryId, "cityId" => $cityId);
-    }
-
-    private function setCityCountryInUser($country, $city, $username){
-        $places = $this->setCityIdCountryId($country, $city);
-        $countryId = $places['countryId'];
-        $cityId = $places['cityId'];
-        if ($this->validateIfValueOfFieldExists($username, "usuarios", "nombre_usuario")){
-            $userId = $this->getRowByValueOfField($username, "usuarios", "nombre_usuario")['id'];
-            echo "userId: ". $userId . "cityId: ". $cityId . "countryId: ". $countryId;
-            $this->database->execute("INSERT INTO usuarios_ciudades_paises (id_usuario, id_ciudad, id_pais) VALUES('$userId', '$cityId', '$countryId')");
-        }
-    }
-
-    private function addNewCountry($country){
-        $this->database->execute("INSERT INTO paises(descripcion) VALUES ('$country')");
-    }
-
-    private function addNewCity($city){
-        $this->database->execute("INSERT INTO ciudades(descripcion) VALUES ('$city')");
-    }*/
     private function guardarCodigoVerificacion($usuario, $codigoVerificacion)
     {
         $this->database->execute("
@@ -155,4 +104,25 @@ class RegisterModel
         ");
     }
 
+
+    public function getMaps(){
+        $coll = $this->maps->getMarkersBlankLatLng();
+        //echo $coll;
+        $coll = json_encode($coll, true);
+        //echo $coll;
+        $allData = $this->maps->getMarkers();
+        //echo $allData;
+        $allData = json_encode($allData, true);
+        echo "<div id='echo_supremo'>" . $allData . "</div>";
+        return array("coll"=>$coll, "allData"=>$allData);
+    }
+
+
+    public function saveCoordinates($user, $city, $country, $lat, $long){
+        $user_id = $this->database->query("
+            SELECT *
+            FROM usuarios
+            WHERE nombre_usuario = '$user' ");
+        $this->maps->saveCoordinates($user_id[0]['id'], $city, $country, $lat, $long);
+    }
 }

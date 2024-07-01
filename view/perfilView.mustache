@@ -55,6 +55,21 @@
                     </button>
                 </div>
             </fieldset>
+            <div class="container-maps">
+                <div class="container-maps">
+                    {{#coordinates}}
+                        <div id="map"></div>
+
+                    <input type="hidden" name="lat" id="lat" value={{lat}}>
+                    <input type="hidden" name="lng" id="lng" value={{lng}}>
+                    {{/coordinates}}
+                </div>
+            </div>
         </form>
     </main>
 {{/usuario}}
+</body>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7kU-rH-YHsLWmaWw9ymmAVxtHbeQ7bZI&callback=initMap">
+</script>
