@@ -53,15 +53,16 @@ class UserController
     {
 
         $rol = $usuario[0]["rol"];
-        echo $rol;
 
         switch ($rol) {
             case 'J':
-                if ($usuario[0]["activo"] == 0){
+                if ($usuario[0]["activo"] == 0) {
                     $error = "Debes verificar tu correo para iniciar sesion";
                     $this->presenter->render("view/iniciarSesionView.mustache", ["error" => $error]);
                 } else {
-                    $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario]);
+                    $partidas = $this->modelUser->getPartidasPorUsuario($usuario[0]['id']);
+                    $ranking = $this->modelUser->getRankingDelUsuario($usuario[0]['id']);
+                    $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario, "partidas" => $partidas, "ranking" => $ranking]);
                 }
                 break;
             case 'E':
@@ -103,7 +104,7 @@ class UserController
         $this->presenter->render("view/iniciarSesionView.mustache");
     }
 
-    public function profile() 
+    public function profile()
     {
         if (!isset($_SESSION["usuario"])) {
             header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
@@ -126,7 +127,7 @@ class UserController
         $this->modelQuestion->approveQuestion($idPregunta);
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-        exit; 
+        exit;
     }
 
     public function disapproveQuestion()
@@ -135,7 +136,7 @@ class UserController
         $this->modelQuestion->disapproveQuestion($idPregunta);
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-        exit; 
+        exit;
     }
 
     public function deleteQuestion()
@@ -145,7 +146,7 @@ class UserController
         $this->modelQuestion->deleteQuestion($idPregunta);
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-        exit; 
+        exit;
     }
 
     public function editQuestion()
@@ -153,7 +154,7 @@ class UserController
         $idPregunta = isset($_POST['preguntaId']) ? $_POST['preguntaId'] : null;
         $pregunta = $this->modelQuestion->getQuestion($idPregunta);
         $respuestas = $this->modelQuestion->getAnswers($idPregunta);
-        $categorias =  $this->modelQuestion->getCategorias();
+        $categorias = $this->modelQuestion->getCategorias();
 
         $this->presenter->render("view/editarPreguntaView.mustache", ["pregunta" => $pregunta, "usuario" => $_SESSION['usuario'], "respuestas" => $respuestas, "categorias" => $categorias]);
     }
@@ -163,11 +164,13 @@ class UserController
         if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
             $rol = $usuario[0]["rol"];
-            if ($rol == "E"){
+            if ($rol == "E") {
                 $estado = "inactiva";
                 $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
-                $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "reportadas" => true]);
-            } else { $this->renderHomeView($usuario); }
+                $this->presenter->render("view/editorHomeView.mustache", ["usuario" => $_SESSION["usuario"], "preguntas" => $preguntas, "reportadas" => true]);
+            } else {
+                $this->renderHomeView($usuario);
+            }
         } else {
             header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
             exit();
@@ -179,11 +182,13 @@ class UserController
         if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
             $rol = $usuario[0]["rol"];
-            if ($rol == "E"){
+            if ($rol == "E") {
                 $estado = "sugerida";
                 $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
-                $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "sugeridas" => true]);
-            } else { $this->renderHomeView($usuario); }
+                $this->presenter->render("view/editorHomeView.mustache", ["usuario" => $_SESSION["usuario"], "preguntas" => $preguntas, "sugeridas" => true]);
+            } else {
+                $this->renderHomeView($usuario);
+            }
         } else {
             header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
             exit();
@@ -196,11 +201,13 @@ class UserController
         if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
             $rol = $usuario[0]["rol"];
-            if ($rol == "E"){
+            if ($rol == "E") {
                 $estado = "reportada";
                 $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
-                $this->presenter->render("view/editorHomeView.mustache", ["usuario" =>  $_SESSION["usuario"], "preguntas" => $preguntas, "reportadas" => true]);
-            } else { $this->renderHomeView($usuario); }
+                $this->presenter->render("view/editorHomeView.mustache", ["usuario" => $_SESSION["usuario"], "preguntas" => $preguntas, "reportadas" => true]);
+            } else {
+                $this->renderHomeView($usuario);
+            }
 
         } else {
             header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
@@ -209,16 +216,17 @@ class UserController
     }
 
 
-    public function updateQuestion(){
+    public function updateQuestion()
+    {
         $idPregunta = isset($_POST['id_pregunta']) ? $_POST['id_pregunta'] : null;
         $pregunta = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
-        $idCategoria =  isset($_POST['categoria']) ? $_POST['categoria'] : null;
+        $idCategoria = isset($_POST['categoria']) ? $_POST['categoria'] : null;
         $respuestaIds = isset($_POST['respuestaId']) ? $_POST['respuestaId'] : null;
         $respuestaDescripciones = isset($_POST['opcion']) ? $_POST['opcion'] : null;
         $correcta = isset($_POST['correcta']) ? $_POST['correcta'] : null;
         $answers = [];
 
-        for ($i=0; $i < count($respuestaIds); $i++) {
+        for ($i = 0; $i < count($respuestaIds); $i++) {
             $answers[$i] = ["id" => "$respuestaIds[$i]", "descripcion" => $respuestaDescripciones[$i], "estado" => 0];
 
         }
@@ -228,7 +236,8 @@ class UserController
         exit;
     }
 
-    public function validation(){
+    public function validation()
+    {
 
         $this->presenter->render("view/validarUsuarioView.mustache");
     }
@@ -239,7 +248,7 @@ class UserController
         $codigo = $_POST["codigo"] ?? "";
 
         $esValido = $this->modelUser->validarCodigo($username, $codigo);
-        if ($esValido){
+        if ($esValido) {
             $exito = "Validacion correcta, ya puedes iniciar sesion";
             $this->presenter->render("view/iniciarSesionView.mustache", ["exito" => $exito]);
 

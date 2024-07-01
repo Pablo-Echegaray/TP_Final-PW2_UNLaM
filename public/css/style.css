@@ -16,11 +16,118 @@
 
 body {
     margin: 50px;
-    background-color: #f1f2f8;
+    background-color: #ffffff;
 }
+
 h1 {
     text-align: center;
 }
+
+.titulo{
+    margin-top: 10px;
+    margin-left: 25px;
+    color: #314056;
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #d6d4d4; 
+
+}
+
+.container2 {
+    display: flex;
+    background-color: #ffffff;
+ 
+}
+
+#main {
+    flex: 1;
+}
+
+.nav {
+    flex: 0 0 auto; 
+    width: 250px;
+    border-right: 1px solid #d6d4d4;
+    margin-left: 15px;
+}
+
+.nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav ul li {
+    margin: 15px 0;
+}
+
+.nav ul li .icono {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: #eeeeee;
+    color: #314056;
+    border-radius: 15px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.nav ul li .icono i {
+    line-height: 40px;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    color: #31415a;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.nav ul li a:hover {
+    color: #007bff;
+}
+
+.nav ul li a:hover .icono {
+    background-color: #cccccc;
+    color: #007bff;
+}
+
+.img-perfil{
+    border-radius: 50%; /* Hace que la imagen sea completamente redonda */
+    border: 2px solid #ccc; /* Borde opcional para la imagen */
+    width: 50px; /* Ancho deseado para la imagen */
+    height: 50px; /* Altura deseada para la imagen */
+    margin-left: 15px;
+}
+
+.tabla-historial {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.tabla-historial table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-historial th,
+.tabla-historial td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd; 
+}
+
+.tabla-historial th {
+    background-color: #f2f2f2; 
+    font-weight: bold;
+    color: #333;
+}
+.tabla-historial tbody tr:nth-child(odd) {
+    background-color: #f9f9f9; /* Fondo gris claro para filas impares */
+}
+
+
 #page {
     color:red;
     margin-bottom:20px;
@@ -202,7 +309,6 @@ td {
  
 }
 
-
 .contenedor .icono i {
     line-height: 40px;
 }
@@ -211,13 +317,14 @@ td {
 /*LISTADO DE PREGUNTAS */
 
 #listadoPreguntas {
-    border: 1px solid #c0c0c0;
-    padding: 10px;
+    border-top: 1px solid #c0c0c0;
+    width: 100%;
 }
 
 #listadoPreguntas .contenedor-pregunta header {
     display: flex;
     justify-content: space-between;
+    margin-top: 15px;
 }
 
 #listadoPreguntas .contenedor-pregunta header .tema {
@@ -227,26 +334,36 @@ td {
     font-size: 12px;
     padding: 8px 6px; 
     border-radius: 10px;
+    margin-left: 30px;
 
 }
 
 #listadoPreguntas .contenedor-pregunta header .opciones {
     display: flex;
-    align-items: center; 
+    align-items: center;
+    margin-left: 30px; 
 }
 
 #listadoPreguntas .contenedor-pregunta header .opciones i {
     margin-right: 5px;
+    color: #31415a;
     cursor: pointer;
+    
+}
+
+#listadoPreguntas .contenedor-pregunta header .opciones i:hover {
+    color: #007bff;
 }
 
 #listadoPreguntas .contenedor-pregunta .pregunta {
     margin-top: 10px;
     font-size: 20px;
+    margin-left: 30px;
 }
 
 #listadoPreguntas .opcion {
     margin-bottom: 10px;
+    margin-left: 30px;
 }
 
 .contenedor-grafico {

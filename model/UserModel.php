@@ -29,6 +29,40 @@ class UserModel
         ");
     }
 
+    public function getPartidasPorUsuario($id)
+    {
+        $partidas = $this->database->query("
+            SELECT jp.puntaje, jp.id_partida
+            FROM jugadores_partidas jp
+            WHERE jp.id_jugador = $id
+        ");
+
+        $contador = 1;
+
+        $partidasConIds = [];
+        foreach ($partidas as $partida) {
+            $partida['id_secuencial'] = $contador;
+            $partidasConIds[] = $partida;
+            $contador++;
+        }
+    
+        return $partidasConIds;
+
+    }
+
+    public function getRankingDelUsuario($idUsuario) {
+        return $this->database->query(
+            "SELECT u.id, u.nombre_usuario, jp.puntaje 
+            FROM jugadores_partidas jp
+            JOIN usuarios u ON jp.id_jugador = u.id
+            WHERE jp.id_jugador = $idUsuario
+              AND (jp.id_jugador, jp.puntaje) IN (
+                SELECT jp2.id_jugador, MAX(jp2.puntaje) AS max_puntaje
+                FROM jugadores_partidas jp2
+                GROUP BY jp2.id_jugador
+            )
+            ORDER BY jp.puntaje DESC");
+    }
     public function validarCodigo($username, $codigo)
     {
         $codigoUsuario = $this->obtenerCodigoDeUsuario($username);
