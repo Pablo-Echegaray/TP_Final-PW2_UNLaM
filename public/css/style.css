@@ -219,12 +219,9 @@ td {
 #answer {
     margin: 20px;
 }
-#submit-button {
-    float: right;
-}
 
 #report{
-    float: right;
+    float: left;
     margin-top: 30px;
 }
 
@@ -233,7 +230,7 @@ td {
 }
 
 #submit-answer {
-    float: left;
+    float: right;
     margin-top: 30px;
 }
 .modalContainer {
