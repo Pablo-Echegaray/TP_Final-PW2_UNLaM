@@ -344,10 +344,14 @@ INSERT INTO respuestas (descripcion, estado, id_pregunta) VALUES
     lng FLOAT(10,6) DEFAULT NULL,
   -34.792035526341564, -58.4904372303487*/
 INSERT INTO google_maps_persistence (id_user, city, country, lat, lng) VALUES
-    (1, 'Monte Grande', 'Argentina', -34.792035526341564, -58.4904372303487);
+    (1, 'Monte Grande', 'Argentina', -34.792035526341564, -58.4904372303487),
+    (2, 'Isidro Casanova', 'Argentina', -34.695277157206284, -58.602511359870505),
+    (3, 'San Justo', 'Argentina', -34.66803408816997, -58.56657160420401),
+    (4, 'Ramos Mejía', 'Argentina', -34.65078036165356, -58.55145487282704);
+    
 
 /* Este insert deberia hacerse cuando se crea una partida y updetear cada vez que se entrega una pregunta*/
-INSERT INTO partidas_preguntas (id_Partida, id_Pregunta, fecha_creacion) VALUES
+/*INSERT INTO partidas_preguntas (id_Partida, id_Pregunta, fecha_creacion) VALUES
 (1, 1, '2024-01-15'),
 (1, 2, '2024-01-15'),
 (1, 3, '2024-01-15'),
@@ -375,4 +379,4 @@ INSERT INTO partidas_preguntas (id_Partida, id_Pregunta, fecha_creacion) VALUES
 (9, 6, '2024-06-28'),
 (9, 1, '2024-06-28'), 
 (9, 12, '2024-06-28'), 
-(10, 6, '2024-07-05'); 
+(10, 6, '2024-07-05'); */
