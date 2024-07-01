@@ -1,6 +1,6 @@
-<main class="d-flex justify-content-center bg-primary">
+<main class="d-flex justify-content-center align-items-center bg-primary" style="min-height: 100vh;">
     <fieldset class="my-5 p-4 w-50 bg-light rounded-4" style="height: max-content">
-        <legend class="text-center fw-bold">Inicia Sesion</legend>
+        <legend class="text-center fw-bold">Iniciar Sesión</legend>
         <form action="/TP_Final-PW2_UNLaM/user/home" method="post" enctype="multipart/form-data" class="p-3">
             {{#exito}}
                 <p class="p-1 text-success border border-success rounded text-center">
@@ -34,14 +34,14 @@
                     <p>
                         ¿No tienes cuenta?
                         <a href="/TP_Final-PW2_UNLaM/register/get" class="text-decoration-none">
-                            Registrate
+                            Regístrate
                         </a>
                     </p>
                 </div>
             </div>
             <div class="p-2 d-flex justify-content-center mq-boton">
                 <button type="submit" value="registrarse" class="w-50 btn btn-primary">
-                    Iniciar Sesion
+                    Iniciar Sesión
                 </button>
             </div>
         </form>

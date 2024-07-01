@@ -1,12 +1,50 @@
-<main>
-    {{#usuario}}
-        <h2>Perfil de {{nombre}}</h2>
 
-        <p>Nombre: {{nombre}}</p>
-        <p>Apellido: {{apellido}}</p>
-        <p>Año de nacimiento: {{year_birth}}</p>
-        <p>Sexo: {{sexo}}</p>
-        <p>Ciudad: {{ciudad}}</p>
-        <p>País: {{pais}}</p>
-    {{/usuario}}
+
+ {{#usuarios}}
+    <main class="d-flex justify-content-center">
+        <form class="m-4 p-4 w-75 bg-light"  style="height: 460px;">
+            <fieldset disabled>
+                <div class="d-flex align-items-center mq-perfil">
+                    <legend class="fw-bold">
+                        Perfil de {{nombre}}
+                    </legend>
+                    <img src="/TP_Final-PW2_UNLaM/public/image/{{foto}}" alt="Foto de perfil" class="img-perfil">
+                </div>
+                <div class="d-flex mq">
+                    <div class="mb-3 w-50 p-2">
+                        <label for="disabledTextInput" class="form-label">Nombre</label>
+                        <input type="text" id="disabledTextInput" class="form-control" placeholder="{{nombre}}">
+                    </div>
+                    <div class="mb-3 w-50 p-2">
+                        <label for="disabledTextInput" class="form-label">Apellido</label>
+                        <input type="text" id="disabledTextInput" class="form-control" placeholder="{{apellido}}">
+                    </div>
+                </div>
+                <div class="d-flex mq">
+                    <div class="mb-3 w-50 p-2">
+                        <label for="disabledTextInput" class="form-label">Año de nacimiento</label>
+                        <input type="text" id="disabledTextInput" class="form-control" placeholder="{{year_birth}}">
+                    </div>
+                    <div class="mb-3 w-50 p-2">
+                        <label for="disabledTextInput" class="form-label">Sexo</label>
+                        <input type="text" id="disabledTextInput" class="form-control" placeholder="{{sexo}}">
+                    </div>
+                </div>
+                <div class="d-flex mq">
+                    <div class="mb-3 w-50 p-2">
+                        <label for="disabledTextInput" class="form-label">Pais</label>
+                        <input type="text" id="disabledTextInput" class="form-control" placeholder="{{pais}}">
+                    </div>
+                    <div class="mb-3 w-50 p-2">
+                        <label for="disabledTextInput" class="form-label">Ciudad</label>
+                        <input type="text" id="disabledTextInput" class="form-control" placeholder="{{ciudad}}">
+                    </div>
+                </div>
+            </fieldset>  
+            
+            <div class="p-2 d-flex justify-content-start mq-boton">
+                <a href="/TP_Final-PW2_UNLaM/ranking/ranking" id="volver" name="volver" class="btn btn-secondary">Volver</a>    
+            </div>
+        </form>
+  {{/usuarios}}
 </main>

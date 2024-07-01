@@ -1,30 +1,3 @@
-<!-- <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-</head>
-
-{{#ranking}}
-<nav class="py-6 px-4 navbar navbar-expand-lg bg-primary d-flex justify-content-between mq-nav">
-   
-   <p class="m-0 p-0 text-light fs-3 fw-bold">Preguntados</p>
-
-    <div class="d-flex justify-content-end" id="navbarNav">
-        <ul class="navbar-nav flex-row">
-            <li class="nav-item px-2">
-                <a class="nav-link text-white fs-5" href="/TP_Final-PW2_UNLaM/ranking/ranking">
-                    <i class="fa-solid fa-ranking-star"></i>
-                     {{puntaje}} pts
-                </a>
-            </li>
-            <li class="nav-item px-2">
-                <a class="nav-link text-white fs-5" href="/TP_Final-PW2_UNLaM/user/porfile">
-                    {{nombre_usuario}}
-                </a>
-            </li>
-        </ul>
-    </div>
-</nav> 
-{{/ranking}}-->
-
 <div class="container2">
 <nav class="nav" id="nav">
     <ul>
@@ -76,9 +49,7 @@
 <main id="main" class="d-flex justify-content-center">   
 
 <div class="tabla-historial">  
-     {{#ranking}}
-     <p class="titulo">Historial de partidas - {{puntaje}} pts.</p>
-    {{/ranking}}
+     <p class="titulo">Historial de partidas {{#ranking}} - {{puntaje}} pts.{{/ranking}}</p>
     <table>  
         <thead>
         <tr>
