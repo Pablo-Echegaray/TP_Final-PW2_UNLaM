@@ -24,6 +24,15 @@ class PreguntaModel
             );
     }
 
+    public function getQuestionId($validatedQuestion){
+        return $this->database->query(
+            "SELECT id
+             FROM preguntados.preguntas p
+             WHERE p.descripcion = '$validatedQuestion'
+             "
+            );
+    }
+
     public function createQuestion($question, $categoriaId){
         if ($this->validateIfQuestionExists($question)){
             echo "La pregunta ya existe";
@@ -35,23 +44,34 @@ class PreguntaModel
                 "INSERT INTO preguntados.preguntas (descripcion, estado, entregadas, hit, id_categoria)
                 VALUES ('$validatedQuestion', 'sugerida', 100, 50, $categoriaId);"
             );
+            $preguntaId = $this->getQuestionId($validatedQuestion);
+            return $preguntaId[0]["id"];
         }
     }
 
     public function createQuestionEditor($question, $categoriaId){
         if ($this->validateIfQuestionExists($question)){
             echo "La pregunta ya existe";
+            return false;
         }
         else{
             $validatedQuestion = "¿".ucfirst($question)."?";
-            echo $validatedQuestion;
             $this->database->execute(
                 "INSERT INTO preguntados.preguntas (descripcion, estado, entregadas, hit, id_categoria)
                 VALUES ('$validatedQuestion', 'activa', 100, 50, $categoriaId);"
             );
+            $preguntaId = $this->getQuestionId($validatedQuestion);
+            return $preguntaId[0]["id"];
         }
     }
 
+    public function createAnswer($question, $categoriaId, $respuesta, $estado, $creada){
+        return $this->database->execute(
+                "INSERT INTO preguntados.respuestas (descripcion, estado, id_pregunta)
+                VALUES ('$respuesta', $estado, $creada);"
+            );
+        }
+        
     public function editQuestionAndAnswers($idPregunta, $idCategoria, $pregunta, $answers, $correcta){
         $states = ["A"=> 0, "B"=> 1, "C"=> 2, "D"=> 3];
         foreach ($states as $key => $value) {
@@ -160,7 +180,7 @@ class PreguntaModel
     public function getQuestionsAndAnswers($estado)
     {
         $query = "SELECT p.id AS pregunta_id, p.descripcion AS pregunta, c.descripcion AS categoria,
-                r.id AS respuesta_id, r.descripcion AS respuesta
+                r.id AS respuesta_id, r.descripcion AS respuesta, r.estado AS estado_respuesta
               FROM preguntas p
               INNER JOIN categorias c ON p.id_categoria = c.id
               LEFT JOIN respuestas r ON p.id = r.id_pregunta
@@ -183,7 +203,8 @@ class PreguntaModel
                 if ($row['respuesta_id']) {
                     $preguntas[$pregunta_id]['respuestas'][] = [
                         "id" => $row['respuesta_id'],
-                        "descripcion" => $row['respuesta']
+                        "descripcion" => $row['respuesta'],
+                        "estado_respuesta" => $row['estado_respuesta']
                     ];
                 }
             }

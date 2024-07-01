@@ -122,13 +122,15 @@
             <p class="pregunta">{{descripcion}}</p>
         
                {{#respuestas}}
-                    <div class="opcion">
+                    <div class="opcion" data-estado="{{estado_respuesta}}">
                         <span class="texto">{{descripcion}}</span>
                     </div>
                 {{/respuestas}}
 
         {{/preguntas}}   
         {{/usuario}} 
+
+        <script src="/TP_Final-PW2_UNLaM/public/js/respuestaCorrecta.js" defer></script>
 
         </div>
     </section>
