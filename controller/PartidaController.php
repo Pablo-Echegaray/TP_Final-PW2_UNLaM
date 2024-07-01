@@ -17,31 +17,8 @@ class PartidaController
             exit();
         }
         $usuario = $_SESSION["usuario"];
-        // CREAR LA PARTIDA
-        $modo = "single player";//ejemplo
-        $lastGame = $this->model->getLastGame();
-        if ($lastGame == null || $lastGame["estado"] == "finished") {
-            $this->model->crearPartida($modo);
-            $game = $this->model->getLastGame();
-            $this->model->asignarPartidaAJugador($usuario[0]["id"], $game["id"], 0);
-        }
-
-        // OBTENER PREGUNTA ALEATORIA
-        $pregunta = $this->model->getPreguntaRandom($usuario[0]["id"]);
-        $game = $this->model->getLastGame();
-
-        //OBTENER CATEGORIA y ASIGNAR COLOR
-        $categoria = $this->model->obtenerCategoriaPregunta($pregunta[0]["id"]);
-        $color = self::obtenerColorPorCategoria($categoria[0]["descripcion"]);
-
-        // REGISTRAR PREGUNTA A PARTIDA
-        $partidaPregunta = $this->model->asignarPreguntaAPartida($game["id"], $pregunta[0]["id"]);
-
-        // OBTENER RESPUESTAS
-        $respuestas = $this->model->getRespuestas($pregunta[0]["id"]);
-
-        // VISTA
-        $this->presenter->render("view/jugarView.mustache", ["usuario" => $_SESSION["usuario"], "preguntas" => $pregunta, "respuestas" => $respuestas, "color" => $color]);
+        $game = $this->model->playTheGame($usuario);
+        $this->presenter->render("view/jugarView.mustache", $game);
     }
 
     public function checkAnswer()

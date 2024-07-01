@@ -8,6 +8,53 @@ class PartidaModel
         $this->database = $database;
     }
 
+    public function playTheGame($usuario){
+        // CREAR LA PARTIDA
+        $modo = "single player";
+        $lastGame = $this->getLastGame();
+        if ($lastGame == null || $lastGame["estado"] == "finished") {
+            $this->crearPartida($modo);
+            $game = $this->getLastGame();
+            $this->asignarPartidaAJugador($usuario[0]["id"], $game["id"], 0);
+        }
+
+        // OBTENER PREGUNTA ALEATORIA
+        $pregunta = $this->getPreguntaRandom($usuario[0]["id"]);
+        $game = $this->getLastGame();
+
+        //OBTENER CATEGORIA y ASIGNAR COLOR
+        $categoria = $this->obtenerCategoriaPregunta($pregunta[0]["id"]);
+        $color = $this->obtenerColorPorCategoria($categoria[0]["descripcion"]);
+
+        // REGISTRAR PREGUNTA A PARTIDA
+        $partidaPregunta = $this->asignarPreguntaAPartida($game["id"], $pregunta[0]["id"]);
+
+        // OBTENER RESPUESTAS
+        $respuestas = $this->getRespuestas($pregunta[0]["id"]);
+        return array("usuario" => $_SESSION["usuario"], "preguntas" => $pregunta, "respuestas" => $respuestas, "color" => $color);
+    }
+
+    public function checkAnswer($usuario, $respuestaUsuario){
+        $lastquestion = $this->getLastQuestionInGame();
+        $idPartida = $lastquestion["id_partida"];
+        $respuestaCorrecta = $this->getRespuestaCorrecta($lastquestion["id_pregunta"]);
+        $mensaje = "RESPUESTA CORRECTA";
+        $claseTexto = "texto-verde";
+
+        if ($respuestaUsuario == $respuestaCorrecta['descripcion']) {
+            $this->actualizarPuntaje($idPartida);
+            $this->updateQuestionDeliveredAndHit($lastquestion["id_pregunta"], 1);
+            $this->updateUserDeliveredAndHit($usuario[0]["id"], 1);
+        } else {
+            $this->endGame($idPartida);
+            $this->updateQuestionDeliveredAndHit($lastquestion["id_pregunta"], -1);
+            $this->updateUserDeliveredAndHit($usuario[0]["id"], -1);
+            $mensaje= "RESPUESTA INCORRECTA";
+            $claseTexto = "texto-rojo";
+        }
+        return array("mensaje"=>$mensaje, "claseTexto"=>$claseTexto);
+    }
+
     public function crearPartida($modo)
     {
         $this->database->execute("INSERT INTO partidas (modo, estado) VALUES ('$modo', 'playing')");
@@ -31,6 +78,32 @@ class PartidaModel
             FROM preguntas 
             WHERE preguntas.id = '$id' ;
         ");
+    }
+
+    private function obtenerColorPorCategoria($descripcion)
+    {
+        $color = "";
+        switch($descripcion){
+            case "Geografía":
+                $color = "#0487d9";
+                break;
+            case "Literatura":
+                $color = "#7325a6";
+                break;
+            case "Deportes":
+                $color = "#a1a61f";
+                break;
+            case "Ciencia":
+                $color = "#f27141";
+                break;
+            case "Historia":
+                $color = "#f2cb05";
+                break;
+            default:
+                $color = "#f23568";
+                break;
+        }
+        return $color;
     }
 
     private function obtenerPrimerNumero()
