@@ -33,8 +33,7 @@ class RankingController {
                 "qrPath" => $filepath
             ];
         }
-        //var_dump($qrData);
-        $this->presenter->render("view/rankingView.mustache", ["qrData" => $qrData]);
+        $this->presenter->render("view/rankingView.mustache", ["qrData" => $qrData, "usuario" => $_SESSION["usuario"]]);
     }
 
     private function generateQRCode($data, $filepath) {
