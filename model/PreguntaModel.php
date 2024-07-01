@@ -180,7 +180,7 @@ class PreguntaModel
     public function getQuestionsAndAnswers($estado)
     {
         $query = "SELECT p.id AS pregunta_id, p.descripcion AS pregunta, c.descripcion AS categoria,
-                r.id AS respuesta_id, r.descripcion AS respuesta
+                r.id AS respuesta_id, r.descripcion AS respuesta, r.estado AS estado_respuesta
               FROM preguntas p
               INNER JOIN categorias c ON p.id_categoria = c.id
               LEFT JOIN respuestas r ON p.id = r.id_pregunta
@@ -203,7 +203,8 @@ class PreguntaModel
                 if ($row['respuesta_id']) {
                     $preguntas[$pregunta_id]['respuestas'][] = [
                         "id" => $row['respuesta_id'],
-                        "descripcion" => $row['respuesta']
+                        "descripcion" => $row['respuesta'],
+                        "estado_respuesta" => $row['estado_respuesta']
                     ];
                 }
             }

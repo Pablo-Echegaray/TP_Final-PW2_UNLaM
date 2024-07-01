@@ -408,3 +408,11 @@ td {
 .nombre-ranking:hover{
     color: #007bff;
 }
+
+.respuesta-correcta {
+    color: #00cf30; /* Texto verde oscuro */
+  }
+
+  .respuesta-incorrecta {
+    color: #000000; /* Texto verde oscuro */
+  }
