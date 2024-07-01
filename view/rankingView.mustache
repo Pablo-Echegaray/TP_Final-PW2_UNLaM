@@ -1,9 +1,8 @@
 <nav class="py-6 px-4 navbar navbar-expand-lg bg-primary d-flex justify-content-between mq-nav">
-   <p class="m-0 p-0 text-light fs-3 fw-bold">Preguntados</p>
+    <img src="/TP_Final-PW2_UNLaM/public/image/interrogados0.png" class="logo">
 </nav> 
 
 <div class="container2">
-
 <nav class="nav" id="nav">
     <ul>
      <li>
@@ -52,21 +51,33 @@
 <main id="main" class="d-flex justify-content-center">   
 
 <div class="tabla-historial">  
- <p class="titulo">Ranking</p>
+<p class="titulo">Ranking</p>
 <table>
     <thead>
         <tr>
             <th scope='col'>Usuario</th>
             <th scope='col'>Puntaje</th>
+            <th scope='col'>QR del Perfil</th>
         </tr>
     </thead>
     <tbody>
-        {{#ranking}}
-            <tr>
-                <td><a href="/TP_Final-PW2_UNLaM/user/profile/id={{id}}">{{nombre_usuario}}</a></td>
-                <td>{{puntaje}}</td>
-            </tr>
-        {{/ranking}}
+        {{#qrData}}
+            {{#user}}
+                <tr>
+                    <td>
+                        <a href="/TP_Final-PW2_UNLaM/user/profile/id={{id}}" class="nombre-ranking">
+                            {{nombre_usuario}}
+                        </a>
+                    </td>
+                    <td>
+                        {{puntaje}} pts.
+                    </td>
+                    <td>
+                        <img src='/TP_Final-PW2_UNLaM/{{qrPath}}' alt='QR Code'>
+                    </td>
+                </tr>
+            {{/user}}
+        {{/qrData}}
     </tbody>
 </table>
 

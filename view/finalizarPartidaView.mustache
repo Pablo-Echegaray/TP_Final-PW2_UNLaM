@@ -1,9 +1,13 @@
-<main class="m-4 p-4 w-75 bg-light">
-<h2>PARTIDA FINALIZADA</h2>
-
+<main class="d-flex justify-content-center align-items-center min-vh-100 bg-light">
+  <div class="text-center p-4 w-75 bg-white rounded shadow">
+<h2 class="mb-4">PARTIDA FINALIZADA</h2>
+{{#error}}
+<h4 class="text-danger">{{error}}</h4>
+{{/error}}
 {{#puntaje}}
-    <p>Puntaje total: {{puntaje}}</p>
+      <p class="lead">Puntaje total: <strong>{{puntaje}}</strong></p>
 {{/puntaje}}
 
 <a class="btn btn-info" href="/TP_Final-PW2_UNLaM/user/home">Volver al inicio</a>
+  </div>
 </main>

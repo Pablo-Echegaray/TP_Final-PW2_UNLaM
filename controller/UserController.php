@@ -87,7 +87,7 @@ class UserController
         }
         if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
-            $this->presenter->render("view/perfilView.mustache", ["usuario" => $_SESSION["usuario"]]);
+            $this->presenter->render("view/perfilView.mustache", ["usuario" => $_SESSION["usuario"], "coordinates"=> $this->modelUser->getMarkByUser($usuario[0]['id'])[0]]);
         } else {
             $this->presenter->render("view/iniciarSesionView.mustache");
         }

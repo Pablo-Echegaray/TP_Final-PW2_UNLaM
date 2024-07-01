@@ -8,6 +8,66 @@ class PartidaModel
         $this->database = $database;
     }
 
+    public function playTheGame($usuario){
+        // CREAR LA PARTIDA
+        $modo = "single player";
+        $lastGame = $this->getLastGame();
+        if ($lastGame == null || $lastGame["estado"] == "finished") {
+            $this->crearPartida($modo);
+            $game = $this->getLastGame();
+            $this->asignarPartidaAJugador($usuario[0]["id"], $game["id"], 0);
+        }
+
+        // OBTENER PREGUNTA ALEATORIA
+        $pregunta = $this->getPreguntaRandom($usuario[0]["id"]);
+        $game = $this->getLastGame();
+
+        //OBTENER CATEGORIA y ASIGNAR COLOR
+        $categoria = $this->obtenerCategoriaPregunta($pregunta[0]["id"]);
+        $color = $this->obtenerColorPorCategoria($categoria[0]["descripcion"]);
+
+        // REGISTRAR PREGUNTA A PARTIDA
+        $partidaPregunta = $this->asignarPreguntaAPartida($game["id"], $pregunta[0]["id"]);
+
+        // OBTENER RESPUESTAS
+        $respuestas = $this->getRespuestas($pregunta[0]["id"]);
+        return array("usuario" => $_SESSION["usuario"], "preguntas" => $pregunta, "respuestas" => $respuestas, "color" => $color);
+    }
+
+    public function checkAnswer($usuario, $respuestaUsuario){
+        $lastquestion = $this->getLastQuestionInGame();
+        $idPartida = $lastquestion["id_partida"];
+        $respuestaCorrecta = $this->getRespuestaCorrecta($lastquestion["id_pregunta"]);
+        $mensaje = "RESPUESTA CORRECTA";
+        $claseTexto = "texto-verde";
+        $actionGame = "play";
+
+        if ($respuestaUsuario == $respuestaCorrecta['descripcion']) {
+            $this->actualizarPuntaje($idPartida);
+            $this->updateQuestionDeliveredAndHit($lastquestion["id_pregunta"], 1);
+            $this->updateUserDeliveredAndHit($usuario[0]["id"], 1);
+        } else {
+            $this->endGame($idPartida);
+            $this->updateQuestionDeliveredAndHit($lastquestion["id_pregunta"], -1);
+            $this->updateUserDeliveredAndHit($usuario[0]["id"], -1);
+            $mensaje= "RESPUESTA INCORRECTA";
+            $claseTexto = "texto-rojo";
+            $actionGame = "finishGame";
+        }
+        return array("mensaje"=>$mensaje, "claseTexto"=>$claseTexto, "actionGame"=>$actionGame);
+    }
+
+    public function timerRefresh(){
+        $lastquestion = $this->getLastQuestionInGame();
+        $idPartida = $lastquestion["id_partida"];
+
+        // Cambiar el estado de la partida a "finished"
+        $this->endGame($idPartida);
+        $puntaje = $this->getPuntajeJugadorEnPartida($idPartida);
+        $error = "Tiempo agotado";
+        return array("puntaje"=>$puntaje, "error"=>$error);
+    }
+
     public function crearPartida($modo)
     {
         $this->database->execute("INSERT INTO partidas (modo, estado) VALUES ('$modo', 'playing')");
@@ -31,6 +91,32 @@ class PartidaModel
             FROM preguntas 
             WHERE preguntas.id = '$id' ;
         ");
+    }
+
+    private function obtenerColorPorCategoria($descripcion)
+    {
+        $color = "";
+        switch($descripcion){
+            case "Geografía":
+                $color = "#0487d9";
+                break;
+            case "Literatura":
+                $color = "#7325a6";
+                break;
+            case "Deportes":
+                $color = "#a1a61f";
+                break;
+            case "Ciencia":
+                $color = "#f27141";
+                break;
+            case "Historia":
+                $color = "#f2cb05";
+                break;
+            default:
+                $color = "#f23568";
+                break;
+        }
+        return $color;
     }
 
     private function obtenerPrimerNumero()
@@ -177,8 +263,6 @@ class PartidaModel
         $questionsId = $this->getQuestionsByPlayer($idJugador);
         foreach ($questionsId as $questionId) {
             if ($questionId["id_pregunta"] == $idNewQuestion) {
-                //echo "id pregunta". $questionId["id_pregunta"];
-                //echo "id new question". $idNewQuestion;
                 return true;
             }
         }
@@ -187,11 +271,7 @@ class PartidaModel
 
     private function getIdNextQuestion($usuarioId): int {
         $apropriateQuestions = $this->selectQuestionsByDifficulty($usuarioId);
-        foreach ($apropriateQuestions[0] as $question) {
-            //echo $question["descripcion"];
-        }
         do {
-            //$idNextQuestion = rand($this->obtenerPrimerNumero()[0]["id"], $this->obtenerSegundoNumero()[0]["id"]);
             $idNextQuestion = $apropriateQuestions[0][rand(0, count($apropriateQuestions[0])-1)]["id"];
         } while ($this->dontRepeatTheQuestionToThePlayer($usuarioId, $idNextQuestion));
         return $idNextQuestion;
@@ -202,7 +282,6 @@ class PartidaModel
         $easyQuestions = [];
         $mediumQuestions = [];
         $hardQuestions = [];
-        //array_push($array, "valor1", "valor2");
         foreach ($questions as $question) {
             if ($question["hit"] /$question["entregadas"] > 0.6) {
                 array_push($easyQuestions, $question);
@@ -227,13 +306,10 @@ class PartidaModel
         $apropriateQuestions = [];
         if ($playerExperience > 0.6) {
             array_push($apropriateQuestions, $questionsByDifficulty["hardQuestions"]);
-            //$apropriateQuestions = $questionsByDifficulty["hardQuestions"];
         }else if ($playerExperience > 0.4 && $playerExperience < 0.6){
             array_push($apropriateQuestions, $questionsByDifficulty["mediumQuestions"]);
-            //$apropriateQuestions = $questionsByDifficulty["mediumQuestions"];
         }else{
             array_push($apropriateQuestions, $questionsByDifficulty["easyQuestions"]);
-            //$apropriateQuestions = $questionsByDifficulty["easyQuestions"];
         }
         return $apropriateQuestions;
     }
