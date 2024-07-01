@@ -1,26 +1,78 @@
-{{>navJugador}}
-<h2 class="text-center p-3">Ranking</h2>
-<table class="table table-striped">
+<nav class="py-6 px-4 navbar navbar-expand-lg bg-primary d-flex justify-content-between mq-nav">
+    <img src="/TP_Final-PW2_UNLaM/public/image/interrogados0.png" class="logo">
+</nav> 
+
+<div class="container2">
+<nav class="nav" id="nav">
+    <ul>
+     <li>
+            <a href="/TP_Final-PW2_UNLaM/user/homeView.mustache">
+                <div class="icono" id="0">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </div>
+                Historial
+            </a>
+        </li>
+        <li>
+            <a href="/TP_Final-PW2_UNLaM/partida/play">
+                <div class="icono" id="0">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                Crear Nueva Partida
+            </a>
+        </li>
+        <li>
+            <a href="/TP_Final-PW2_UNLaM/pregunta/suggestQuestion">
+                <div class="icono" id="1">
+                    <i class="fa-solid fa-question"></i>
+                </div>
+                Sugerir Nueva Pregunta
+            </a>
+        </li>
+        <li>
+            <a href="/TP_Final-PW2_UNLaM/ranking/ranking">
+                <div class="icono" id="2">
+                    <i class="fa-solid fa-ranking-star"></i>
+                </div>
+                Ranking
+            </a>
+        </li>
+         <li>
+            <a href="/TP_Final-PW2_UNLaM/user/logout">
+                <div class="icono" id="2">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </div>
+                Cerrar Sesión
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<main id="main" class="d-flex justify-content-center">   
+
+<div class="tabla-historial">  
+<p class="titulo">Ranking</p>
+<table>
     <thead>
         <tr>
-            <th class="text-center bg-dark text-light">Usuario</th>
-            <th class="text-center bg-dark text-light">Puntaje</th>
-            <th class="text-center bg-dark text-light">QR del Perfil</th>
+            <th scope='col'>Usuario</th>
+            <th scope='col'>Puntaje</th>
+            <th scope='col'>QR del Perfil</th>
         </tr>
     </thead>
     <tbody>
         {{#qrData}}
             {{#user}}
                 <tr>
-                    <td class="text-center">
-                        <a href="/TP_Final-PW2_UNLaM/user/profile/id={{id}}" class="text-decoration-none fs-5 fw-bold">
+                    <td>
+                        <a href="/TP_Final-PW2_UNLaM/user/profile/id={{id}}" class="nombre-ranking">
                             {{nombre_usuario}}
                         </a>
                     </td>
-                    <td class="text-center fs-5">
+                    <td>
                         {{puntaje}} pts.
                     </td>
-                    <td class="text-center">
+                    <td>
                         <img src='/TP_Final-PW2_UNLaM/{{qrPath}}' alt='QR Code'>
                     </td>
                 </tr>
