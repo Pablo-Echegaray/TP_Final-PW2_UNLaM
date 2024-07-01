@@ -9,7 +9,7 @@ class RankingModel {
 
     public function getRanking($limit = 15) {
         return $this->database->query(
-            "SELECT u.id, u.nombre_usuario, jp.puntaje 
+            "SELECT DISTINCT u.id, u.nombre_usuario, jp.puntaje
             FROM jugadores_partidas jp
             JOIN usuarios u ON jp.id_jugador = u.id
             WHERE (jp.id_jugador, jp.puntaje) IN (

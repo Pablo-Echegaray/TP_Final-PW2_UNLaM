@@ -40,8 +40,8 @@ class PreguntaController
         $answers = [
             ['respuesta' => $_POST['opcionA'], 'estado' => $estadoA],
             ['respuesta' => $_POST['opcionB'], 'estado' => $estadoB],
-            ['respuesta' => $_POST['opcionA'], 'estado' => $estadoC],
-            ['respuesta' => $_POST['opcionA'], 'estado' => $estadoD],
+            ['respuesta' => $_POST['opcionC'], 'estado' => $estadoC],
+            ['respuesta' => $_POST['opcionD'], 'estado' => $estadoD],
         ];
 
         $rol = $_SESSION["usuario"][0]["rol"];
