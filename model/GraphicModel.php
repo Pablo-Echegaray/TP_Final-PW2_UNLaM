@@ -54,7 +54,16 @@ class GraphicModel
         $graph->yaxis->title->Set('Cantidad');
         $graph->xaxis->SetTickLabels($mesesLabel);
 
-        $graph->Stroke();
+        $graph->Stroke(_IMG_HANDLER);
+
+        $fileName = "./public/image/charts/players_graph.png";
+        if (file_exists($fileName)) {
+            unlink($fileName);
+        }
+        $graph->img->Stream($fileName);
+
+        $graph->img->Headers();
+        $graph->img->Stream();
     }
 
     public function gamesGraph($query)
@@ -98,7 +107,16 @@ class GraphicModel
         $graph->yaxis->title->Set('Cantidad');
         $graph->xaxis->SetTickLabels($mesesLabel);
     
-        $graph->Stroke();
+        $graph->Stroke(_IMG_HANDLER);
+
+        $fileName = "./public/image/charts/games_graph.png";
+        if (file_exists($fileName)) {
+            unlink($fileName);
+        }
+        $graph->img->Stream($fileName);
+
+        $graph->img->Headers();
+        $graph->img->Stream();
     }    
 
     public function questionsGraph($activeQuestions, $createdQuestions)
@@ -120,7 +138,16 @@ class GraphicModel
         $graph->xaxis->SetTickLabels($labels);
         $graph->yaxis->title->Set("Cantidad");
     
-        $graph->Stroke();
+        $graph->Stroke(_IMG_HANDLER);
+
+        $fileName = "./public/image/charts/questions_graph.png";
+        if (file_exists($fileName)) {
+            unlink($fileName);
+        }
+        $graph->img->Stream($fileName);
+
+        $graph->img->Headers();
+        $graph->img->Stream();
     }
     
     public function percentageOfCorrectAnswersGraph($query)
@@ -148,7 +175,16 @@ class GraphicModel
         $graph->xaxis->title->Set('Jugadores');
         $graph->yaxis->title->Set('Porcentaje');
     
-        $graph->Stroke();
+        $graph->Stroke(_IMG_HANDLER);
+
+        $fileName = "./public/image/charts/right_answers_percentage_graph.png";
+        if (file_exists($fileName)) {
+            unlink($fileName);
+        }
+        $graph->img->Stream($fileName);
+
+        $graph->img->Headers();
+        $graph->img->Stream();
     }
     
     public function usersByCountryGraph($query)
@@ -174,7 +210,16 @@ class GraphicModel
         $graph->yaxis->title->Set("Cantidad de Jugadores");
         $graph->legend->Pos(0.5, 0.9);
     
-        $graph->Stroke();
+        $graph->Stroke(_IMG_HANDLER);
+
+        $fileName = "./public/image/charts/users_by_country_graph.png";
+        if (file_exists($fileName)) {
+            unlink($fileName);
+        }
+        $graph->img->Stream($fileName);
+
+        $graph->img->Headers();
+        $graph->img->Stream();
     }
     
     public function usersBySexGraph($query)
@@ -194,7 +239,16 @@ class GraphicModel
         $graph->title->SetFont(FF_ARIAL, FS_BOLD, 14);
         $graph->legend->Pos(0.5, 0.9);
     
-        $graph->Stroke();
+        $graph->Stroke(_IMG_HANDLER);
+
+        $fileName = "./public/image/charts/users_by_sex_graph.png";
+        if (file_exists($fileName)) {
+            unlink($fileName);
+        }
+        $graph->img->Stream($fileName);
+
+        $graph->img->Headers();
+        $graph->img->Stream();
     }
     
     public function usersByAgeGroupGraph($query)
@@ -214,7 +268,38 @@ class GraphicModel
         $graph->title->SetFont(FF_ARIAL, FS_BOLD, 14);
         $graph->legend->Pos(0.5, 0.9);
     
-        $graph->Stroke();
+        $graph->Stroke(_IMG_HANDLER);
+
+        $fileName = "./public/image/charts/users_by_age_group_graph.png";
+        if (file_exists($fileName)) {
+            unlink($fileName);
+        }
+        $graph->img->Stream($fileName);
+
+        $graph->img->Headers();
+        $graph->img->Stream();
+    }
+
+    public function errorImg(){
+        $graph = new CanvasGraph(800, 600);
+        $graph->title->Set('Mensaje de Aviso');
+        $graph->SetMargin(20, 20, 20, 20);
+
+        // Agregar un cuadro de texto con el mensaje de aviso
+        $text = new Text("El gráfico no está disponible temporalmente.\n\nInténtalo de nuevo más tarde.", 10, 100);
+        $text->SetFont(FF_ARIAL, FS_NORMAL, 12);
+        $graph->Add($text);
+
+        $graph->Stroke(_IMG_HANDLER);
+
+        $fileName = "./public/image/charts/error.png";
+        if (file_exists($fileName)) {
+            unlink($fileName);
+        }
+        $graph->img->Stream($fileName);
+
+        $graph->img->Headers();
+        $graph->img->Stream();
     }
     
     private function prepareDataAndLabels($query, $dataKey, $labelKey)

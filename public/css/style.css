@@ -374,22 +374,20 @@ td {
 }
 
 .contenedor-grafico {
-    width: 100%; /* Ajustar el ancho según sea necesario */
-    max-width: 600px; /* Ancho máximo del div */
-    height: auto; /* La altura se ajustará automáticamente según la proporción */
-    border: 1px solid #ccc; /* Borde para resaltar el div */
-    overflow: hidden; /* Ocultar cualquier desbordamiento */
-    margin: 0 auto; /* Centrar el div horizontalmente */
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin: 0 auto;
 }
 
 .contenedor-grafico img {
-    width: 100%; /* La imagen ocupa el 100% del ancho del div */
-    height: auto; /* La altura se ajusta automáticamente según la proporción */
-    display: block; /* Asegura que la imagen sea un elemento de bloque */
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .box-datos{
-    background: linear-gradient(135deg, #F8D7B8, #824A71, #2c2d4c);
+    background: linear-gradient(135deg, #edb8f8, #3f7faa, #0c5a8f);
     border-radius: 10px;
     color: white;
     font-weight: bold;
@@ -397,6 +395,57 @@ td {
     width: 30%;
 }
 
+.button {
+    background-color: #3f7faa;
+    color: #FFFFFF;
+}
+
+.button:hover {
+    background-color: #edb8f8;
+    color: #2e2e2e;
+}
+
+#botones-graficos{
+    margin: 3em;
+}
+
+.select-filtro{
+    display: flex;
+    gap: 0px;
+}
+
+.select-filtro select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #3f7faa;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    flex: 1;
+    font-size: 14px;
+    height: 3em;
+}
+
+.select-filtro button {
+    border: 1px solid #3f7faa;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    font-size: 14px;
+    height: 3em;
+}
+
+.select-filtro select option {
+    padding: 10px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #000;
+  }
+  
+  .select-filtro select option:hover {
+    background-color: #edb8f8;
+    color: #2e2e2e;
+  }
 
 .container-maps {
     height: 60%;

@@ -1,4 +1,4 @@
-<main class="container">
+<main>
 <div class="container2">
 <nav class="nav" id="nav">
     <ul>
@@ -43,21 +43,21 @@
 
     <div id="botones-graficos" class="row">
         <div class="col-md-6 mb-3">
-            <div id="filtrarFecha" class="d-flex align-items-center">
-                <select id="filtrar" name="filtrar" class="form-select me-2">
+            <div id="filtrarFecha" class="d-flex align-items-center select-filtro">
+                <select id="filtrar" name="filtrar" class="">
                     <option value="noFilter">Sin filtro</option>
                     <option value="day">Día</option>
                     <option value="week">Semana</option>
                     <option value="month">Mes</option>
                     <option value="year">Año</option>
                 </select>
-                <button id="aplicarFiltro" class="btn btn-primary">Filtrar</button>
+                <button id="aplicarFiltro" class="btn button">Filtrar</button>
             </div>
         </div>
 
         <div class="col-md-6 mb-3 text-end">
             <div class="imprimir">
-                <button id="imprimir-pdf" class="btn btn-secondary">Imprimir</button>
+                <button id="imprimir-pdf" class="btn button">Imprimir</button>
             </div>
         </div>
     </div>
@@ -98,7 +98,6 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('imprimir-pdf').addEventListener('click', function() {
-        var graficos = document.getElementById('graficos').innerHTML;
         
         var form = document.createElement('form');
         form.action = '/TP_Final-PW2_UNLaM/Admin/generarPdf';

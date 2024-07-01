@@ -87,8 +87,14 @@ class AdminController
             <html>
             <head>
                 <style>
+                    .titulo {
+                        display: flex;
+                        text-align: center;
+                        font-family: Arial, sans-serif;
+                        color: #3f7faa;
+                    }
                     .contenedor-grafico {
-                        margin-bottom: 20px;
+                        margin: 50px 20px;
                     }
                     .contenedor-grafico img {
                         width: 100%;
@@ -97,9 +103,17 @@ class AdminController
                 </style>
             </head>
             <body>
-            <h2>REPORTE DE GRÁFICOS<h2>
-            $htmlGrafico
-            <img src='http://localhost/TP_Final-PW2_UNLaM/public/image/perfil_sin_foto.jpg'>
+                <h2 class='titulo'>REPORTE DE GRÁFICOS<h2>
+
+                <div class='contenedor-grafico'>
+                    <img src='/public/image/charts/players_graph.png'>
+                    <img src='/public/image/charts/games_graph.png'>
+                    <img src='/public/image/charts/questions_graph.png'>
+                    <img src='/public/image/charts/right_answers_percentage_graph.png'>
+                    <img src='/public/image/charts/users_by_country_graph.png'>
+                    <img src='/public/image/charts/users_by_sex_graph.png'>
+                    <img src='/public/image/charts/users_by_age_group_graph.png'>
+                </div>
             </body>
             </html>";
 

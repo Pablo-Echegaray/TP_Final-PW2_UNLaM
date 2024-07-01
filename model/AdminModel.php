@@ -36,7 +36,7 @@ class AdminModel
     {
         $condition = $this->getDateFilterCondition($dateFilter);
         $query = "
-        SELECT DATE_FORMAT(fecha_creacion, '%Y-%m') as fecha, COUNT(*) as total
+        SELECT DATE_FORMAT(fecha_creacion, '%Y-%m-%d') as fecha, COUNT(*) as total
         FROM usuarios
         WHERE rol = 'J' AND activo = 1";
 
@@ -45,7 +45,7 @@ class AdminModel
         }
 
         $query .= "
-            GROUP BY DATE_FORMAT(fecha_creacion, '%Y-%m')
+            GROUP BY DATE_FORMAT(fecha_creacion, '%Y-%m-%d')
             ORDER BY fecha ASC;";
 
         $result = $this->database->query($query);
@@ -67,7 +67,7 @@ class AdminModel
         $condition = $this->getDateFilterCondition($dateFilter);
 
         $query = "
-            SELECT DATE_FORMAT(fecha_creacion, '%Y-%m') as fecha, COUNT(*) as total
+            SELECT DATE_FORMAT(fecha_creacion, '%Y-%m-%d') as fecha, COUNT(*) as total
             FROM partidas";
 
         if (!empty($condition)) {
@@ -75,7 +75,7 @@ class AdminModel
         }
 
         $query .= "
-            GROUP BY DATE_FORMAT(fecha_creacion, '%Y-%m')
+            GROUP BY DATE_FORMAT(fecha_creacion, '%Y-%m-%d')
             ORDER BY fecha ASC";
 
         $result = $this->database->query($query);
@@ -118,19 +118,7 @@ class AdminModel
         return $result['total_preguntas_creadas'] ?? 0;
     }
 
-    /*$query = "
-    SELECT 
-        u.nombre_usuario,
-        COUNT(DISTINCT jp.id_partida) AS total_partidas,
-        COUNT(DISTINCT pp.id_pregunta) AS total_preguntas_respondidas,
-        (SUM(pp.id_pregunta) - SUM(DISTINCT jp.id_partida)) AS total_respuestas_correctas,
-        (SUM(pp.id_pregunta) - SUM(DISTINCT jp.id_partida)) / COUNT(DISTINCT pp.id_pregunta)) * 100 AS porcentaje_correctas
-    FROM usuarios u
-    LEFT JOIN jugadores_partidas jp ON u.id = jp.id_jugador
-    LEFT JOIN partidas_preguntas pp ON jp.id_partida = pp.id_partida
-    WHERE u.rol = 'J'
-";*/
-    public function getPercentageOfCorrectAnswers($dateFilter) //(SUM(pp.id_pregunta) - 1) / COUNT(DISTINCT pp.id_pregunta) * 100 AS porcentaje_correctas
+    public function getPercentageOfCorrectAnswers($dateFilter)
     {
         $condition = $this->getDateFilterConditionPorcentaje($dateFilter);
     
@@ -138,13 +126,12 @@ class AdminModel
             SELECT 
                 u.nombre_usuario,
                 COUNT(DISTINCT jp.id_partida) AS total_partidas,
-                COUNT(DISTINCT pp.id_pregunta) AS total_preguntas_respondidas,
-                SUM(r.estado = 1) AS total_respuestas_correctas,
-                (SUM(r.estado = 1) / COUNT(DISTINCT pp.id_pregunta)) * 100 AS porcentaje_correctas
+                SUM(jp.puntaje)/10 AS total_respuestas_correctas,
+                COUNT(pp.id_pregunta) AS total_preguntas_respondidas,
+                ((SUM(jp.puntaje)/10) * 100) / COUNT(DISTINCT pp.id_pregunta) AS porcentaje_correctas
             FROM usuarios u
             LEFT JOIN jugadores_partidas jp ON u.id = jp.id_jugador
             LEFT JOIN partidas_preguntas pp ON jp.id_partida = pp.id_partida
-            LEFT JOIN respuestas r ON pp.id_pregunta = r.id_pregunta
             WHERE u.rol = 'J'
          ";
 
@@ -252,19 +239,17 @@ class AdminModel
 
     private function getDateFilterConditionPorcentaje($dateFilter)
     {
-        $currentDate = date('Y-m-d');
-        
         switch ($dateFilter) {
             case 'day':
-                return "DATE(p.fecha_creacion) = '$currentDate'";
+                return "DATE(pp.fecha_creacion) = CURRENT_DATE";
             case 'week':
-                return "YEARWEEK(p.fecha_creacion) = YEARWEEK('$currentDate')";
+                return "YEARWEEK(pp.fecha_creacion) = YEARWEEK(CURRENT_DATE)";
             case 'month':
-                return "MONTH(p.fecha_creacion) = MONTH('$currentDate') AND YEAR(p.fecha_creacion) = YEAR('$currentDate')";
+                return "MONTH(pp.fecha_creacion) = MONTH(CURRENT_DATE) AND YEAR(fecha_creacion) = YEAR(CURRENT_DATE)";
             case 'year':
-                return "YEAR(p.fecha_creacion) = YEAR('$currentDate')";
+                return "YEAR(pp.fecha_creacion) = YEAR(CURRENT_DATE)";
             default:
-                return "";  // Tratar otros casos o valores por defecto según sea necesario
+                return "";
         }
     }
     
