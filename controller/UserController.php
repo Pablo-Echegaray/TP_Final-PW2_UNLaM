@@ -108,9 +108,9 @@ class UserController
             exit();
         }
         $id = $_GET['id'];
-        $usuario = $this->modelUser->getUserById($id);
-        if (isset($id) && $usuario) {
-            $this->presenter->render("view/otherUsersView.mustache", array("usuario" => $usuario));
+        $usuarios = $this->modelUser->getUserById($id);
+        if (isset($id) && $usuarios) {
+            $this->presenter->render("view/otherUsersView.mustache", array("usuarios" => $usuarios, "usuario" => $_SESSION["usuario"]));
         } else {
             header('Location: http://localhost/TP_Final-PW2_UNLaM/ranking/ranking');
             exit();

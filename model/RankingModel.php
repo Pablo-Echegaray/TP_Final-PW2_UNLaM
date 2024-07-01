@@ -19,12 +19,4 @@ class RankingModel {
             )
             ORDER BY jp.puntaje DESC");
     }
-
-    /*public function getRanking($limit = 15) {
-        $query = "...
-                  LIMIT :limit";
-
-        $params = array(":limit" => $limit);
-        return $this->database->query($query, $params)->fetchAll();
-    }*/
 }
