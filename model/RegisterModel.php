@@ -52,7 +52,6 @@ class RegisterModel
 
     public function agregar($nombre, $apellido, $nacimiento, $sexo, $ciudad, $pais, $email, $contrasena, $usuario, $foto)
     {
-        //Rol, qr, entregadas y hit valores por defecto
         $this->database->execute("
             INSERT INTO
             usuarios
@@ -65,7 +64,6 @@ class RegisterModel
     public function enviarCorreoVerificacion($email, $nombre, $usuario)
     {
         $codigoVerificacion = "ABC".rand("100", "999");
-        //POR EL MOMENTO LO VA A GUARDAR EN EL QR EL CODIGO DE VERIFICACION, hasta cambiar la tabla usuario
         $this->guardarCodigoVerificacion($usuario, $codigoVerificacion);
 
         try{
@@ -115,7 +113,7 @@ class RegisterModel
         $allData = $this->maps->getMarkers();
         //echo $allData;
         $allData = json_encode($allData, true);
-        echo $allData; //Este es el echo supremo que si es borrado o comentado el mapa no se muestra.
+        echo "<div id='echo_supremo'>" . $allData . "</div>";
         return array("coll"=>$coll, "allData"=>$allData);
     }
 

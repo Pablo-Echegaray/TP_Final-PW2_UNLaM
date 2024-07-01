@@ -390,9 +390,9 @@ td {
     width: 30%;
 }
 
-<!--Google Maps -->
+<!--  -->
 .container-maps {
-    height: 10%;
+    height: 60%;
 }
 
 #map {
@@ -402,4 +402,9 @@ td {
 }
 #data, #allData {
     display: none;
+}
+
+#echo_supremo{
+    background-color: dodgerblue;
+    color: dodgerblue;
 }
