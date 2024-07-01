@@ -20,13 +20,13 @@ class PartidaController
         $usuario = $_SESSION["usuario"];
 
         // Verifica si la página fue recargada
-        /*if (isset($_SESSION['page_reloaded']) && $_SESSION['page_reloaded'] === true) {
+        if (isset($_SESSION['page_reloaded']) && $_SESSION['page_reloaded'] === true) {
             $this->finishGame();
             return;
-        }*/
+        }
 
         // Marca la página como recargada
-        //$_SESSION['page_reloaded'] = true;
+        $_SESSION['page_reloaded'] = true;
 
         $game = $this->model->playTheGame($usuario);
         $this->presenter->render("view/jugarView.mustache", $game);
@@ -60,9 +60,9 @@ class PartidaController
 
         $lastquestion = $this->model->getLastQuestionInGame();
         $puntaje = $this->model->getPuntajeJugadorEnPartida($lastquestion["id_partida"]);
-
+        $this->model->endGame($lastquestion['id_partida']);
         // Resetea el indicador de recarga de página al finalizar el juego
-        //unset($_SESSION['page_reloaded']);
+        unset($_SESSION['page_reloaded']);
 
         $this->presenter->render("view/finalizarPartidaView.mustache", ["puntaje" => $puntaje]);
     }
