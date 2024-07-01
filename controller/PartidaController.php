@@ -63,7 +63,7 @@ class PartidaController
             $this->model->actualizarPuntaje($idPartida);
             $this->model->updateQuestionDeliveredAndHit($lastquestion["id_pregunta"], 1);
             $this->model->updateUserDeliveredAndHit($usuario[0]["id"], 1);
-            $this->presenter->render("view/mensajePartida.mustache", ["mensaje"=>$mensaje, "claseTexto"=>$claseTexto]);
+            //$this->presenter->render("view/mensajePartida.mustache", ["mensaje"=>$mensaje, "claseTexto"=>$claseTexto]);
             $this->presenter->render("view/mensajePartidaView.mustache", ["mensaje"=>$mensaje, "claseTexto"=>$claseTexto]);
             header('Refresh: 2; URL=/TP_Final-PW2_UNLaM/partida/play');
         } else {
@@ -86,6 +86,25 @@ class PartidaController
         $lastquestion = $this->model->getLastQuestionInGame();
         $puntaje=$this->model->getPuntajeJugadorEnPartida($lastquestion["id_partida"]);
         $this->presenter->render("view/finalizarPartidaView.mustache", ["puntaje"=>$puntaje]);
+    }
+
+    public function timerRefresh()
+    {
+        if (!isset($_SESSION["usuario"])) {
+            header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
+            exit();
+        }
+
+        $lastquestion = $this->model->getLastQuestionInGame();
+        $idPartida = $lastquestion["id_partida"];
+
+        // Cambiar el estado de la partida a "finished"
+        $this->model->endGame($idPartida);
+
+        $puntaje = $this->model->getPuntajeJugadorEnPartida($idPartida);
+
+        $error = "Tiempo agotado";
+        $this->presenter->render("view/finalizarPartidaView.mustache", ["puntaje" => $puntaje, "error" => $error]);
     }
 
     private static function obtenerColorPorCategoria($descripcion)

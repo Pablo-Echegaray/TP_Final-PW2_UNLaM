@@ -1,18 +1,33 @@
 {{>navJugador}}
-<h2>Ranking</h2>
-<table>
+<h2 class="text-center p-3">Ranking</h2>
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>Usuario</th>
-            <th>Puntaje</th>
+            <th class="text-center bg-dark text-light">Usuario</th>
+            <th class="text-center bg-dark text-light">Puntaje</th>
+            <th class="text-center bg-dark text-light">QR del Perfil</th>
         </tr>
     </thead>
     <tbody>
-        {{#ranking}}
-            <tr>
-                <td><a href="/TP_Final-PW2_UNLaM/user/profile/id={{id}}">{{nombre_usuario}}</a></td>
-                <td>{{puntaje}}</td>
-            </tr>
-        {{/ranking}}
+        {{#qrData}}
+            {{#user}}
+                <tr>
+                    <td class="text-center">
+                        <a href="/TP_Final-PW2_UNLaM/user/profile/id={{id}}" class="text-decoration-none fs-5 fw-bold">
+                            {{nombre_usuario}}
+                        </a>
+                    </td>
+                    <td class="text-center fs-5">
+                        {{puntaje}} pts.
+                    </td>
+                    <td class="text-center">
+                        <img src='/TP_Final-PW2_UNLaM/{{qrPath}}' alt='QR Code'>
+                    </td>
+                </tr>
+            {{/user}}
+        {{/qrData}}
     </tbody>
 </table>
+
+</main>
+</div>

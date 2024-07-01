@@ -1,28 +1,4 @@
 {{#usuario}}
-    <nav class="py-6 px-4 navbar navbar-expand-lg bg-primary d-flex justify-content-between mq-nav">
-        <p class="m-0 p-0 text-light fs-3 fw-bold">
-            Preguntados
-        </p>
-        <div class="d-flex justify-content-end" id="navbarNav">
-            <ul class="navbar-nav flex-row">
-                <li class="nav-item px-2">
-                    <a class="nav-link active text-white fs-5" aria-current="page" href="/TP_Final-PW2_UNLaM/lobby/home">
-                        Home
-                    </a>
-                </li>
-                <li class="nav-item px-2">
-                    <a class="nav-link text-white fs-5" href="#">
-                        Jugar partida
-                    </a>
-                </li>
-                <li class="nav-item px-2">
-                    <a class="nav-link text-white fs-5" href="/TP_Final-PW2_UNLaM/user/logout">
-                        Cerrar Sesión
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
     <main class="d-flex justify-content-center">
 
         <form class="m-4 p-4 w-75 bg-light">
@@ -31,7 +7,7 @@
                     <legend class="fw-bold">
                         Perfil - <span class="fw-normal">{{nombre_usuario}}</span>
                     </legend>
-                    <img src="/TP_Final-PW2_UNLaM/public/image/{{foto}}" alt="Foto de perfil" class="w-25">
+                    <img src="/TP_Final-PW2_UNLaM/{{foto}}" alt="Foto de perfil" class="img-perfil">
                 </div>
                 <div class="d-flex mq">
                     <div class="mb-3 w-50 p-2">
