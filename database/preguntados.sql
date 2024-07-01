@@ -186,9 +186,15 @@ INSERT INTO preguntas (descripcion, estado, entregadas, hit, id_categoria, fecha
     ('¿Cuál es la montaña más alta del mundo?', 'activa', 100, 50, 1, '2024-06-20 08:00:00'),
     ('¿Qué país tiene la mayor población del mundo?', 'activa', 100, 70, 1, '2024-06-25 10:00:00'),
     ('¿Quién es el autor de "1984"?', 'activa', 100, 50, 2, '2024-06-30 12:00:00'),
-    ('¿Cuál es el país con más medallas olímpicas?', 'activa', 100, 50, 3, '2024-07-05 14:00:00'),
-    ('¿Qué elemento tiene el símbolo Na?', 'activa', 100, 50, 4, '2024-07-10 16:00:00'),
-    ('¿Cuál es el animal terrestre más rápido del mundo?', 'activa', 100, 70, 6, '2024-07-20 18:00:00');
+    ('¿Cuál es el país con más medallas olímpicas?', 'activa', 100, 50, 3, '2024-06-30 14:00:00'),
+    ('¿Qué elemento tiene el símbolo Na?', 'activa', 100, 50, 4, '2024-06-30 16:00:00'),
+    ('¿Cuál es el animal terrestre más rápido del mundo?', 'activa', 100, 70, 6, '2024-06-30 18:00:00'),
+    ('¿Quién fue el ganador de las NBA Finals 2024?', 'activa', 100, 30, 3, '2024-06-30 18:10:00'),
+    ('¿Cuáles fueron las dos selecciones clasificadas a cuartos de final de la Copa América 2024 por el grupo A?', 'activa', 100, 50, 3, '2024-06-30 18:20:00'),
+    ('¿Cuándo fue la última vez que el Club Atlético Boca Juniors se consagró campeón de la CONMEBOL Libertadores?', 'activa', 100, 40, 3, '2024-06-30 18:30:00'),
+    ('¿Cuántas veces se consagró campeón del mundo el Club Atlético Boca Juniors en su historia?', 'activa', 100, 70, 3, '2024-06-30 18:40:00'),
+    ('¿Cuál es el significado de la sigla POO en el hámbito del desarrollo de Software?', 'activa', 100, 70, 4, '2024-06-30 18:41:00'),
+    ('Cuando hablamos de MVC en el hámbito del desarrollo de Software, estamos hablando de...', 'activa', 100, 70, 4, '2024-06-30 18:42:00');
 
 INSERT INTO respuestas (descripcion, estado, id_pregunta) VALUES
     ('Londres', 0, 1),
@@ -306,7 +312,32 @@ INSERT INTO respuestas (descripcion, estado, id_pregunta) VALUES
     ('Guepardo', 1, 29),
     ('Leopardo', 0, 29),
     ('Dogo Argentino', 0, 29),
-    ('León', 0, 29);
+    ('León', 0, 29),
+    ('Chicago Bulls', 0, 30),
+    ('Timberwolves', 0, 30),
+    ('Boston Celtics', 1, 30),
+    ('Dallas Maverics', 0, 30),
+    ('Brasil y Jamaica', 0, 31),
+    ('Argentina y Chile', 0, 31),
+    ('Argentina y Perú', 0, 31),
+    ('Argentina y Canada', 1, 31),
+    ('CONMEBOL Libertadores 2018', 0, 32),
+    ('CONMEBOL Libertadores 2014', 0, 32),
+    ('CONMEBOL Libertadores 2007', 1, 32),
+    ('CONMEBOL Libertadores 2003', 0, 32),
+    ('Se consagró 3 veces campeón del mundo', 1, 33),
+    ('Se consagró 2 veces campeón del mundo', 0, 33),
+    ('Se consagró 1 veces campeón del mundo', 0, 33),
+    ('Nunca ha podido lograrlo', 0, 33),
+    ('Programación Ordinal Objetiva', 0, 34),
+    ('Programación Orientada a Objetivos', 0, 34),
+    ('Programación Oriental Orientada', 0, 34),
+    ('Programación Orientada a Objetos', 1, 34),
+    ('Un patrón que separa la aplicación en tres componentes interconectados: Model, View, Capa', 0, 35),
+    ('Un patrón que separa la aplicación en tres componentes interconectados: Model, View, Controller', 1, 35),
+    ('Un modo de verificar nuestro código: Muy, Verficado, Chequeado', 0, 35),
+    ('Un modo de testear nuestras aplicaciones: Más, Verficado, Chequeado', 0, 35);
+
 
 /*id INT AUTO_INCREMENT,
     id_user INT NOT NULL,

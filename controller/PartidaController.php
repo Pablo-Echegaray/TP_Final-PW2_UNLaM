@@ -54,17 +54,8 @@ class PartidaController
             header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
             exit();
         }
-
-        $lastquestion = $this->model->getLastQuestionInGame();
-        $idPartida = $lastquestion["id_partida"];
-
-        // Cambiar el estado de la partida a "finished"
-        $this->model->endGame($idPartida);
-
-        $puntaje = $this->model->getPuntajeJugadorEnPartida($idPartida);
-
-        $error = "Tiempo agotado";
-        $this->presenter->render("view/finalizarPartidaView.mustache", ["puntaje" => $puntaje, "error" => $error]);
+        $score_and_error = $this->model->timerRefresh();
+        $this->presenter->render("view/finalizarPartidaView.mustache", $score_and_error);
     }
-    
+
 }
