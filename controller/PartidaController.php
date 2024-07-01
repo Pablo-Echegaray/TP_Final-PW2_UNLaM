@@ -27,31 +27,14 @@ class PartidaController
             header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
             exit();
         }
-        //Como extraigo la preguntaaa
-        $lastquestion = $this->model->getLastQuestionInGame();
-        $idPartida = $lastquestion["id_partida"];
-        $respuestaUsuario = $_POST['respuesta'];
-        $respuestaCorrecta = $this->model->getRespuestaCorrecta($lastquestion["id_pregunta"]);
-        $usuario = $_SESSION["usuario"];
 
-        if ($respuestaUsuario == $respuestaCorrecta['descripcion']) {
-            $mensaje= "RESPUESTA CORRECTA";
-            $claseTexto = "texto-verde";
-            $this->model->actualizarPuntaje($idPartida);
-            $this->model->updateQuestionDeliveredAndHit($lastquestion["id_pregunta"], 1);
-            $this->model->updateUserDeliveredAndHit($usuario[0]["id"], 1);
-            //$this->presenter->render("view/mensajePartida.mustache", ["mensaje"=>$mensaje, "claseTexto"=>$claseTexto]);
-            $this->presenter->render("view/mensajePartidaView.mustache", ["mensaje"=>$mensaje, "claseTexto"=>$claseTexto]);
-            header('Refresh: 2; URL=/TP_Final-PW2_UNLaM/partida/play');
-        } else {
-            $this->model->endGame($idPartida);
-            $this->model->updateQuestionDeliveredAndHit($lastquestion["id_pregunta"], -1);
-            $this->model->updateUserDeliveredAndHit($usuario[0]["id"], -1);
-            $mensaje= "RESPUESTA INCORRECTA";
-            $claseTexto = "texto-rojo";
-            $this->presenter->render("view/mensajePartidaView.mustache", ["mensaje"=>$mensaje, "claseTexto"=>$claseTexto]);
-            header('Refresh: 2; URL=/TP_Final-PW2_UNLaM/partida/finishGame');
-        }
+        $respuestaUsuario = $_POST['respuesta'];
+        $usuario = $_SESSION["usuario"];
+        $validatedQuestion = $this->model->checkAnswer($usuario, $respuestaUsuario);
+        $actionGame = $validatedQuestion['actionGame'];
+        $this->presenter->render("view/mensajePartidaView.mustache", $validatedQuestion);
+        header('Refresh: 2; URL=/TP_Final-PW2_UNLaM/partida/' . $actionGame);
+
     }
 
     public function finishGame()
@@ -83,30 +66,5 @@ class PartidaController
         $error = "Tiempo agotado";
         $this->presenter->render("view/finalizarPartidaView.mustache", ["puntaje" => $puntaje, "error" => $error]);
     }
-
-    private static function obtenerColorPorCategoria($descripcion)
-    {
-        $color = "";
-        switch($descripcion){
-            case "Geografía":
-                $color = "#0487d9";
-                break;
-            case "Literatura":
-                $color = "#7325a6";
-                break;
-            case "Deportes":
-                $color = "#a1a61f";
-                break;
-            case "Ciencia":
-                $color = "#f27141";
-                break;
-            case "Historia":
-                $color = "#f2cb05";
-                break;
-            default:
-                $color = "#f23568";
-                break;
-        }
-        return $color;
-    }
+    
 }

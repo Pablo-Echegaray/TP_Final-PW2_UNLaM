@@ -40,6 +40,7 @@ class PartidaModel
         $respuestaCorrecta = $this->getRespuestaCorrecta($lastquestion["id_pregunta"]);
         $mensaje = "RESPUESTA CORRECTA";
         $claseTexto = "texto-verde";
+        $actionGame = "play";
 
         if ($respuestaUsuario == $respuestaCorrecta['descripcion']) {
             $this->actualizarPuntaje($idPartida);
@@ -51,8 +52,9 @@ class PartidaModel
             $this->updateUserDeliveredAndHit($usuario[0]["id"], -1);
             $mensaje= "RESPUESTA INCORRECTA";
             $claseTexto = "texto-rojo";
+            $actionGame = "finishGame";
         }
-        return array("mensaje"=>$mensaje, "claseTexto"=>$claseTexto);
+        return array("mensaje"=>$mensaje, "claseTexto"=>$claseTexto, "actionGame"=>$actionGame);
     }
 
     public function crearPartida($modo)
