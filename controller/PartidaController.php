@@ -19,6 +19,9 @@ class PartidaController
 
         $usuario = $_SESSION["usuario"];
 
+           // isset($_SESSION["time"])   // medieron F5
+
+
         // Verifica si la página fue recargada
         if (isset($_SESSION['page_reloaded']) && $_SESSION['page_reloaded'] === true) {
             $this->finishGame();
@@ -29,6 +32,8 @@ class PartidaController
         $_SESSION['page_reloaded'] = true;
 
         $game = $this->model->playTheGame($usuario);
+$_SESSION["time"]= now();
+
         $this->presenter->render("view/jugarView.mustache", $game);
     }
 
@@ -38,12 +43,12 @@ class PartidaController
             header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
             exit();
         }
-
+//chequear el time del back $_SESSION["time"] - now() < 15 segundos
         $respuestaUsuario = $_POST['respuesta'];
         $usuario = $_SESSION["usuario"];
         $validatedQuestion = $this->model->checkAnswer($usuario, $respuestaUsuario);
         $actionGame = $validatedQuestion['actionGame'];
-
+        unset($_SESSION["time"]);    
         // Resetea el indicador de recarga de página cuando se responde una pregunta
         //$_SESSION['page_reloaded'] = false;
 
