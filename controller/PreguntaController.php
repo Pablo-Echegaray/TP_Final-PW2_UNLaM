@@ -27,46 +27,14 @@ class PreguntaController
             header('Location: http://localhost/TP_Final-PW2_UNLaM/user/get');
             exit();
         }
-
         $question = $_POST['pregunta'];
         $categoriaId = $_POST['categoria'];
-
         $correcta = $_POST['correcta'];
-        $estadoA = ($correcta === 'A') ? 1 : 0;
-        $estadoB = ($correcta === 'B') ? 1 : 0;
-        $estadoC = ($correcta === 'C') ? 1 : 0;
-        $estadoD = ($correcta === 'D') ? 1 : 0;
 
-        $answers = [
-            ['respuesta' => $_POST['opcionA'], 'estado' => $estadoA],
-            ['respuesta' => $_POST['opcionB'], 'estado' => $estadoB],
-            ['respuesta' => $_POST['opcionC'], 'estado' => $estadoC],
-            ['respuesta' => $_POST['opcionD'], 'estado' => $estadoD],
-        ];
+        $view = $this->model->createQuestionAndAnswers($question, $categoriaId, $correcta, [$_POST['opcionA'], $_POST['opcionB'], $_POST['opcionC'], $_POST['opcionD']], $_SESSION["usuario"][0]["rol"]);
 
-        $rol = $_SESSION["usuario"][0]["rol"];
-
-        if ($rol == "E") {
-            $id_pregunta = $this->model->createQuestionEditor($question, $categoriaId);
-            if ($id_pregunta) {
-                foreach ($answers as $answer) {
-                    $this->model->createAnswer($question, $categoriaId, $answer['respuesta'], $answer['estado'], $id_pregunta);
-                }
-                header("Location: /TP_Final-PW2_UNLaM/view/editorHomeView.mustache");
-                exit;
-            }
-        }
-
-        if ($rol == "J") {
-            $id_pregunta = $this->model->createQuestion($question, $categoriaId);
-            if ($id_pregunta) {
-                foreach ($answers as $answer) {
-                    $this->model->createAnswer($question, $categoriaId, $answer['respuesta'], $answer['estado'], $id_pregunta);
-                }
-                header("Location: /TP_Final-PW2_UNLaM/view/homeView.mustache");
-                exit;
-            }
-        }
+        header("Location: /TP_Final-PW2_UNLaM/view/".$view. ".mustache");
+        exit;
     }
 
     public function reportQuestion()
