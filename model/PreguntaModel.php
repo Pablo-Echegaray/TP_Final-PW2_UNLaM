@@ -90,6 +90,43 @@ class PreguntaModel
         }
     }
 
+    public function createQuestionAndAnswers($question, $categoriaId, $correctAnswer, $answersArray, $rol){
+        $estadoA = ($correctAnswer === 'A') ? 1 : 0;
+        $estadoB = ($correctAnswer === 'B') ? 1 : 0;
+        $estadoC = ($correctAnswer === 'C') ? 1 : 0;
+        $estadoD = ($correctAnswer === 'D') ? 1 : 0;
+
+        $answers = [
+            ['respuesta' => $answersArray[0], 'estado' => $estadoA],
+            ['respuesta' => $answersArray[1], 'estado' => $estadoB],
+            ['respuesta' => $answersArray[2], 'estado' => $estadoC],
+            ['respuesta' => $answersArray[3], 'estado' => $estadoD],
+        ];
+        $view = '';
+
+        if ($rol == "E") {
+            $id_pregunta = $this->createQuestionEditor($question, $categoriaId);
+            if ($id_pregunta) {
+                foreach ($answers as $answer) {
+                    $this->createAnswer($question, $categoriaId, $answer['respuesta'], $answer['estado'], $id_pregunta);
+                }
+                $view = "editorHomeView";
+            }
+        }
+
+        if ($rol == "J") {
+            $id_pregunta = $this->createQuestion($question, $categoriaId);
+            if ($id_pregunta) {
+                foreach ($answers as $answer) {
+                    $this->createAnswer($question, $categoriaId, $answer['respuesta'], $answer['estado'], $id_pregunta);
+                }
+                $view = "homeView";
+            }
+        }
+
+        return $view;
+    }
+
     private function updateQuestion($idPregunta, $pregunta, $idCategoria){
         $this->database->execute(
             "UPDATE preguntas
