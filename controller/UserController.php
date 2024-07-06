@@ -154,9 +154,11 @@ class UserController
         $idPregunta = isset($_POST['preguntaId']) ? $_POST['preguntaId'] : null;
         $pregunta = $this->modelQuestion->getQuestion($idPregunta);
         $respuestas = $this->modelQuestion->getAnswers($idPregunta);
-        $categorias = $this->modelQuestion->getCategorias();
+        $categoria = $this->modelQuestion->getCategoriaByIdQuestion($idPregunta);
+        //$categorias = $this->modelQuestion->getCategorias();
 
-        $this->presenter->render("view/editarPreguntaView.mustache", ["pregunta" => $pregunta, "usuario" => $_SESSION['usuario'], "respuestas" => $respuestas, "categorias" => $categorias]);
+        //$this->presenter->render("view/editarPreguntaView.mustache", ["pregunta" => $pregunta, "usuario" => $_SESSION['usuario'], "respuestas" => $respuestas, "categorias" => $categorias]);
+        $this->presenter->render("view/editarPreguntaView.mustache", ["pregunta" => $pregunta, "usuario" => $_SESSION['usuario'], "respuestas" => $respuestas, "categoria" => $categoria]);
     }
 
     public function inactiveQuestions()

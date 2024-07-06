@@ -17,6 +17,15 @@ class PreguntaModel
         );
     }
 
+    public function getCategoriaByIdQuestion($idQuestion){
+        return $this->database->query(
+            "SELECT * 
+             FROM preguntas
+             JOIN categorias ON preguntas.id_categoria = categorias.id
+             WHERE preguntas.id = $idQuestion"
+        );
+    }
+
     public function getQuestions(){
         return $this->database->query(
             "SELECT * 
