@@ -19,16 +19,15 @@ class PartidaController
 
         $usuario = $_SESSION["usuario"];
 
-        // Verifica si la página fue recargada
-        /*if (isset($_SESSION['page_reloaded']) && $_SESSION['page_reloaded'] === true) {
+        if (isset($_SESSION["time"])) {
+            // Se termina el juego cuando recarga la pagina
             $this->finishGame();
             return;
-        }*/
-
-        // Marca la página como recargada
-        //$_SESSION['page_reloaded'] = true;
+        }
 
         $game = $this->model->playTheGame($usuario);
+        $_SESSION["time"] = time(); // Agarra el tiempo actual
+
         $this->presenter->render("view/jugarView.mustache", $game);
     }
 
@@ -39,13 +38,19 @@ class PartidaController
             exit();
         }
 
+        $currentTime = time();
+        if (isset($_SESSION["time"]) && ($currentTime - $_SESSION["time"]) > 15) {
+            // Si pasa el tiempo tmb termina la partida
+            $this->finishGame();
+            return;
+        }
+
         $respuestaUsuario = $_POST['respuesta'];
         $usuario = $_SESSION["usuario"];
         $validatedQuestion = $this->model->checkAnswer($usuario, $respuestaUsuario);
         $actionGame = $validatedQuestion['actionGame'];
 
-        // Resetea el indicador de recarga de página cuando se responde una pregunta
-        //$_SESSION['page_reloaded'] = false;
+        unset($_SESSION["time"]);
 
         $this->presenter->render("view/mensajePartidaView.mustache", $validatedQuestion);
         header('Refresh: 2; URL=/TP_Final-PW2_UNLaM/partida/' . $actionGame);
@@ -60,9 +65,10 @@ class PartidaController
 
         $lastquestion = $this->model->getLastQuestionInGame();
         $puntaje = $this->model->getPuntajeJugadorEnPartida($lastquestion["id_partida"]);
+        $this->model->endGame($lastquestion['id_partida']);
 
-        // Resetea el indicador de recarga de página al finalizar el juego
-        //unset($_SESSION['page_reloaded']);
+        //Borramos la sesion time
+        unset($_SESSION["time"]);
 
         $this->presenter->render("view/finalizarPartidaView.mustache", ["puntaje" => $puntaje]);
     }
@@ -75,9 +81,6 @@ class PartidaController
         }
 
         $score_and_error = $this->model->timerRefresh();
-
-        //Resetea el indicador de recarga de página al finalizar el juego
-        //unset($_SESSION['page_reloaded']);
 
         $this->presenter->render("view/finalizarPartidaView.mustache", $score_and_error);
     }
