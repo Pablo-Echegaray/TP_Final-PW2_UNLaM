@@ -79,7 +79,33 @@ class PreguntaModel
                 "INSERT INTO preguntados.respuestas (descripcion, estado, id_pregunta)
                 VALUES ('$respuesta', $estado, $creada);"
             );
-        }
+    }
+
+    public function getCorrectAnswer($idPregunta)
+    {
+        return $this->database->query_for_one(
+
+            "SELECT *
+             FROM respuestas
+             WHERE id_pregunta = $idPregunta
+             AND estado = 1;"
+        );
+
+    }
+
+    public function editQuestion($idPregunta, $usuario){
+        //["pregunta" => $pregunta, "usuario" => $usuario, "respuestas" => $respuestas, "categoria" => $categoria, "opciones" => $opciones]
+        $pregunta = $this->getQuestion($idPregunta);
+        $respuestas = $this->getAnswers($idPregunta);
+        $categoria = $this->getCategoriaByIdQuestion($idPregunta);
+        $opciones = [
+            ['value' => 'A', 'selected' => $respuestas[0]['estado'] == 1 ? 'selected' : ''],
+            ['value' => 'B', 'selected' => $respuestas[1]['estado'] == 1 ? 'selected' : ''],
+            ['value' => 'C', 'selected' => $respuestas[2]['estado'] == 1 ? 'selected' : ''],
+            ['value' => 'D', 'selected' => $respuestas[3]['estado'] == 1 ? 'selected' : ''],
+        ];
+        return array("pregunta" => $pregunta, "usuario" => $usuario, "respuestas" => $respuestas, "categoria" => $categoria, "opciones" => $opciones);
+    }
         
     public function editQuestionAndAnswers($idPregunta, $idCategoria, $pregunta, $answers, $correcta){
         $states = ["A"=> 0, "B"=> 1, "C"=> 2, "D"=> 3];
