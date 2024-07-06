@@ -39,7 +39,7 @@ class PreguntaModel
         }
         else{
             $validatedQuestion = "¿".ucfirst($question)."?";
-            echo $validatedQuestion;
+            
             $this->database->execute(
                 "INSERT INTO preguntados.preguntas (descripcion, estado, entregadas, hit, id_categoria)
                 VALUES ('$validatedQuestion', 'sugerida', 100, 50, $categoriaId);"

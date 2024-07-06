@@ -19,11 +19,24 @@ class AdminModel
         return $result['total_jugadores'] ?? 0;
     }
 
+    public function getNewPlayers()
+    {
+        $fecha=$this->getDateFilterCondition('day');
+
+        $result = $this->database->query_for_one("
+            SELECT COUNT(*) AS nuevos_usuarios
+            FROM usuarios
+            WHERE rol = 'J' AND activo = 1 AND $fecha
+        ");
+
+        return $result['nuevos_usuarios'] ?? 0;
+    }
+
     public function getPlayersCreated($dateFilter)
     {
         $condition = $this->getDateFilterCondition($dateFilter);
         $query = "
-        SELECT DATE_FORMAT(fecha_creacion, '%Y-%m') as fecha, COUNT(*) as total
+        SELECT DATE_FORMAT(fecha_creacion, '%Y-%m-%d') as fecha, COUNT(*) as total
         FROM usuarios
         WHERE rol = 'J' AND activo = 1";
 
@@ -32,7 +45,7 @@ class AdminModel
         }
 
         $query .= "
-            GROUP BY DATE_FORMAT(fecha_creacion, '%Y-%m')
+            GROUP BY DATE_FORMAT(fecha_creacion, '%Y-%m-%d')
             ORDER BY fecha ASC;";
 
         $result = $this->database->query($query);
@@ -54,7 +67,7 @@ class AdminModel
         $condition = $this->getDateFilterCondition($dateFilter);
 
         $query = "
-            SELECT DATE_FORMAT(fecha_creacion, '%Y-%m') as fecha, COUNT(*) as total
+            SELECT DATE_FORMAT(fecha_creacion, '%Y-%m-%d') as fecha, COUNT(*) as total
             FROM partidas";
 
         if (!empty($condition)) {
@@ -62,7 +75,7 @@ class AdminModel
         }
 
         $query .= "
-            GROUP BY DATE_FORMAT(fecha_creacion, '%Y-%m')
+            GROUP BY DATE_FORMAT(fecha_creacion, '%Y-%m-%d')
             ORDER BY fecha ASC";
 
         $result = $this->database->query($query);
@@ -113,14 +126,20 @@ class AdminModel
             SELECT 
                 u.nombre_usuario,
                 COUNT(DISTINCT jp.id_partida) AS total_partidas,
-                COUNT(DISTINCT pp.id_pregunta) AS total_preguntas_respondidas,
-                SUM(r.estado = 1) AS total_respuestas_correctas,
-                (SUM(r.estado = 1) / COUNT(DISTINCT pp.id_pregunta)) * 100 AS porcentaje_correctas
+                SUM(jp.puntaje)/10 AS total_respuestas_correctas,
+                COUNT(pp.id_pregunta) AS total_preguntas_respondidas,
+                ((SUM(jp.puntaje)/10) * 100) / COUNT(DISTINCT pp.id_pregunta) AS porcentaje_correctas
             FROM usuarios u
             LEFT JOIN jugadores_partidas jp ON u.id = jp.id_jugador
             LEFT JOIN partidas_preguntas pp ON jp.id_partida = pp.id_partida
-            LEFT JOIN respuestas r ON pp.id_pregunta = r.id_pregunta
             WHERE u.rol = 'J'
+         ";
+
+        if (!empty($condition)) {
+            $query .= " AND $condition";
+        }
+
+        $query .= "
             GROUP BY u.nombre_usuario
             ORDER BY porcentaje_correctas DESC
             LIMIT 10
@@ -222,31 +241,16 @@ class AdminModel
     {
         switch ($dateFilter) {
             case 'day':
-                return "DATE(p.fecha_creacion) = CURRENT_DATE";
+                return "DATE(pp.fecha_creacion) = CURRENT_DATE";
             case 'week':
-                return "YEARWEEK(p.fecha_creacion) = YEARWEEK(CURRENT_DATE)";
+                return "YEARWEEK(pp.fecha_creacion) = YEARWEEK(CURRENT_DATE)";
             case 'month':
-                return "MONTH(p.fecha_creacion) = MONTH(CURRENT_DATE) AND YEAR(p.fecha_creacion) = YEAR(CURRENT_DATE)";
+                return "MONTH(pp.fecha_creacion) = MONTH(CURRENT_DATE) AND YEAR(fecha_creacion) = YEAR(CURRENT_DATE)";
             case 'year':
-                return "YEAR(p.fecha_creacion) = YEAR(CURRENT_DATE)";
+                return "YEAR(pp.fecha_creacion) = YEAR(CURRENT_DATE)";
             default:
                 return "";
         }
     }
-
-    public function getGroupByClause($dateFilter)
-    {
-        switch ($dateFilter) {
-            case 'day':
-                return 'DATE(fecha_creacion)';
-            case 'week':
-                return 'YEARWEEK(fecha_creacion)';
-            case 'month':
-                return 'DATE_FORMAT(fecha_creacion, "%Y-%m")';
-            case 'year':
-                return 'YEAR(fecha_creacion)';
-            default:
-                return 'DATE_FORMAT(fecha_creacion, "%Y-%m")';
-        }
-    }
+    
 }
