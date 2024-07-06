@@ -51,8 +51,11 @@ class UserController
     private function renderHomeView($usuario)
     {
         $rol = $usuario[0]["rol"];
-
-        switch ($rol) {
+        //($modelQuestion, $modelAdmin, $rol, $usuario)
+        $data = $this->modelUser->getHomeData($rol, $usuario);
+        $this->presenter->render("view/".$data[0]."View.mustache", $data[1]);
+        /*
+         * switch ($rol) {
             case 'J':
                 if ($usuario[0]["activo"] == 0) {
                     $error = "Debes verificar tu correo para iniciar sesion";
@@ -77,6 +80,7 @@ class UserController
                 $this->presenter->render("view/adminHomeView.mustache", ["usuario" => $usuario, 'jugadoresActivos' => $jugadoresActivos, 'jugadoresNuevos' => $jugadoresNuevos, 'totalPartidas' => $totalPartidas, 'totalPreguntas' => $totalPreguntas, 'totalPreguntasCreadas' => $totalPreguntasCreadas]);
                 break;
         }
+         * */
     }
 
     public function porfile()
