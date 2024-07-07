@@ -45,7 +45,7 @@ class PartidaController
             return;
         }
 
-        $respuestaUsuario = $_POST['respuesta'];
+        $respuestaUsuario = isset($_POST['respuesta']) ? $_POST['respuesta'] : '';
         $usuario = $_SESSION["usuario"];
         $validatedQuestion = $this->model->checkAnswer($usuario, $respuestaUsuario);
         $actionGame = $validatedQuestion['actionGame'];
@@ -81,6 +81,8 @@ class PartidaController
         }
 
         $score_and_error = $this->model->timerRefresh();
+
+        unset($_SESSION["time"]);
 
         $this->presenter->render("view/finalizarPartidaView.mustache", $score_and_error);
     }
