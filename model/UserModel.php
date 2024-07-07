@@ -3,12 +3,17 @@ class UserModel
 {
     private $database;
     private $maps;
+    private $modelAdmin;
+    private $modelQuestion;
 
 
-    public function __construct($database, $maps)
+
+    public function __construct($database, $maps, $modelAdmin, $modelQuestion)
     {
         $this->database = $database;
         $this->maps = $maps;
+        $this->modelAdmin = $modelAdmin;
+        $this->modelQuestion = $modelQuestion;
     }
 
     public function obtener($user, $pass)
@@ -79,6 +84,36 @@ class UserModel
 
     public function getMarkByUser($userId){
         return $this->maps->getMarkByUser($userId);
+    }
+
+    public function getHomeData($rol, $usuario){
+        $data = [];
+        switch ($rol) {
+            case 'J':
+                if ($usuario[0]["activo"] == 0) {
+                    $error = "Debes verificar tu correo para iniciar sesion";
+                    $data[] = ["iniciarSesion", ["error" => $error]];
+                } else {
+                    $partidas = $this->getPartidasPorUsuario($usuario[0]['id']);
+                    $ranking = $this->getRankingDelUsuario($usuario[0]['id']);
+                    array_push($data, "home", ["usuario" => $usuario, "partidas" => $partidas, "ranking" => $ranking]);
+                }
+                break;
+            case 'E':
+                $estado = "activa";
+                $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
+                array_push($data, "editorHome", ["usuario" => $usuario, "preguntas" => $preguntas, "activas" => true]);
+                break;
+            case 'A':
+                $jugadoresActivos = $this->modelAdmin->getActivePlayers();
+                $jugadoresNuevos = $this->modelAdmin->getNewPlayers();
+                $totalPartidas = $this->modelAdmin->getTotalGames();
+                $totalPreguntas = $this->modelAdmin->getTotalQuestions();
+                $totalPreguntasCreadas = $this->modelAdmin->getTotalCreatedQuestions();
+                array_push($data, "adminHome", ["usuario" => $usuario, 'jugadoresActivos' => $jugadoresActivos, 'jugadoresNuevos' => $jugadoresNuevos, 'totalPartidas' => $totalPartidas, 'totalPreguntas' => $totalPreguntas, 'totalPreguntasCreadas' => $totalPreguntasCreadas]);
+                break;
+        }
+        return $data;
     }
 
     private function obtenerCodigoDeUsuario($username)
