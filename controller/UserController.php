@@ -219,6 +219,7 @@ class UserController
         $idPregunta = isset($_POST['id_pregunta']) ? $_POST['id_pregunta'] : null;
         $pregunta = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
         $idCategoria = isset($_POST['categoria']) ? $_POST['categoria'] : null;
+        echo $idCategoria;
         $respuestaIds = isset($_POST['respuestaId']) ? $_POST['respuestaId'] : null;
         $respuestaDescripciones = isset($_POST['opcion']) ? $_POST['opcion'] : null;
         $correcta = isset($_POST['correcta']) ? $_POST['correcta'] : null;
