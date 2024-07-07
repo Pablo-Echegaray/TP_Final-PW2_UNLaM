@@ -97,14 +97,25 @@ class PreguntaModel
         //["pregunta" => $pregunta, "usuario" => $usuario, "respuestas" => $respuestas, "categoria" => $categoria, "opciones" => $opciones]
         $pregunta = $this->getQuestion($idPregunta);
         $respuestas = $this->getAnswers($idPregunta);
-        $categoria = $this->getCategoriaByIdQuestion($idPregunta);
+        $categorias = $this->getCategorias();
+        $categoriaSelected = $this->getCategoriaByIdQuestion($idPregunta);
+        echo $categoriaSelected[0]["id"];
         $opciones = [
             ['value' => 'A', 'selected' => $respuestas[0]['estado'] == 1 ? 'selected' : ''],
             ['value' => 'B', 'selected' => $respuestas[1]['estado'] == 1 ? 'selected' : ''],
             ['value' => 'C', 'selected' => $respuestas[2]['estado'] == 1 ? 'selected' : ''],
             ['value' => 'D', 'selected' => $respuestas[3]['estado'] == 1 ? 'selected' : ''],
         ];
-        return array("pregunta" => $pregunta, "usuario" => $usuario, "respuestas" => $respuestas, "categoria" => $categoria, "opciones" => $opciones);
+        $categoriasArray = array();
+        foreach ($categorias as $categoria){
+            if ($categoria['id'] == $categoriaSelected[0]['id']){
+                $categoriasArray[] = array('id' => $categoria['id'], 'value' => $categoria['descripcion'], 'selected' => 'selected');
+            }else{
+                $categoriasArray[] = array('id' => $categoria['id'], 'value' => $categoria['descripcion'], 'selected' => '');
+            }
+        }
+
+        return array("pregunta" => $pregunta, "usuario" => $usuario, "respuestas" => $respuestas, "categorias" => $categoriasArray, "opciones" => $opciones);
     }
         
     public function editQuestionAndAnswers($idPregunta, $idCategoria, $pregunta, $answers, $correcta){
@@ -163,6 +174,7 @@ class PreguntaModel
     }
 
     private function updateQuestion($idPregunta, $pregunta, $idCategoria){
+        echo $idCategoria;
         $this->database->execute(
             "UPDATE preguntas
              SET

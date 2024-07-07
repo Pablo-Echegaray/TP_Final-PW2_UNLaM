@@ -12,9 +12,9 @@
             
             <div class="col-sm-3">
                 <select name="categoria" id="categoria" class="form-select" required>
-                    {{#categoria}}
-                        <option value={{id}}>{{descripcion}}</option>
-                    {{/categoria}}
+                    {{#categorias}}
+                        <option value="{{id}}" {{selected}}>{{value}}</option>
+                    {{/categorias}}
                 </select>
             </div>
         </div>
