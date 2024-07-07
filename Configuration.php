@@ -63,7 +63,7 @@ class Configuration
     //MODELS
     private static function getUserModel()
     {
-        return new UserModel(self::getDatabase(), self::getGoogleMaps());
+        return new UserModel(self::getDatabase(), self::getGoogleMaps(), self::getAdminModel(), self::getPreguntaModel());
     }
 
     private static function getAdminModel()

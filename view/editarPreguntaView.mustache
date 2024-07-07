@@ -13,7 +13,7 @@
             <div class="col-sm-3">
                 <select name="categoria" id="categoria" class="form-select" required>
                     {{#categorias}}
-                        <option value={{id}}>{{descripcion}}</option>
+                        <option value="{{id}}" {{selected}}>{{value}}</option>
                     {{/categorias}}
                 </select>
             </div>
@@ -41,10 +41,9 @@
             <label class="col-2 col-form-label" for="correcta">Correcta:</label>
             <div class="col-sm-3">
                 <select class="form-select" name="correcta" id="correcta"required>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
+                    {{#opciones}}
+                        <option value="{{value}}" {{selected}}>{{value}}</option>
+                    {{/opciones}}
                 </select>
             </div>
         </div>
