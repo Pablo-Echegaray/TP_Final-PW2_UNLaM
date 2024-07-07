@@ -190,7 +190,9 @@ INSERT INTO preguntas (descripcion, estado, entregadas, hit, id_categoria, fecha
     ('¿Cuándo fue la última vez que el Club Atlético Boca Juniors se consagró campeón de la CONMEBOL Libertadores?', 'activa', 100, 40, 3, '2024-06-30 18:30:00'),
     ('¿Cuántas veces se consagró campeón del mundo el Club Atlético Boca Juniors en su historia?', 'activa', 100, 70, 3, '2024-06-30 18:40:00'),
     ('¿Cuál es el significado de la sigla POO en el hámbito del desarrollo de Software?', 'activa', 100, 70, 4, '2024-06-30 18:41:00'),
-    ('Cuando hablamos de MVC en el hámbito del desarrollo de Software, estamos hablando de...', 'activa', 100, 70, 4, '2024-06-30 18:42:00');
+    ('Cuando hablamos de MVC en el hámbito del desarrollo de Software, estamos hablando de...', 'activa', 100, 70, 4, '2024-06-30 18:42:00'),
+    ('¿Quienes son los semifinalistas de la Copa América 2024?', 'activa', 100, 70, 3, '2024-06-30 18:45:00'),
+    ('¿Qué equipo es considerado como el clásico rival del Club Atlético Velez Sarfield?', 'activa', 100, 70, 3, '2024-06-30 18:50:00');
 
 INSERT INTO respuestas (descripcion, estado, id_pregunta) VALUES
     ('Londres', 0, 1),
@@ -332,7 +334,15 @@ INSERT INTO respuestas (descripcion, estado, id_pregunta) VALUES
     ('Un patrón que separa la aplicación en tres componentes interconectados: Model, View, Capa', 0, 35),
     ('Un patrón que separa la aplicación en tres componentes interconectados: Model, View, Controller', 1, 35),
     ('Un modo de verificar nuestro código: Muy, Verficado, Chequeado', 0, 35),
-    ('Un modo de testear nuestras aplicaciones: Más, Verficado, Chequeado', 0, 35);
+    ('Un modo de testear nuestras aplicaciones: Más, Verficado, Chequeado', 0, 35),
+    ('Argentina, Venezuela, Brasil, Colombia', 0, 36),
+    ('Argentina, Canadá, Brasil, Colombia', 0, 36),
+    ('Argentina, Canadá, Uruguay, Colombia', 1, 36),
+    ('Ecuador, Canadá, Uruguay, Colombia', 0, 36),
+    ('Boca Juniors', 0, 37),
+    ('River Plate', 0, 37),
+    ('Argentinos Juniors', 0, 37),
+    ('Ferrocarril Oeste', 0, 37);
 
 
 /*id INT AUTO_INCREMENT,

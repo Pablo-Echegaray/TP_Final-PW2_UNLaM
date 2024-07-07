@@ -68,19 +68,6 @@ class UserModel
             )
             ORDER BY jp.puntaje DESC");
     }
-    public function validarCodigo($username, $codigo)
-    {
-        $codigoUsuario = $this->obtenerCodigoDeUsuario($username);
-        if ($codigo == $codigoUsuario[0]["codigo_verificacion"]) {
-            $this->database->execute("
-                UPDATE usuarios
-                SET activo = 1
-                WHERE nombre_usuario = '$username';
-            ");
-            return true;
-        }
-        return false;
-    }
 
     public function getMarkByUser($userId){
         return $this->maps->getMarkByUser($userId);
@@ -116,6 +103,26 @@ class UserModel
         return $data;
     }
 
+    public function activarUsuario($username, $codigo){
+        $esValido = $this->validarCodigo($username, $codigo);
+        $key = "";
+        $msg = "";
+        $view = "";
+        if ($esValido) {
+            $key = "exito";
+            $msg = "Validacion correcta, ya puedes iniciar sesion";
+            //$this->presenter->render("view/iniciarSesionView.mustache", ["exito" => $exito]);
+            $view = "iniciarSesion";
+
+        } else {
+            $key = "error";
+            $msg = "Codigo incorrecto";
+            //$this->presenter->render("view/validarUsuarioView.mustache", ["error" => $error]);
+            $view = "validarUsuario";
+        }
+        return array($view, [$key => $msg]);
+    }
+
     private function obtenerCodigoDeUsuario($username)
     {
         return $this->database->query("
@@ -123,5 +130,19 @@ class UserModel
             FROM usuarios
             WHERE nombre_usuario = '$username' 
         ");
+    }
+
+    private function validarCodigo($username, $codigo)
+    {
+        $codigoUsuario = $this->obtenerCodigoDeUsuario($username);
+        if ($codigo == $codigoUsuario[0]["codigo_verificacion"]) {
+            $this->database->execute("
+                UPDATE usuarios
+                SET activo = 1
+                WHERE nombre_usuario = '$username';
+            ");
+            return true;
+        }
+        return false;
     }
 }
