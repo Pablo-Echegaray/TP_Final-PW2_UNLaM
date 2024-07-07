@@ -219,18 +219,11 @@ class UserController
         $idPregunta = isset($_POST['id_pregunta']) ? $_POST['id_pregunta'] : null;
         $pregunta = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
         $idCategoria = isset($_POST['categoria']) ? $_POST['categoria'] : null;
-        echo $idCategoria;
         $respuestaIds = isset($_POST['respuestaId']) ? $_POST['respuestaId'] : null;
         $respuestaDescripciones = isset($_POST['opcion']) ? $_POST['opcion'] : null;
         $correcta = isset($_POST['correcta']) ? $_POST['correcta'] : null;
-        $answers = [];
 
-        for ($i = 0; $i < count($respuestaIds); $i++) {
-            $answers[$i] = ["id" => "$respuestaIds[$i]", "descripcion" => $respuestaDescripciones[$i], "estado" => 0];
-
-        }
-
-        $this->modelQuestion->editQuestionAndAnswers($idPregunta, $idCategoria, $pregunta, $answers, $correcta);
+        $this->modelQuestion->updateQuestionAndAnswers($idPregunta, $idCategoria, $pregunta, $respuestaIds, $respuestaDescripciones, $correcta);
         header("Location: /TP_Final-PW2_UNLaM/view/editorHomeView.mustache");
         exit;
     }
@@ -245,7 +238,9 @@ class UserController
     {
         $username = $_POST["username"] ?? "";
         $codigo = $_POST["codigo"] ?? "";
-
+        $data = $this->modelUser->activarUsuario($username, $codigo);
+        $this->presenter->render("view/".$data[0]."View.mustache", $data[1]);
+        /*
         $esValido = $this->modelUser->validarCodigo($username, $codigo);
         if ($esValido) {
             $exito = "Validacion correcta, ya puedes iniciar sesion";
@@ -255,5 +250,6 @@ class UserController
             $error = "Codigo incorrecto";
             $this->presenter->render("view/validarUsuarioView.mustache", ["error" => $error]);
         }
+        */
     }
 }

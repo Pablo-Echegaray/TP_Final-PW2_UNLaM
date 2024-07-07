@@ -117,24 +117,17 @@ class PreguntaModel
 
         return array("pregunta" => $pregunta, "usuario" => $usuario, "respuestas" => $respuestas, "categorias" => $categoriasArray, "opciones" => $opciones);
     }
-        
-    public function editQuestionAndAnswers($idPregunta, $idCategoria, $pregunta, $answers, $correcta){
-        $states = ["A"=> 0, "B"=> 1, "C"=> 2, "D"=> 3];
-        foreach ($states as $key => $value) {
-            if ($key == $correcta){
-                $answers[$value]['estado'] = 1;
-            }
-            else{
-                $answers[$value]['estado'] = 0;
-            }
 
+    public function updateQuestionAndAnswers($idPregunta, $idCategoria, $pregunta, $respuestaIds, $respuestaDescripciones, $correcta){
+        $answers = [];
+        for ($i = 0; $i < count($respuestaIds); $i++) {
+            $answers[$i] = ["id" => "$respuestaIds[$i]", "descripcion" => $respuestaDescripciones[$i], "estado" => 0];
         }
-        $this->updateQuestion($idPregunta, $pregunta, $idCategoria);
 
-        for ($i=0; $i < count($answers); $i++){
-            $this->updateAnswer($answers[$i]['id'],$answers[$i]['descripcion'], $answers[$i]['estado']);
-        }
+        $this->editQuestionAndAnswers($idPregunta, $idCategoria, $pregunta, $answers, $correcta);
     }
+        
+
 
     public function createQuestionAndAnswers($question, $categoriaId, $correctAnswer, $answersArray, $rol){
         $estadoA = ($correctAnswer === 'A') ? 1 : 0;
@@ -171,6 +164,24 @@ class PreguntaModel
         }
 
         return $view;
+    }
+
+    private function editQuestionAndAnswers($idPregunta, $idCategoria, $pregunta, $answers, $correcta){
+        $states = ["A"=> 0, "B"=> 1, "C"=> 2, "D"=> 3];
+        foreach ($states as $key => $value) {
+            if ($key == $correcta){
+                $answers[$value]['estado'] = 1;
+            }
+            else{
+                $answers[$value]['estado'] = 0;
+            }
+
+        }
+        $this->updateQuestion($idPregunta, $pregunta, $idCategoria);
+
+        for ($i=0; $i < count($answers); $i++){
+            $this->updateAnswer($answers[$i]['id'],$answers[$i]['descripcion'], $answers[$i]['estado']);
+        }
     }
 
     private function updateQuestion($idPregunta, $pregunta, $idCategoria){
