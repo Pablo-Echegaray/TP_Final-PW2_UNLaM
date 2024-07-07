@@ -192,7 +192,14 @@ INSERT INTO preguntas (descripcion, estado, entregadas, hit, id_categoria, fecha
     ('¿Cuál es el significado de la sigla POO en el hámbito del desarrollo de Software?', 'activa', 100, 70, 4, '2024-06-30 18:41:00'),
     ('Cuando hablamos de MVC en el hámbito del desarrollo de Software, estamos hablando de...', 'activa', 100, 70, 4, '2024-06-30 18:42:00'),
     ('¿Quienes son los semifinalistas de la Copa América 2024?', 'activa', 100, 70, 3, '2024-06-30 18:45:00'),
-    ('¿Qué equipo es considerado como el clásico rival del Club Atlético Velez Sarfield?', 'activa', 100, 70, 3, '2024-06-30 18:50:00');
+    ('¿Qué equipo es considerado como el clásico rival del Club Atlético Velez Sarfield?', 'activa', 100, 70, 3, '2024-06-30 18:50:00'),
+    ('¿Qué sucedió el 9 de Julio de 1916 en el territorio que hoy denominamos Argentina?', 'activa', 100, 70, 5, '2024-06-30 18:56:00'),
+    ('¿Qué sucedió el 25 de mayo de 1810 en el territorio que hoy denominamos Argentina?', 'activa', 100, 70, 5, '2024-06-30 18:57:00'),
+    ('¿Cuál de los siguientes próceres Argentinos no fue presidente?', 'activa', 100, 70, 5, '2024-06-30 19:00:00'),
+    ('¿Quién fue el autor del reconocido manual para el desarrollo de ágil de software Clean Code?', 'activa', 100, 25, 4, '2024-07-01 12:00:00'),
+    ('¿Quién fue el coautor del Manifiesto Ágil?', 'activa', 100, 25, 4, '2024-07-01 12:10:00'),
+    ('¿Quién escribió el prólogo del manual de desarrollo ágil Clean Code?', 'activa', 100, 40, 4, '2024-07-01 12:15:00'),
+    ('¿Quién fue el creador de Facebook?', 'activa', 100, 70, 6, '2024-07-01 12:20:00');
 
 INSERT INTO respuestas (descripcion, estado, id_pregunta) VALUES
     ('Londres', 0, 1),
@@ -342,7 +349,35 @@ INSERT INTO respuestas (descripcion, estado, id_pregunta) VALUES
     ('Boca Juniors', 0, 37),
     ('River Plate', 0, 37),
     ('Argentinos Juniors', 0, 37),
-    ('Ferrocarril Oeste', 0, 37);
+    ('Ferrocarril Oeste', 0, 37),
+    ('Se creó el primer gobierno patrio', 0, 38),
+    ('Hubo un enfrentamiento con Ingleses y Franceses', 0, 38),
+    ('Se firmó la independencia', 1, 38),
+    ('Falleció el Gral San Martín', 0, 38),
+    ('Se creó el primer gobierno patrio', 1, 39),
+    ('Se firmó la independencia', 0, 39),
+    ('Falleció el Gral San Martín', 0, 39),
+    ('Hubo una guerra civil entre Unitarios y Federales', 0, 39),
+    ('Julio Argentino Roca', 0, 40),
+    ('Domingo Faustino Sarmiento', 0, 40),
+    ('Juan Manuel de Rosas', 1, 40),
+    ('Bartolome Mitre', 0, 40),
+    ('James O. Coplien', 0, 41),
+    ('El Xocas', 0, 41),
+    ('Robert C. Martin', 1, 41),
+    ('Steve Jobs', 0, 41),
+    ('Steve Jobs', 0, 42),
+    ('Bill Gates', 0, 42),
+    ('Robert C. Martin', 1, 42),
+    ('James O. Coplien', 0, 42),
+    ('James O. Coplien', 1, 43),
+    ('Robert C. Martin', 0, 43),
+    ('James O. Lebrón', 0, 43),
+    ('Mark Zukerberg', 0, 43),
+    ('Mark Zukerberg', 1, 44),
+    ('Daniel Diaz', 0, 44),
+    ('Elon Musk', 0, 44),
+    ('Pipo Argenti', 0, 44);
 
 
 /*id INT AUTO_INCREMENT,
