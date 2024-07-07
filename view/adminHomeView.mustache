@@ -66,7 +66,6 @@
     <div id="graficos" class="row mb-3">
         <div class="contenedor-grafico">
             <img src="/TP_Final-PW2_UNLaM/admin/players">
-            <!--<img src="http://localhost/TP_Final-PW2_UNLaM/admin/players">-->
         </div>
 
         <div class="contenedor-grafico">
@@ -96,23 +95,44 @@
 </main>
 
 <script>
+// Espera a que se cargue completamente el contenido HTML y los recursos asociados
 document.addEventListener('DOMContentLoaded', function() {
+    
+    // Agrega un evento de clic al botón con id 'imprimir-pdf'
     document.getElementById('imprimir-pdf').addEventListener('click', function() {
         
+        // Crea dinámicamente un formulario
         var form = document.createElement('form');
+        
+        // Establece la URL a la que se enviará el formulario
         form.action = '/TP_Final-PW2_UNLaM/Admin/generarPdf';
+        
+        // Establece el método HTTP para enviar el formulario
         form.method = 'POST';
+        
+        // Establece un estilo para el formulario - en este caso, hay un error: '_blank' no es válido para 'display'
+        // Probablemente debería ser form.style.display = 'none'; para ocultar el formulario creado temporalmente
         form.style.display = '_blank';
         
+        // Crea un campo de entrada oculto dentro del formulario
         var inputHtml = document.createElement('input');
+        
+        // Establece el tipo de campo como 'hidden'
         inputHtml.type = 'hidden';
+        
+        // Nombre del campo que se enviará al servidor
         inputHtml.name = 'htmlGrafico';
+        
+        // Valor que se enviará al servidor - aquí falta la definición de 'graficos'
         inputHtml.value = graficos;
         
+        // Adjunta el campo de entrada al formulario
         form.appendChild(inputHtml);
         
+        // Adjunta el formulario recién creado al final del body del documento
         document.body.appendChild(form);
         
+        // Envía automáticamente el formulario al servidor
         form.submit();
     });
 });
@@ -121,22 +141,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Escucha el evento cuando el botón de aplicar filtro es clickeado
     document.getElementById('aplicarFiltro').addEventListener('click', function() {
+        // Obtiene el valor seleccionado en el select de filtro
         var filtro = document.getElementById('filtrar').value;
+        
+        // Busca todas las imágenes que tengan src que contengan la cadena "/TP_Final-PW2_UNLaM/admin/"
         var urls = document.querySelectorAll('img[src*="/TP_Final-PW2_UNLaM/admin/"]');
-
+        
+        // Itera sobre todas las imágenes encontradas
         urls.forEach(function(url) {
+            // Llama a la función updateUrl para actualizar el src de cada imagen con el filtro seleccionado
             url.src = updateUrl(url.src, filtro);
         });
     });
 
+    // Función para actualizar la URL de la imagen con el filtro seleccionado
     function updateUrl(url, filter) {
+        // Divide la URL en baseUrl (parte antes del '?') y params (parte después del '?')
         var baseUrl = url.split('?')[0]; // URL base sin parámetros de consulta
-        var params = new URLSearchParams(url.split('?')[1]);
-
+        var params = new URLSearchParams(url.split('?')[1]); // Obtiene los parámetros de consulta como un objeto URLSearchParams
+        
+        // Si no se aplica ningún filtro, devuelve la URL base sin cambios
         if (filter === "noFilter") {
             return baseUrl;
         } else {
+            // Establece el parámetro 'filtro' con el valor seleccionado
             params.set('filtro', filter);
             return baseUrl + '?' + params.toString();
         }
