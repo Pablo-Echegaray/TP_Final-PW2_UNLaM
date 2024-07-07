@@ -13,24 +13,128 @@ class GraphicModel
         $this->database = $database;
     }
 
-    public function playersGraph($query)
+    public function playersGraph($query, $filtro)
+    {
+        switch ($filtro) {
+            case 'day':
+                return $this->generateDailyGraph($query);
+            case 'week':
+                return $this->generateWeeklyGraph($query);
+            case 'month':
+                return $this->generateMonthlyGraph($query);
+            case 'year':
+                return $this->generateYearlyGraph($query);
+            default:
+                return $this->generateYearlyGraph($query);
+        }
+    }
+    
+    private function generateDailyGraph($query)
+    {
+        $jugadoresPorHora = [];
+        $horasLabel = [];
+        $cantJugadores = [];
+    
+        foreach ($query as $row) {
+            $fecha = $row['fecha'];
+            $hora = date('H', strtotime($fecha));
+    
+            if (!isset($jugadoresPorHora[$hora])) {
+                $jugadoresPorHora[$hora] = 0;
+                $horasLabel[] = "$hora:00";
+            }
+    
+            $jugadoresPorHora[$hora] += (int)$row['total'];
+        }
+    
+        $cantJugadores = array_values($jugadoresPorHora);
+    
+        $this->generateGraph(
+            $query,
+            "JUGADORES REGISTRADOS",
+            "Hora del día",
+            "Cantidad",
+            $horasLabel,
+            $cantJugadores,
+            'bar'
+        );
+    }
+    
+    private function generateWeeklyGraph($query)
+    {
+        $jugadoresPorDiaSemana = [0, 0, 0, 0, 0, 0, 0];
+        $diasSemanaLabel = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+        $cantJugadores = [];
+    
+        foreach ($query as $row) {
+            $fecha = $row['fecha'];
+            $diaSemana = date('w', strtotime($fecha));
+    
+            $jugadoresPorDiaSemana[$diaSemana] += (int)$row['total'];
+        }
+    
+        $cantJugadores = array_values($jugadoresPorDiaSemana);
+    
+        $this->generateGraph(
+            $query,
+            "JUGADORES REGISTRADOS",
+            "Día de la semana",
+            "Cantidad",
+            $diasSemanaLabel,
+            $cantJugadores,
+            'line'
+        );
+    }
+    
+    private function generateMonthlyGraph($query)
+    {
+        $jugadoresPorDia = [];
+        $diasLabel = [];
+        $cantJugadores = [];
+    
+        foreach ($query as $row) {
+            $fecha = $row['fecha'];
+            $dayOfMonth = date('j', strtotime($fecha));
+    
+            if (!isset($jugadoresPorDia[$dayOfMonth])) {
+                $jugadoresPorDia[$dayOfMonth] = 0;
+                $diasLabel[] = "$dayOfMonth";
+            }
+    
+            $jugadoresPorDia[$dayOfMonth] += (int)$row['total'];
+        }
+    
+        $cantJugadores = array_values($jugadoresPorDia);
+    
+        $this->generateGraph(
+            $query,
+            "JUGADORES REGISTRADOS",
+            "Día del mes",
+            "Cantidad de jugadores",
+            $diasLabel,
+            $cantJugadores,
+            'line'
+        );
+    }
+    
+    private function generateYearlyGraph($query)
     {
         $jugadoresPorMes = [];
         $mesesLabel = [];
         $cantJugadores = [];
-
+    
         foreach ($query as $row) {
             $fecha = $row['fecha'];
             $yearMonth = date('Y-m', strtotime($fecha));
-
             list($year, $month) = explode('-', $yearMonth);
-
+    
             if (!isset($jugadoresPorMes[$year][$month])) {
                 $jugadoresPorMes[$year][$month] = 0;
             }
+    
             $jugadoresPorMes[$year][$month] += (int)$row['total'];
         }
-
+    
         foreach ($jugadoresPorMes as $year => $meses) {
             foreach ($meses as $month => $cantidad) {
                 $mesNombre = date('M', mktime(0, 0, 0, $month, 1));
@@ -38,35 +142,158 @@ class GraphicModel
                 $cantJugadores[] = $cantidad;
             }
         }
+    
+        $this->generateGraph(
+            $query,
+            "JUGADORES REGISTRADOS",
+            "Mes",
+            "Cantidad",
+            $mesesLabel,
+            $cantJugadores,
+            'line'
+        );
+    }    
 
+    private function generateGraph($query, $title, $xTitle, $yTitle, $xLabels, $data, $graphType)
+    {
         $graph = new Graph(800, 600);
         $graph->SetScale('textlin');
-
-        $graph->title->Set('JUGADORES REGISTRADOS');
+    
+        $graph->title->Set($title);
         $graph->title->SetFont(FF_ARIAL, FS_BOLD, 14);
-
-        $lineplot = new LinePlot($cantJugadores);
-        $lineplot->SetColor('blue');
-        $lineplot->SetWeight(2);
-
-        $graph->Add($lineplot);
-        $graph->xaxis->title->Set('Mes');
-        $graph->yaxis->title->Set('Cantidad');
-        $graph->xaxis->SetTickLabels($mesesLabel);
-
+    
+        switch ($graphType) {
+            case 'bar':
+                $plot = new BarPlot($data);
+                $plot->SetFillColor('blue');
+                break;
+            case 'line':
+            default:
+                $plot = new LinePlot($data);
+                $plot->SetColor('blue');
+                $plot->SetWeight(2);
+                break;
+        }
+    
+        $graph->Add($plot);
+        $graph->xaxis->title->Set($xTitle);
+        $graph->yaxis->title->Set($yTitle);
+        $graph->xaxis->SetTickLabels($xLabels);
+    
         $graph->Stroke(_IMG_HANDLER);
-
+    
         $fileName = "./public/image/charts/players_graph.png";
         if (file_exists($fileName)) {
             unlink($fileName);
         }
         $graph->img->Stream($fileName);
-
+    
         $graph->img->Headers();
         $graph->img->Stream();
     }
-
-    public function gamesGraph($query)
+    
+    public function gamesGraph($query, $filtro)
+    {
+        switch ($filtro) {
+            case 'day':
+                return $this->generateDailyGamesGraph($query);
+            case 'week':
+                return $this->generateWeeklyGamesGraph($query);
+            case 'month':
+                return $this->generateMonthlyGamesGraph($query);
+            case 'year':
+                return $this->generateYearlyGamesGraph($query);
+            default:
+                return $this->generateYearlyGamesGraph($query);
+        }
+    }
+    
+    private function generateDailyGamesGraph($query)
+    {
+        $partidasPorHora = [];
+        $horasLabel = [];
+        $cantPartidas = [];
+    
+        foreach ($query as $row) {
+            $fecha = $row['fecha'];
+            $hora = date('H', strtotime($fecha));
+    
+            if (!isset($partidasPorHora[$hora])) {
+                $partidasPorHora[$hora] = 0;
+                $horasLabel[] = "$hora:00";
+            }
+    
+            $partidasPorHora[$hora] += (int)$row['total'];
+        }
+    
+        $cantPartidas = array_values($partidasPorHora);
+    
+        $this->generateGameGraph(
+            "PARTIDAS JUGADAS",
+            "Hora del día",
+            "Cantidad",
+            $horasLabel,
+            $cantPartidas,
+            'bar'
+        );
+    }    
+    
+    private function generateWeeklyGamesGraph($query)
+    {
+        $partidasPorDiaSemana = [0, 0, 0, 0, 0, 0, 0];
+        $diasSemanaLabel = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+        $cantPartidas = [];
+    
+        foreach ($query as $row) {
+            $fecha = $row['fecha'];
+            $diaSemana = date('w', strtotime($fecha));
+    
+            $partidasPorDiaSemana[$diaSemana] += (int)$row['total'];
+        }
+    
+        $cantPartidas = array_values($partidasPorDiaSemana);
+    
+        $this->generateGameGraph(
+            "PARTIDAS JUGADAS",
+            "Día de la semana",
+            "Cantidad",
+            $diasSemanaLabel,
+            $cantPartidas,
+            'line'
+        );
+    }
+    
+    private function generateMonthlyGamesGraph($query)
+    {
+        $partidasPorDia = [];
+        $diasLabel = [];
+        $cantPartidas = [];
+    
+        foreach ($query as $row) {
+            $fecha = $row['fecha'];
+            $dayOfMonth = date('j', strtotime($fecha));
+    
+            if (!isset($partidasPorDia[$dayOfMonth])) {
+                $partidasPorDia[$dayOfMonth] = 0;
+                $diasLabel[] = "$dayOfMonth";
+            }
+    
+            $partidasPorDia[$dayOfMonth] += (int)$row['total'];
+        }
+    
+        $cantPartidas = array_values($partidasPorDia);
+    
+        $this->generateGameGraph(
+            "PARTIDAS JUGADAS",
+            "Día del mes",
+            "Cantidad de partidas",
+            $diasLabel,
+            $cantPartidas,
+            'line'
+        );
+    }
+    
+    private function generateYearlyGamesGraph($query)
     {
         $partidasPorMes = [];
         $mesesLabel = [];
@@ -75,12 +302,12 @@ class GraphicModel
         foreach ($query as $row) {
             $fecha = $row['fecha'];
             $yearMonth = date('Y-m', strtotime($fecha));
-    
             list($year, $month) = explode('-', $yearMonth);
     
             if (!isset($partidasPorMes[$year][$month])) {
                 $partidasPorMes[$year][$month] = 0;
             }
+    
             $partidasPorMes[$year][$month] += (int)$row['total'];
         }
     
@@ -92,33 +319,54 @@ class GraphicModel
             }
         }
     
+        $this->generateGameGraph(
+            "PARTIDAS JUGADAS",
+            "Mes",
+            "Cantidad",
+            $mesesLabel,
+            $cantPartidas,
+            'line'
+        );
+    }
+    
+    private function generateGameGraph($title, $xTitle, $yTitle, $xLabels, $data, $graphType)
+    {
         $graph = new Graph(800, 600);
         $graph->SetScale('textlin');
     
-        $graph->title->Set('PARTIDAS JUGADAS');
+        $graph->title->Set($title);
         $graph->title->SetFont(FF_ARIAL, FS_BOLD, 14);
     
-        $lineplot = new LinePlot($cantPartidas);
-        $lineplot->SetColor('blue');
-        $lineplot->SetWeight(2);
+        switch ($graphType) {
+            case 'bar':
+                $plot = new BarPlot($data);
+                $plot->SetFillColor('blue');
+                break;
+            case 'line':
+            default:
+                $plot = new LinePlot($data);
+                $plot->SetColor('blue');
+                $plot->SetWeight(2);
+                break;
+        }
     
-        $graph->Add($lineplot);
-        $graph->xaxis->title->Set('Mes');
-        $graph->yaxis->title->Set('Cantidad');
-        $graph->xaxis->SetTickLabels($mesesLabel);
+        $graph->Add($plot);
+        $graph->xaxis->title->Set($xTitle);
+        $graph->yaxis->title->Set($yTitle);
+        $graph->xaxis->SetTickLabels($xLabels);
     
         $graph->Stroke(_IMG_HANDLER);
-
+    
         $fileName = "./public/image/charts/games_graph.png";
         if (file_exists($fileName)) {
             unlink($fileName);
         }
         $graph->img->Stream($fileName);
-
+    
         $graph->img->Headers();
         $graph->img->Stream();
-    }    
-
+    }
+    
     public function questionsGraph($activeQuestions, $createdQuestions)
     {
         $data = array($activeQuestions, $createdQuestions);

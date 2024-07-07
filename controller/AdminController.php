@@ -19,7 +19,7 @@ class AdminController
 
         $query = $this->modelAdmin->getPlayersCreated($dateFilter);
 
-        $graph = $this->modelGraphic->playersGraph($query);
+        $graph = $this->modelGraphic->playersGraph($query,$dateFilter);
     }    
 
     public function games()
@@ -28,7 +28,7 @@ class AdminController
 
         $query=$this->modelAdmin->getGamesCreated($dateFilter);
 
-        $graph = $this->modelGraphic->gamesGraph($query);
+        $graph = $this->modelGraphic->gamesGraph($query,$dateFilter);
     }
 
     public function questions()
