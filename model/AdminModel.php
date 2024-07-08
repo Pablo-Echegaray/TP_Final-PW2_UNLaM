@@ -126,13 +126,10 @@ class AdminModel
             SELECT 
                 u.nombre_usuario,
                 COUNT(DISTINCT jp.id_partida) AS total_partidas,
-                SUM(jp.puntaje)/10 AS total_respuestas_correctas,
-                COUNT(pp.id_pregunta) AS total_preguntas_respondidas,
-                ((SUM(jp.puntaje)/10) * 100) / COUNT(DISTINCT pp.id_pregunta) AS porcentaje_correctas
+                (SUM(jp.puntaje) / 10) * 10 / COUNT(DISTINCT pp.id_pregunta) AS porcentaje_correctas
             FROM usuarios u
             LEFT JOIN jugadores_partidas jp ON u.id = jp.id_jugador
             LEFT JOIN partidas_preguntas pp ON jp.id_partida = pp.id_partida
-            WHERE u.rol = 'J'
          ";
 
         if (!empty($condition)) {
@@ -245,7 +242,7 @@ class AdminModel
             case 'week':
                 return "YEARWEEK(pp.fecha_creacion) = YEARWEEK(CURRENT_DATE)";
             case 'month':
-                return "MONTH(pp.fecha_creacion) = MONTH(CURRENT_DATE) AND YEAR(fecha_creacion) = YEAR(CURRENT_DATE)";
+                return "MONTH(pp.fecha_creacion) = MONTH(CURRENT_DATE) AND YEAR(pp.fecha_creacion) = YEAR(CURRENT_DATE)";
             case 'year':
                 return "YEAR(pp.fecha_creacion) = YEAR(CURRENT_DATE)";
             default:
