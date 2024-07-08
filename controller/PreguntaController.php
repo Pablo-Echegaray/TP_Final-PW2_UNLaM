@@ -46,6 +46,7 @@ class PreguntaController
         if (isset($_POST['preguntaId'])) {
             $preguntaId = $_POST['preguntaId'];
             $this->model->reportarPregunta($preguntaId);
+            unset($_SESSION["time"]);
             header("Location: /TP_Final-PW2_UNLaM/partida/play");
             exit;
         } else {
