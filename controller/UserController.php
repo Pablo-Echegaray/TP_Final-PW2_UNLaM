@@ -92,7 +92,7 @@ class UserController
         }
     }
 
-    /******** Funciones EDITOR ********/
+
     public function approveQuestion()
     {
         $idPregunta = $_POST['preguntaId'];

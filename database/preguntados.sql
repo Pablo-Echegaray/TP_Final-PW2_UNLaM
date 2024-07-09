@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS usuarios(
     password VARCHAR(50) NOT NULL,
     nombre_usuario VARCHAR(50) NOT NULL,
     foto VARCHAR(100) NOT NULL,
-    rol VARCHAR(10) NOT NULL, /* J - E - A */
+    rol VARCHAR(10) NOT NULL,
     activo INT NOT NULL,
     qr VARCHAR(255),
     entregadas INT NOT NULL,
@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS usuarios(
 
 CREATE TABLE IF NOT EXISTS partidas(
     id INT AUTO_INCREMENT,
-    modo VARCHAR(50) NOT NULL, /* single player | multiplayer */
-    estado VARCHAR(50) NOT NULL, /* playing | finished*/
+    modo VARCHAR(50) NOT NULL,
+    estado VARCHAR(50) NOT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_partida PRIMARY KEY (id)
     );
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS preguntas (
 CREATE TABLE IF NOT EXISTS respuestas(
     id INT AUTO_INCREMENT,
     descripcion VARCHAR(255) NOT NULL,
-    estado INT NOT NULL, /* 0 = incorrecta | 1= correcta*/
+    estado INT NOT NULL,
     id_pregunta INT NOT NULL,
     CONSTRAINT pk_respuesta PRIMARY KEY (id),
     CONSTRAINT fk_pregunta FOREIGN KEY (id_pregunta) REFERENCES preguntas(id)

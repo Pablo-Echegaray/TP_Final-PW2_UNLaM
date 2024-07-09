@@ -228,8 +228,6 @@ class PreguntaModel
     }
 
 
-    // Funciones editor
-
     public function getQuestion($idPregunta)
     {
         return $this->database->query(
