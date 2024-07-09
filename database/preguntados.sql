@@ -14,10 +14,10 @@ CREATE TABLE IF NOT EXISTS usuarios(
     nombre_usuario VARCHAR(50) NOT NULL,
     foto VARCHAR(100) NOT NULL,
     rol VARCHAR(10) NOT NULL, /* J - E - A */
-    activo INT NOT NULL, /* 0 = inactivo | 1 = activo*/
-    qr VARCHAR(255), /* ni idea*/
-    entregadas INT NOT NULL, /* 100 -> valor por default*/  /* hit / entregadas */
-    hit INT NOT NULL, /* 50 -> valor por default*/
+    activo INT NOT NULL,
+    qr VARCHAR(255),
+    entregadas INT NOT NULL,
+    hit INT NOT NULL,
     codigo_verificacion VARCHAR(50),
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_usuario PRIMARY KEY (id),
@@ -51,9 +51,9 @@ CREATE TABLE IF NOT EXISTS categorias (
 CREATE TABLE IF NOT EXISTS preguntas (
     id INT AUTO_INCREMENT,
     descripcion TEXT NOT NULL,
-    estado VARCHAR(20) NOT NULL, /* activa - reportada - sugerida*/
-    entregadas INT NOT NULL, /* 100 -> valor por default*/
-    hit INT NOT NULL, /* 50 -> valor por default*/
+    estado VARCHAR(20) NOT NULL,
+    entregadas INT NOT NULL,
+    hit INT NOT NULL,
     id_categoria INT NOT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_pregunta PRIMARY KEY (id),
@@ -90,7 +90,6 @@ CREATE TABLE IF NOT EXISTS google_maps_persistence (
     CONSTRAINT fk_usuario_map FOREIGN KEY (id_user) REFERENCES usuarios(id)
 );
 
-/*INSERTS*/
 
 INSERT INTO usuarios (nombre, apellido, year_birth, sexo, ciudad, pais, email, password, nombre_usuario, foto, rol, activo, entregadas, hit, qr, fecha_creacion) VALUES
     ('Pablo', 'Echegaray', 1995, 'Masculino', 'Buenos Aires', 'Argentina', 'pablo.echegaray@example.com', 'password123', 'pabloE', 'perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR1', '2023-12-01 12:00:00'),
@@ -111,15 +110,14 @@ INSERT INTO usuarios (nombre, apellido, year_birth, sexo, ciudad, pais, email, p
     ('Roberto', 'Sánchez', 1985, 'Masculino', 'Santiago', 'Chile', 'roberto.sanchez@example.com', 'password101', 'robertoS', 'perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR29', '2024-07-02 12:00:00'),
     ('Ana', 'Paredes', 1980, 'Femenino', 'Madrid', 'España', 'ana.martinez@example.com', 'password123', 'anaP', 'perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR30', '2024-07-03 09:00:00'),
     ('Lucía', 'Pérez', 1970, 'Femenino', 'Montevideo', 'Uruguay', 'lucia.perez@example.com', 'passwordghi', 'luciaP', 'perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR23', '2024-07-07 14:30:00'),
-    ('Sara', 'Díaz', 1988, 'Femenino', 'Santiago', 'Chile', 'sara.diaz@example.com', 'passwordmno', 'saraD', 'perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR25', '2024-07-10 18:00:00'),
-    ('Elena', 'López', 1988, 'Femenino', 'Bogotá', 'Colombia', 'elena.lopez@example.com', 'password789', 'elenaL', 'perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR32', '2024-07-10 11:00:00'),
+    ('Sara', 'Díaz', 1988, 'Femenino', 'Santiago', 'Chile', 'sara.diaz@example.com', 'passwordmno', 'saraD', 'perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR25', '2024-07-08 18:00:00'),
+    ('Elena', 'López', 1988, 'Femenino', 'Bogotá', 'Colombia', 'elena.lopez@example.com', 'password789', 'elenaL', 'perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR32', '2024-07-08 19:00:00'),
     ('Elena', 'Fernandez', 1988, 'Femenino', 'Bogotá', 'Colombia', 'elena.fernandez@example.com', 'password789', 'elenaF', 'perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR32', '2024-07-10 11:00:00'),
     ('Javier', 'Gómez', 1955, 'Masculino', 'Madrid', 'España', 'javier.gomez@example.com', 'passworddef', 'javierG', 'perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR22', '2024-07-14 12:15:00'),
     ('María', 'González', 1983, 'Femenino', 'Santiago', 'Chile', 'maria.gonzalez@example.com', 'password112', 'mariaG', 'perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR34', '2024-07-17 10:30:00'),
     ('Pedro', 'Rodríguez', 1992, 'Masculino', 'Buenos Aires', 'Argentina', 'pedro.rodriguez@example.com', 'password101', 'pedroR', 'perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR33', '2024-07-21 14:00:00'),
     ('Juan', 'García', 1975, 'Masculino', 'Ciudad de México', 'México', 'juan.garcia@example.com', 'password456', 'juanG', 'perfil_sin_foto.jpg', 'J', 1, 100, 50, 'QR31', '2024-07-25 15:30:00');
 
-/*Este insert debería hacerse cuando se crea una partida y el usuario elike si va a jugar 'single player' o 'multiplayer'.*/
 INSERT INTO partidas (modo, estado, fecha_creacion) VALUES
 ('Single Player', 'finished', '2024-01-15'),
 ('Single Player', 'finished', '2024-02-20'),
@@ -133,7 +131,6 @@ INSERT INTO partidas (modo, estado, fecha_creacion) VALUES
 ('Single Player', 'finished', '2024-07-05'),
 ('Single Player', 'finished', '2024-07-12');
 
-/*Este insert se se hace cuando finaliza la partida, y se le pasa el id de la misma, el id del jugador y el puntaje final obtenido.*/
 INSERT INTO jugadores_partidas (id_Jugador, id_Partida, puntaje) VALUES
 (1, 1, 100),
 (5, 2, 80),
@@ -379,15 +376,6 @@ INSERT INTO respuestas (descripcion, estado, id_pregunta) VALUES
     ('Elon Musk', 0, 44),
     ('Pipo Argenti', 0, 44);
 
-
-/*id INT AUTO_INCREMENT,
-    id_user INT NOT NULL,
-    description VARCHAR(100) NOT NULL,
-    city VARCHAR(150) NOT NULL,
-    country VARCHAR(20) NOT NULL,
-    lat FLOAT(10,6) DEFAULT NULL,
-    lng FLOAT(10,6) DEFAULT NULL,
-  -34.792035526341564, -58.4904372303487*/
 INSERT INTO google_maps_persistence (id_user, city, country, lat, lng) VALUES
     (1, 'Monte Grande', 'Argentina', -34.792035526341564, -58.4904372303487),
     (2, 'Isidro Casanova', 'Argentina', -34.695277157206284, -58.602511359870505),

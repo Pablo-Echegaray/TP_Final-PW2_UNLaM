@@ -13,13 +13,13 @@
                         Nombre:
                     </label>
                     <input type="text" id="nombre" name="nombre" class="form-control" required>
-                </div><!-- nombre -->
+                </div>
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="apellido" class="form-label">
                         Apellido:
                     </label>
                     <input type="text" id="apellido" name="apellido" class="form-control" required>
-                </div><!-- apellido -->
+                </div>
             </div>
             <div class="d-flex mq">
                 <div class="d-flex flex-column p-2 w-50">
@@ -27,7 +27,7 @@
                         Año de Nacimiento:
                     </label>
                     <input type="number" id="nacimiento" name="nacimiento" class="form-control" min="1920" max="2024" required>
-                </div><!-- nacimiento -->
+                </div>
                 <div class="p-2 w-50">
                     <div class="d-flex">
                         <label for="sexo">
@@ -48,7 +48,7 @@
                             <label for="no_decir" class="form-check-label">Prefiero no decirlo</label>
                         </div>
                     </div>
-                </div><!-- sexo -->
+                </div>
             </div>
             <div class="d-flex mq">
                 <div class="d-flex flex-column p-2 w-50">
@@ -56,13 +56,13 @@
                         País:
                     </label>
                     <input type="text" id="pais" name="pais" class="form-control" required>
-                </div><!-- pais -->
+                </div>
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="ciudad" class="form-label">
                         Ciudad:
                     </label>
                     <input type="text" id="ciudad" name="ciudad" class="form-control" required>
-                </div><!-- ciudad -->
+                </div>
             </div>
             <div class="container-maps">
                 <div id="map"></div>
@@ -74,20 +74,20 @@
                     Correo Electrónico:
                 </label>
                 <input type="email" id="mail" name="mail" class="form-control" required>
-            </div><!-- mail -->
+            </div>
             <div class="d-flex mq">
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="password" class="form-label">
                         Contraseña:
                     </label>
                     <input type="password" id="password" name="password" class="form-control" required>
-                </div><!-- password -->
+                </div>
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="repeat_password" class="form-label">
                         Repetir Contraseña:
                     </label>
                     <input type="password" id="repeat_password" name="repeat_password" class="form-control" required>
-                </div><!-- repeat_password -->
+                </div>
             </div>
             <div class="d-flex mq">
                 <div class="d-flex flex-column p-2 w-50">
@@ -95,13 +95,13 @@
                         Nombre de Usuario:
                     </label>
                     <input type="text" id="username" name="username" class="form-control" required>
-                </div><!-- username -->
+                </div>
                 <div class="d-flex flex-column p-2 w-50">
                     <label for="perfil" class="form-label">
                         Foto de Perfil:
                     </label>
                     <input type="file" id="perfil" name="perfil" class="form-control">
-                </div><!-- perfil -->
+                </div>
             </div>
             <div class="p-2 d-flex justify-content-center">
                 <p class="m-0">
@@ -120,19 +120,6 @@
     </fieldset>
 </main>
 </body>
-<!--
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key='AIzaSyD7kU-rH-YHsLWmaWw9ymmAVxtHbeQ7bZI'&callback=loadMap">
-    (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-        key: "AIzaSyD7kU-rH-YHsLWmaWw9ymmAVxtHbeQ7bZI",
-        v: "weekly",
-        // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
-        // Add other bootstrap parameters as needed, using camel case.
-    });
-
-</script>
--->
-<!---->
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7kU-rH-YHsLWmaWw9ymmAVxtHbeQ7bZI&callback=loadMap">
 </script>

@@ -20,13 +20,12 @@ class PartidaController
         $usuario = $_SESSION["usuario"];
 
         if (isset($_SESSION["time"])) {
-            // Se termina el juego cuando recarga la pagina
             $this->finishGame();
             return;
         }
 
         $game = $this->model->playTheGame($usuario);
-        $_SESSION["time"] = time(); // Agarra el tiempo actual
+        $_SESSION["time"] = time();
 
         $this->presenter->render("view/jugarView.mustache", $game);
     }
@@ -40,7 +39,6 @@ class PartidaController
 
         $currentTime = time();
         if (isset($_SESSION["time"]) && ($currentTime - $_SESSION["time"]) > 15) {
-            // Si pasa el tiempo tmb termina la partida
             $this->finishGame();
             return;
         }
@@ -67,7 +65,6 @@ class PartidaController
         $puntaje = $this->model->getPuntajeJugadorEnPartida($lastquestion["id_partida"]);
         $this->model->endGame($lastquestion['id_partida']);
 
-        //Borramos la sesion time
         unset($_SESSION["time"]);
 
         $this->presenter->render("view/finalizarPartidaView.mustache", ["puntaje" => $puntaje]);

@@ -111,13 +111,11 @@ class UserModel
         if ($esValido) {
             $key = "exito";
             $msg = "Validacion correcta, ya puedes iniciar sesion";
-            //$this->presenter->render("view/iniciarSesionView.mustache", ["exito" => $exito]);
             $view = "iniciarSesion";
 
         } else {
             $key = "error";
             $msg = "Codigo incorrecto";
-            //$this->presenter->render("view/validarUsuarioView.mustache", ["error" => $error]);
             $view = "validarUsuario";
         }
         return array($view, [$key => $msg]);

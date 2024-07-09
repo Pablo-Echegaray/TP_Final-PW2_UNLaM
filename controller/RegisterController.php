@@ -11,9 +11,7 @@ class RegisterController
     }
 
     public function get() {
-
         $this->presenter->render("view/registrarseView.mustache", ["listMaps" => $this->getMaps()]);
-        //$this->presenter->render("view/registrarseView.mustache");
     }
 
     public function add() {
@@ -36,7 +34,6 @@ class RegisterController
 
     private function getMaps(){
         $listMaps = $this->model->getMaps();
-        //echo $listMaps[0][0];
         return $listMaps;
     }
 }

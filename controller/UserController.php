@@ -51,36 +51,8 @@ class UserController
     private function renderHomeView($usuario)
     {
         $rol = $usuario[0]["rol"];
-        //($modelQuestion, $modelAdmin, $rol, $usuario)
         $data = $this->modelUser->getHomeData($rol, $usuario);
         $this->presenter->render("view/".$data[0]."View.mustache", $data[1]);
-        /*
-         * switch ($rol) {
-            case 'J':
-                if ($usuario[0]["activo"] == 0) {
-                    $error = "Debes verificar tu correo para iniciar sesion";
-                    $this->presenter->render("view/iniciarSesionView.mustache", ["error" => $error]);
-                } else {
-                    $partidas = $this->modelUser->getPartidasPorUsuario($usuario[0]['id']);
-                    $ranking = $this->modelUser->getRankingDelUsuario($usuario[0]['id']);
-                    $this->presenter->render("view/homeView.mustache", ["usuario" => $usuario, "partidas" => $partidas, "ranking" => $ranking]);
-                }
-                break;
-            case 'E':
-                $estado = "activa";
-                $preguntas = $this->modelQuestion->getQuestionsAndAnswers($estado);
-                $this->presenter->render("view/editorHomeView.mustache", ["usuario" => $usuario, "preguntas" => $preguntas, "activas" => true]);
-                break;
-            case 'A':
-                $jugadoresActivos = $this->modelAdmin->getActivePlayers();
-                $jugadoresNuevos = $this->modelAdmin->getNewPlayers();
-                $totalPartidas = $this->modelAdmin->getTotalGames();
-                $totalPreguntas = $this->modelAdmin->getTotalQuestions();
-                $totalPreguntasCreadas = $this->modelAdmin->getTotalCreatedQuestions();
-                $this->presenter->render("view/adminHomeView.mustache", ["usuario" => $usuario, 'jugadoresActivos' => $jugadoresActivos, 'jugadoresNuevos' => $jugadoresNuevos, 'totalPartidas' => $totalPartidas, 'totalPreguntas' => $totalPreguntas, 'totalPreguntasCreadas' => $totalPreguntasCreadas]);
-                break;
-        }
-         * */
     }
 
     public function porfile()
@@ -240,16 +212,5 @@ class UserController
         $codigo = $_POST["codigo"] ?? "";
         $data = $this->modelUser->activarUsuario($username, $codigo);
         $this->presenter->render("view/".$data[0]."View.mustache", $data[1]);
-        /*
-        $esValido = $this->modelUser->validarCodigo($username, $codigo);
-        if ($esValido) {
-            $exito = "Validacion correcta, ya puedes iniciar sesion";
-            $this->presenter->render("view/iniciarSesionView.mustache", ["exito" => $exito]);
-
-        } else {
-            $error = "Codigo incorrecto";
-            $this->presenter->render("view/validarUsuarioView.mustache", ["error" => $error]);
-        }
-        */
     }
 }

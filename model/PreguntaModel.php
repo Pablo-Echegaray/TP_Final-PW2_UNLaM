@@ -94,12 +94,10 @@ class PreguntaModel
     }
 
     public function editQuestion($idPregunta, $usuario){
-        //["pregunta" => $pregunta, "usuario" => $usuario, "respuestas" => $respuestas, "categoria" => $categoria, "opciones" => $opciones]
         $pregunta = $this->getQuestion($idPregunta);
         $respuestas = $this->getAnswers($idPregunta);
         $categorias = $this->getCategorias();
         $categoriaSelected = $this->getCategoriaByIdQuestion($idPregunta);
-        echo $categoriaSelected[0]["id"];
         $opciones = [
             ['value' => 'A', 'selected' => $respuestas[0]['estado'] == 1 ? 'selected' : ''],
             ['value' => 'B', 'selected' => $respuestas[1]['estado'] == 1 ? 'selected' : ''],
