@@ -31,7 +31,6 @@ include_once("helper/googleMaps/GoogleMaps.php");
 
 class Configuration
 {
-    //CONTROLLERS
     public static function getUserController()
     {
         return new UserController(self::getUserModel(), self::getAdminModel(), self::getPreguntaModel(), self::getPresenter());
@@ -60,7 +59,7 @@ class Configuration
         return new AdminController(self::getAdminModel(), self::getGraphicModel(), self::getPresenter());
     }
 
-    //MODELS
+
     private static function getUserModel()
     {
         return new UserModel(self::getDatabase(), self::getGoogleMaps(), self::getAdminModel(), self::getPreguntaModel());
@@ -94,7 +93,7 @@ class Configuration
         return new GraphicModel(self::getDatabase());
     }
 
-    //HELPERS
+
     public static function getDatabase()
     {
         $config = self::getConfig();

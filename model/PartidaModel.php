@@ -9,7 +9,6 @@ class PartidaModel
     }
 
     public function playTheGame($usuario){
-        // CREAR LA PARTIDA
         $modo = "single player";
         $lastGame = $this->getLastGame();
         if ($lastGame == null || $lastGame["estado"] == "finished") {
@@ -18,18 +17,14 @@ class PartidaModel
             $this->asignarPartidaAJugador($usuario[0]["id"], $game["id"], 0);
         }
 
-        // OBTENER PREGUNTA ALEATORIA
         $pregunta = $this->getPreguntaRandom($usuario[0]["id"]);
         $game = $this->getLastGame();
 
-        //OBTENER CATEGORIA y ASIGNAR COLOR
         $categoria = $this->obtenerCategoriaPregunta($pregunta[0]["id"]);
         $color = $this->obtenerColorPorCategoria($categoria[0]["descripcion"]);
 
-        // REGISTRAR PREGUNTA A PARTIDA
         $partidaPregunta = $this->asignarPreguntaAPartida($game["id"], $pregunta[0]["id"]);
 
-        // OBTENER RESPUESTAS
         $respuestas = $this->getRespuestas($pregunta[0]["id"]);
         return array("usuario" => $_SESSION["usuario"], "preguntas" => $pregunta, "respuestas" => $respuestas, "color" => $color);
     }
@@ -61,7 +56,6 @@ class PartidaModel
         $lastquestion = $this->getLastQuestionInGame();
         $idPartida = $lastquestion["id_partida"];
 
-        // Cambiar el estado de la partida a "finished"
         $this->endGame($idPartida);
         $puntaje = $this->getPuntajeJugadorEnPartida($idPartida);
         $error = "Tiempo agotado";

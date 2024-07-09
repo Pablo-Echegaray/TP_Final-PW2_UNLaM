@@ -62,9 +62,7 @@
             <div class="contenedor-pregunta">
                 <header>
                     <span class="tema">{{categoria}}</span>
-
-                    <!-- BOTONES SEGUN LA PREGUNTA -->
-                    {{#activas}} <!-- el editor va a poder editar/inactivar preguntas -->
+                    {{#activas}} 
                     <div class="opciones">
                         <form action="/TP_Final-PW2_UNLaM/user/editQuestion" method="post">
                             <input type="hidden" name="preguntaId" value="{{id}}">
@@ -82,7 +80,7 @@
                     </div>
                     {{/activas}}
 
-                    {{#sugeridas}} <!-- el editor va a poder aprobar/eliminar preguntas -->
+                    {{#sugeridas}}
                     <div class="opciones">
                         <form action="/TP_Final-PW2_UNLaM/user/approveQuestion" method="post">
                             <input type="hidden" name="preguntaId" value="{{id}}">
@@ -100,7 +98,7 @@
                     </div>
                     {{/sugeridas}}
 
-                    {{#reportadas}}<!-- el editor va a poder aprobar/inactivar preguntas -->
+                    {{#reportadas}}
                     <div class="opciones">
                         <form action="/TP_Final-PW2_UNLaM/user/approveQuestion" method="post">
                             <input type="hidden" name="preguntaId" value="{{id}}">

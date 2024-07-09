@@ -84,7 +84,6 @@ class AdminController
 
             $pdfCreator = new PdfCreator;
 
-            // Rutas de las imágenes
             $playersPath = './public/image/charts/players_graph.png';
             $gamesPath = './public/image/charts/games_graph.png';
             $questionsPath = './public/image/charts/questions_graph.png';
@@ -93,7 +92,6 @@ class AdminController
             $usersBySexPath = './public/image/charts/users_by_sex_graph.png';
             $usersByAgeGroupPath = './public/image/charts/users_by_age_group_graph.png';
 
-            // Convertir cada imagen a Base64
             $playersBase64 = $this->imageToBase64($playersPath);
             $gamesBase64 = $this->imageToBase64($gamesPath);
             $questionsBase64 = $this->imageToBase64($questionsPath);
@@ -141,12 +139,8 @@ class AdminController
     }
 
     function imageToBase64($imagePath) {
-        // Obtener el contenido de la imagen como una cadena binaria
         $imageData = file_get_contents($imagePath);
-        
-        // Convertir los datos binarios a Base64
         $imageBase64 = base64_encode($imageData);
-        
         return $imageBase64;
     }
 }

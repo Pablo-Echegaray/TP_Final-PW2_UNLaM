@@ -92,34 +92,26 @@ class RegisterModel
         $data = [];
         if ($contrasena != null) {
             if ($usuario != null) {
-                //AGREGA AL USUARIO COMO NO ACTIVO y POR DEFECTO COMO JUGADOR
                 $this->agregar($nombre, $apellido, $nacimiento, $sexo, $ciudad, $pais, $email, $contrasena, $usuario, $foto);
                 $this->saveCoordinates($usuario, $ciudad, $pais, $lat, $lng);
                 $this->enviarCorreoVerificacion($email, $nombre, $usuario);
 
                 $mensajeVerificacion = "Verifica tu correo para iniciar sesion";
                 array_push($data, "iniciarSesion", ["mensaje" => $mensajeVerificacion]);
-                //$this->render("view/iniciarSesionView.mustache", ["mensaje" => $mensajeVerificacion]);
-
             } else {
                 $error = "El nombre de usuario ya existe";
                 array_push($data, "registrarse", ["error" => $error]);
-                //$this->render("view/registrarseView.mustache", ["error" => $error]);
             }
         } else {
             $error = "Las contraseñas no coinciden";
             array_push($data, "registrarse", ["error" => $error]);
-            //$this->render("view/registrarseView.mustache", ["error" => $error]);
         }
         return $data;
     }
     public function getMaps(){
         $coll = $this->maps->getMarkersBlankLatLng();
-        //echo $coll;
         $coll = json_encode($coll, true);
-        //echo $coll;
         $allData = $this->maps->getMarkers();
-        //echo $allData;
         $allData = json_encode($allData, true);
         echo "<div id='echo_supremo'>" . $allData . "</div>";
         return array("coll"=>$coll, "allData"=>$allData);
